@@ -2,9 +2,12 @@
 	"name": "new-request",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
 	"version": "0.0.1",
+	"engines": {
+		"node": ">=18"
+	},
 	"type": "module",
 	"scripts": {
-		"build": "tsup src/index.ts --format cjs,esm --dts --clean",
+		"build": "tsup --format cjs,esm --dts --clean",
 		"watch": "npm run build -- --watch src",
 		"prepublishOnly": "npm run build"
 	},
@@ -13,15 +16,25 @@
 		"tsup": "^7.2.0",
 		"typescript": "^5.2.2"
 	},
-	"main": "./dist/index.js",
-	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
+	"tsup": {
+		"entry": [
+			"src/index.ts",
+			"src/sms/nhn/3.0/index.ts"
+		]
+	},
 	"exports": {
 		".": {
-			"require": "./dist/index.js",
-			"import": "./dist/index.mjs"
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./sms/nhn/3.0": {
+			"import": "./dist/sms/nhn/3.0/index.js",
+			"require": "./dist/sms/nhn/3.0/index.cjs"
 		}
 	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
 	],
