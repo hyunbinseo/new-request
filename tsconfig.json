@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		// Target is used by tsup and is `node14` if unspecified.
+		// Reference https://tsup.egoist.dev/#target-environment
+		"target": "ES2016",
+		"moduleResolution": "Bundler"
+	}
+}
