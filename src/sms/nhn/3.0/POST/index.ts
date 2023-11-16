@@ -1,16 +1,17 @@
-import { type Options } from '../types.js';
-import type { RequestBody, ResponseBody } from './types.js';
+import type { Options, RequestBody, ResponseBody } from './types.js';
 
 export const sendSms = async (requestBody: RequestBody, opts: Options) => {
+	requestBody.sendNo = requestBody.sendNo || opts.sendNo;
+
 	const request = new Request(
 		new URL(
-			`/sms/v3.0/appKeys/${opts.env.appKey}/sender/${opts.type}`,
+			`/sms/v3.0/appKeys/${opts.appKey}/sender/${opts.type}`,
 			'https://api-sms.cloud.toast.com'
 		),
 		{
 			method: 'POST',
 			headers: {
-				'X-Secret-Key': opts.env.secretKey,
+				'X-Secret-Key': opts.secretKey,
 				'Content-Type': 'application/json;charset=UTF-8',
 			},
 			body: JSON.stringify(requestBody),

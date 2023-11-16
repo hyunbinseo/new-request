@@ -1,7 +1,15 @@
+export type Options = {
+	appKey: string;
+	secretKey: string;
+	sendNo: string;
+	type: 'auth/sms' | 'sms' | 'mms' | 'ad-sms' | 'ad-mms';
+	fetch?: Fetch;
+};
+
 export type RequestBody = {
 	title?: string;
 	body: string;
-	sendNo: string;
+	sendNo?: string;
 	recipientList: Array<{
 		recipientNo: string;
 		countryCode?: string;
