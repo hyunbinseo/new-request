@@ -1,1 +1,1 @@
-export { sendSms } from './POST';
+export { sendSms } from './POST/index.js';

@@ -1,5 +1,5 @@
-import { type Options } from '../types';
-import type { RequestBody, ResponseBody } from './types';
+import { type Options } from '../types.js';
+import type { RequestBody, ResponseBody } from './types.js';
 
 export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	const request = new Request(
