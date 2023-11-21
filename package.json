@@ -19,6 +19,7 @@
 	"tsup": {
 		"entry": [
 			"src/index.ts",
+			"src/email/send-grid/v3/index.ts",
 			"src/sms/nhn/3.0/index.ts"
 		]
 	},
@@ -26,6 +27,10 @@
 		".": {
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
+		},
+		"./email/send-grid/v3": {
+			"import": "./dist/email/send-grid/v3/index.js",
+			"require": "./dist/email/send-grid/v3/index.cjs"
 		},
 		"./sms/nhn/3.0": {
 			"import": "./dist/sms/nhn/3.0/index.js",
