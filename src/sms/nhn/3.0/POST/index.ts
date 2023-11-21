@@ -19,9 +19,10 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	);
 
 	try {
-		// Always responds with 200 OK
+		// response.status is always 200
 		const response = await (opts.fetch || fetch)(request);
-		return (await response.json()) as ResponseBody;
+		const body = (await response.json()) as ResponseBody;
+		return { ok: body.header.isSuccessful, body };
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

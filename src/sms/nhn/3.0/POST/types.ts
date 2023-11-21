@@ -1,3 +1,5 @@
+// Reference https://docs.nhncloud.com/ko/Notification/SMS/ko/api-guide/
+
 export type Options = {
 	appKey: string;
 	secretKey: string;
