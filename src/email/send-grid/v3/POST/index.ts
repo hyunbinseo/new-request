@@ -6,6 +6,8 @@ import type {
 } from './types.js';
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
+	requestBody.from = requestBody.from || opts.from;
+
 	const request = new Request('https://api.sendgrid.com/v3/mail/send', {
 		method: 'POST',
 		headers: {

@@ -1,8 +1,12 @@
-export type Options = { apiKey: string; fetch?: Fetch };
-
 type Email = {
 	email: string;
 	name?: string;
+};
+
+export type Options = {
+	apiKey: string;
+	from: Email;
+	fetch?: Fetch;
 };
 
 // Reference https://docs.sendgrid.com/for-developers/sending-email/personalizations
@@ -20,7 +24,7 @@ type Personalization = { to: Array<Email> } & Partial<{
 // Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
 export type RequestBody = {
 	personalizations: Array<Personalization>;
-	from: Email;
+	from?: Email;
 	subject: string;
 	content: Array<{
 		type: 'text/plain' | 'text/html';
