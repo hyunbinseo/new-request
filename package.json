@@ -21,6 +21,7 @@
 			"src/index.ts",
 			"src/email/send-grid/v3/index.ts",
 			"src/sms/nhn/3.0/index.ts",
+			"src/sms/twilio/2010-04-01/index.ts",
 			"src/misc/neis/info/index.ts"
 		]
 	},
@@ -36,6 +37,10 @@
 		"./sms/nhn/3.0": {
 			"import": "./dist/sms/nhn/3.0/index.js",
 			"require": "./dist/sms/nhn/3.0/index.cjs"
+		},
+		"./sms/twilio/2010-04-01": {
+			"import": "./dist/sms/twilio/2010-04-01/index.js",
+			"require": "./dist/sms/twilio/2010-04-01/index.cjs"
 		},
 		"./misc/neis/info": {
 			"import": "./dist/misc/neis/info/index.js",
