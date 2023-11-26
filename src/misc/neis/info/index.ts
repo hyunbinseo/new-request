@@ -31,6 +31,15 @@ export const searchSchools = async (params: SearchParams, opts: Options) => {
 		const result = body.RESULT || body.schoolInfo[0].head[1].RESULT;
 		const ok = result.CODE === 'INFO-000' || result.CODE === 'INFO-200';
 		const schools = body.schoolInfo?.[1].row || [];
+
+		// Reference https://github.com/hyunbinseo/new-request/issues/1
+		for (let i = 0; i < schools.length; i++) {
+			const { SD_SCHUL_CODE } = schools[i];
+			if (SD_SCHUL_CODE === null) continue;
+			if (SD_SCHUL_CODE.replace(/ /g, '') === '')
+				schools[i].SD_SCHUL_CODE = null;
+		}
+
 		return { ok, result, schools } as const;
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
