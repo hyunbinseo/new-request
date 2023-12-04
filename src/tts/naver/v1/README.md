@@ -1,3 +1,48 @@
+## Example
+
+Save file locally using Node.js 18 and later.
+
+```javascript
+import { tts } from 'new-request/tts/naver/v1';
+import { createWriteStream } from 'node:fs';
+import { Readable } from 'node:stream';
+import { finished } from 'node:stream/promises';
+
+const text =
+  // 윤하 - 사건의 지평선, https://youtu.be/BBdC1rl5sKY
+  '저기 사라진 별의 자리, 아스라이 하얀 빛, 한동안은 꺼내 볼 수 있을 거야';
+
+const format = 'wav';
+
+const response = await tts(
+  {
+    text,
+    speaker: {
+      language: '한국어',
+      isWoman: true,
+      isChild: false,
+      isPro: true,
+      name: '아라',
+      code: 'vara',
+    },
+    format,
+  },
+  // Provide your own secret.
+  { clientId: '', clientSecret: '' },
+);
+
+if (response instanceof Error) {
+  // Handle network error.
+} else if (!response.ok) {
+  // Handle HTTP 400 or 500 error.
+} else {
+  const writeStream = createWriteStream(`./${text}.${format}`);
+  // @ts-ignore
+  // response.body as ReadableStream<any>
+  await finished(Readable.fromWeb(response.body).pipe(writeStream));
+}
+```
+
 ## Speakers
 
 | Language          | Name         | Woman | Child | PRO   | Code          |
