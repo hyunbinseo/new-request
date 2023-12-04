@@ -24,20 +24,9 @@ export type SearchParams = {
 		| 'R10'
 		| 'S10'
 		| 'T10';
-} & Partial<
-	Record<'code' | 'name' | 'foundedName' | 'type' | 'region', string>
->;
+} & Partial<Record<'code' | 'name' | 'foundedName' | 'type' | 'region', string>>;
 
-type ErrorCode = `ERROR-${
-	| '300'
-	| '290'
-	| '310'
-	| '333'
-	| '336'
-	| '337'
-	| '500'
-	| '600'
-	| '601'}`;
+type ErrorCode = `ERROR-${'300' | '290' | '310' | '333' | '336' | '337' | '500' | '600' | '601'}`;
 
 type InfoCode = `INFO-${'000' | '100' | '300' | '200'}`;
 
@@ -75,8 +64,5 @@ export type ResponseBody =
 	| (Result & { schoolInfo?: never })
 	| {
 			RESULT?: never;
-			schoolInfo: [
-				{ head: [{ list_total_count: number }, Result] },
-				{ row: Array<SchoolData> }
-			];
+			schoolInfo: [{ head: [{ list_total_count: number }, Result] }, { row: Array<SchoolData> }];
 	  };

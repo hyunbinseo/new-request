@@ -1,9 +1,4 @@
-import type {
-	ExceptionBody,
-	Options,
-	RequestBody,
-	ResponseBody,
-} from './types.js';
+import type { ExceptionBody, Options, RequestBody, ResponseBody } from './types.js';
 
 export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	const From = requestBody.from || opts.from;
@@ -20,7 +15,7 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 			body: new URLSearchParams({ From, Body, To }),
-		}
+		},
 	);
 
 	try {

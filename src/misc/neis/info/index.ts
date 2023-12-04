@@ -14,8 +14,7 @@ export const searchSchools = async (params: SearchParams, opts: Options) => {
 	const url = new URL('https://open.neis.go.kr/hub/schoolInfo');
 	const searchParams = new URLSearchParams({ Type: 'json', KEY: opts.apiKey });
 
-	if (params.pageIndex)
-		searchParams.append('pIndex', (params.pageIndex + 1).toString());
+	if (params.pageIndex) searchParams.append('pIndex', (params.pageIndex + 1).toString());
 
 	for (const [key, queryKey] of keyRelations) {
 		const value = params[key];
@@ -36,8 +35,7 @@ export const searchSchools = async (params: SearchParams, opts: Options) => {
 		for (let i = 0; i < schools.length; i++) {
 			const { SD_SCHUL_CODE } = schools[i];
 			if (SD_SCHUL_CODE === null) continue;
-			if (SD_SCHUL_CODE.replace(/ /g, '') === '')
-				schools[i].SD_SCHUL_CODE = null;
+			if (SD_SCHUL_CODE.replace(/ /g, '') === '') schools[i].SD_SCHUL_CODE = null;
 		}
 
 		return { ok, result, schools } as const;

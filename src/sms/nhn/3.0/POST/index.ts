@@ -6,7 +6,7 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	const request = new Request(
 		new URL(
 			`/sms/v3.0/appKeys/${opts.appKey}/sender/${opts.type}`,
-			'https://api-sms.cloud.toast.com'
+			'https://api-sms.cloud.toast.com',
 		),
 		{
 			method: 'POST',
@@ -15,7 +15,7 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 				'Content-Type': 'application/json;charset=UTF-8',
 			},
 			body: JSON.stringify(requestBody),
-		}
+		},
 	);
 
 	try {

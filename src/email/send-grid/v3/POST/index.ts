@@ -1,9 +1,4 @@
-import type {
-	Options,
-	RequestBody,
-	ResponseBody4xx,
-	ResponseBody5xx,
-} from './types.js';
+import type { Options, RequestBody, ResponseBody4xx, ResponseBody5xx } from './types.js';
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
 	requestBody.from = requestBody.from || opts.from;
@@ -20,8 +15,7 @@ export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
 	try {
 		const response = await (opts.fetch || fetch)(request);
 
-		if (response.status === 202)
-			return { ok: true, status: response.status } as const;
+		if (response.status === 202) return { ok: true, status: response.status } as const;
 
 		if (response.status === 500) {
 			const body = (await response.json()) as ResponseBody5xx;
