@@ -1,7 +1,7 @@
 {
 	"name": "new-request",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"engines": {
 		"node": ">=18"
 	},
