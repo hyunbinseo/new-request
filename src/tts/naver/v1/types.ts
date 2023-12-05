@@ -5,18 +5,20 @@ export type Options = {
 };
 
 // Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
-export type RequestBody = {
-	text: string;
-	speaker: Speaker;
-} & Partial<{
-	'volume': number; // 음성 볼륨
-	'speed': number; // 음성 속도
-	'pitch': number; // 음성 피치
-	'emotion': number; // 음성 감정
-	'emotion-strength': number; // 감정의 강도
-	'alpha': number; // 음색
-	'end-pitch': number; // 끝음 처리
-}> &
+export type RequestBody = { text: string; speaker: Speaker } & Partial<
+	Record<
+		| 'volume' // 음성 볼륨
+		| 'speed' // 음성 속도
+		| 'pitch' // 음성 피치
+		| 'alpha' // 음색
+		| 'end-pitch', // 끝음 처리
+		-5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5
+	>
+> &
+	Partial<{
+		'emotion': 0 | 1 | 2 | 3; // 음성 감정
+		'emotion-strength': 0 | 1 | 2; // 감정의 강도
+	}> &
 	Partial<
 		| {
 				// mp3 포맷은 24000에서 변경 불가
