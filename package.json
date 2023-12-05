@@ -30,28 +30,64 @@
 	},
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		},
 		"./email/send-grid/v3": {
-			"import": "./dist/email/send-grid/v3/index.js",
-			"require": "./dist/email/send-grid/v3/index.cjs"
+			"import": {
+				"types": "./dist/email/send-grid/v3/index.d.ts",
+				"default": "./dist/email/send-grid/v3/index.js"
+			},
+			"require": {
+				"types": "./dist/email/send-grid/v3/index.d.cts",
+				"default": "./dist/email/send-grid/v3/index.cjs"
+			}
 		},
 		"./sms/nhn/3.0": {
-			"import": "./dist/sms/nhn/3.0/index.js",
-			"require": "./dist/sms/nhn/3.0/index.cjs"
+			"import": {
+				"types": "./dist/sms/nhn/3.0/index.d.ts",
+				"default": "./dist/sms/nhn/3.0/index.js"
+			},
+			"require": {
+				"types": "./dist/sms/nhn/3.0/index.d.cts",
+				"default": "./dist/sms/nhn/3.0/index.cjs"
+			}
 		},
 		"./sms/twilio/2010-04-01": {
-			"import": "./dist/sms/twilio/2010-04-01/index.js",
-			"require": "./dist/sms/twilio/2010-04-01/index.cjs"
+			"import": {
+				"types": "./dist/sms/twilio/2010-04-01/index.d.ts",
+				"default": "./dist/sms/twilio/2010-04-01/index.js"
+			},
+			"require": {
+				"types": "./dist/sms/twilio/2010-04-01/index.d.cts",
+				"default": "./dist/sms/twilio/2010-04-01/index.cjs"
+			}
 		},
 		"./tts/naver/v1": {
-			"import": "./dist/tts/naver/v1/index.js",
-			"require": "./dist/tts/naver/v1/index.cjs"
+			"import": {
+				"types": "./dist/tts/naver/v1/index.d.ts",
+				"default": "./dist/tts/naver/v1/index.js"
+			},
+			"require": {
+				"types": "./dist/tts/naver/v1/index.d.cts",
+				"default": "./dist/tts/naver/v1/index.cjs"
+			}
 		},
 		"./misc/neis/info": {
-			"import": "./dist/misc/neis/info/index.js",
-			"require": "./dist/misc/neis/info/index.cjs"
+			"import": {
+				"types": "./dist/misc/neis/info/index.d.ts",
+				"default": "./dist/misc/neis/info/index.js"
+			},
+			"require": {
+				"types": "./dist/misc/neis/info/index.d.cts",
+				"default": "./dist/misc/neis/info/index.cjs"
+			}
 		}
 	},
 	"main": "./dist/index.cjs",
