@@ -3,7 +3,7 @@
 Save file locally using Node.js 18 and later.
 
 ```javascript
-import { tts } from 'new-request/tts/naver/v1';
+import { NaverTextToSpeech1 } from 'new-request';
 import { createWriteStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
@@ -14,7 +14,7 @@ const text =
 
 const format = 'wav';
 
-const response = await tts(
+const response = await NaverTextToSpeech1(
   {
     text,
     speaker: {

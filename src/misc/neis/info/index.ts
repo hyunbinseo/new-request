@@ -10,7 +10,7 @@ const keyRelations = [
 	['region', 'LCTN_SC_NM'],
 ] as const;
 
-export const searchSchools = async (params: SearchParams, opts: Options) => {
+export const searchSchool = async (params: SearchParams, opts: Options) => {
 	const url = new URL('https://open.neis.go.kr/hub/schoolInfo');
 	const searchParams = new URLSearchParams({ Type: 'json', KEY: opts.apiKey });
 
