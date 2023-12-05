@@ -37,8 +37,8 @@ if (response instanceof Error) {
   // Handle HTTP 400 or 500 error.
 } else {
   const writeStream = createWriteStream(`./${text}.${format}`);
-  // @ts-ignore
-  // response.body as ReadableStream<any>
+  // @ts-expect-error Two different definitions.
+  // Reference https://stackoverflow.com/a/66629140
   await finished(Readable.fromWeb(response.body).pipe(writeStream));
 }
 ```
