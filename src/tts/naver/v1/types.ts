@@ -1,10 +1,11 @@
+// Reference https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium
+
 export type Options = {
 	clientId: string;
 	clientSecret: string;
 	fetch?: Fetch;
 };
 
-// Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
 export type RequestBody = { text: string; speaker: Speaker } & Partial<
 	Record<
 		| 'volume' // 음성 볼륨
@@ -331,7 +332,7 @@ type Speaker =
 	| {
 			language: '한국어';
 			isWoman: true;
-			isChild: false;
+			isChild: true;
 			isPro: true;
 			name: '다인';
 			code: 'vdain';
