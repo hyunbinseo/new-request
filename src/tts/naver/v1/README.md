@@ -38,6 +38,7 @@ const saveAsFile = async (text, filename) => {
   // 네트워크 오류 또는 HTTP 400, 500 응답
   if (response instanceof Error || !response.ok) return;
 
+  // WAV 형식으로 요청한 경우 확장자를 변경해야함
   const writeStream = createWriteStream(`./${filename}.mp3`);
 
   await finished(
@@ -53,7 +54,7 @@ await saveAsFile(
 );
 ```
 
-## 화자
+## 화자 목록
 
 (언어 → 이름) 순서로 오름차순 정렬
 
@@ -167,3 +168,56 @@ await saveAsFile(
 | 한국어            | 희라         | TRUE  | FALSE | FALSE | nheera        |
 | 한국어+영어(미국) | 신우&매트    | FALSE | FALSE | FALSE | dsinu-matt    |
 | 한국어+영어(미국) | 아라&안나    | TRUE  | FALSE | FALSE | dara-danna    |
+
+## 일시 정지 추가하기
+
+Google Cloud Text-To-Speech는 [SSML]을 지원해 3초 간 멈춤 등을 할 수 있습니다.
+
+[SSML]: https://cloud.google.com/text-to-speech/docs/ssml?hl=ko
+
+```xml
+<speak>
+  Here are <say-as interpret-as="characters">SSML</say-as> samples.
+  I can pause <break time="3s"/>.
+  I can play a sound
+  <audio src="https://www.example.com/MY_MP3_FILE.mp3">didn't get your MP3 audio file</audio>.
+</speak>
+```
+
+```
+Here are S S M L samples.
+I can pause [3 second pause].
+I can play a sound [audio file plays].
+```
+
+네이버 API에는 이런 기능이 없으므로 빈 (무음) 오디오 파일을 생성해 합성해야 합니다.
+
+```shell
+ffmpeg -i "./original.mp3"
+# Input #0, mp3, from './original.mp3':
+#   Metadata: encoder: nVoiceTTS@NAVER
+#   Duration: 00:00:00.79, start: 0.000000, bitrate: 66 kb/s
+#   Stream #0:0: Audio: mp3, 24000 Hz, mono, fltp, 64 kb/s
+#     Metadata: encoder: nVoiceTTS
+```
+
+FFmpeg의 [anullsrc]로 동일 형식의 무음 파일을 만들고, [concat]로 이어 붙일 것입니다.
+
+[anullsrc]: https://ffmpeg.org/ffmpeg-filters.html#anullsrc
+[concat]: https://ffmpeg.org/ffmpeg-formats.html#concat-1
+
+```shell
+# 기존 파일과 동일한 24000 Hz, mono로 생성
+ffmpeg -f lavfi -i anullsrc=r=24000:cl=mono -t 1 "silence-1000ms.mp3"
+```
+
+concat은 입력을 텍스트 파일로 전달해야 합니다. 파일 목록을 `input.txt`에 작성합니다.
+
+```
+file 'original.mp3'
+file 'silence-1000ms.mp3'
+```
+
+```shell
+ffmpeg -f concat -i input.txt -codec copy "originial-with-trailing-1000ms.mp3"
+```
