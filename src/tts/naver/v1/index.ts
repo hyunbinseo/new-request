@@ -1,4 +1,4 @@
-import type { ErrorBody, Options, RequestBody } from './types.js';
+import type { Options, RequestBody, ResponseBodyError } from './types.js';
 
 export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
 	const { speaker, ...rest } = requestBody;
@@ -25,7 +25,7 @@ export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
 		if (response.ok) return response;
 		return {
 			ok: false,
-			body: (await response.json()) as ErrorBody,
+			body: (await response.json()) as ResponseBodyError,
 		} as const;
 	} catch (error) {
 		return error instanceof Error ? error : new Error();

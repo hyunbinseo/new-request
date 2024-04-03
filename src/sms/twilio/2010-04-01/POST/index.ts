@@ -1,4 +1,4 @@
-import type { ExceptionBody, Options, RequestBody, ResponseBody } from './types.js';
+import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.js';
 
 export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	const From = requestBody.from || opts.from;
@@ -23,7 +23,7 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 		const body = await response.json();
 		return response.ok
 			? ({ ok: true, body: body as ResponseBody } as const)
-			: ({ ok: false, body: body as ExceptionBody } as const);
+			: ({ ok: false, body: body as ResponseBodyException } as const);
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

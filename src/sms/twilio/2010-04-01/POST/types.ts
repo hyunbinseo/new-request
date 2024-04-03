@@ -58,7 +58,7 @@ export type ResponseBody = {
 };
 
 // Reference https://www.twilio.com/docs/usage/twilios-response
-export type ExceptionBody = {
+export type ResponseBodyException = {
 	status: number;
 	message: string;
 	code?: number;

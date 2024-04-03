@@ -45,9 +45,10 @@ import { SendGridSendEmail3 as sendEmail } from 'new-request';
 const response = await sendEmail(
   {
     // Request body goes here. Reference the official documentation.
-    // The only exception is `from`. Pass it in the next argument.
+    // The `from` value is optional, and will override the sender.
     // https://docs.sendgrid.com/api-reference/mail-send/mail-send
   },
+  // Following `options` object can modularized and reused.
   {
     apiKey: 'SG.this_is_a_secret_api_key.do_not_expose',
     from: { email: 'sender@example.com' },

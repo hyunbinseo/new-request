@@ -33,7 +33,7 @@ export type RequestBody = { text: string; speaker: Speaker } & Partial<
 		  }
 	>;
 
-export type ErrorBody = {
+export type ResponseBodyError = {
 	details: string;
 	errorCode:
 		| 'VS01'
