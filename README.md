@@ -70,21 +70,23 @@ if (response instanceof Error) {
 
 ## Services
 
+Click the module name to view the TypeScript type.
+
 ### POST Method
 
-| Service         | Module Name          | Types                                                 |
-| --------------- | -------------------- | ----------------------------------------------------- |
-| [SendGrid]      | `SendGridSendEmail3` | [`types.ts`](src/email/send-grid/v3/POST/types.ts)    |
-| [Twilio SMS]    | `TwilioSendSms2010`  | [`types.ts`](src/sms/twilio/2010-04-01/POST/types.ts) |
-| [NHN Cloud SMS] | `NhnSendSms3`        | [`types.ts`](src/sms/nhn/3.0/POST/types.ts)           |
-| [CLOVA Voice]   | `NaverTextToSpeech1` | [`types.ts`](src/tts/naver/v1/types.ts)               |
+| Category | Service         | Module Name                                                    |
+| -------- | --------------- | -------------------------------------------------------------- |
+| Email    | [SendGrid]      | [`SendGridSendEmail3`](src/email/send-grid/v3/POST/types.ts)   |
+| SMS      | [Twilio SMS]    | [`TwilioSendSms2010`](src/sms/twilio/2010-04-01/POST/types.ts) |
+| SMS      | [NHN Cloud SMS] | [`NhnSendSms3`](src/sms/nhn/3.0/POST/types.ts)                 |
+| TTS      | [CLOVA Voice]   | [`NaverTextToSpeech1`](src/tts/naver/v1/types.ts)              |
 
 [NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
 
 ### GET Method
 
-| Service               | Module Name        | Types                                     |
-| --------------------- | ------------------ | ----------------------------------------- |
-| [NEIS 학교 기본 정보] | `NeisSearchSchool` | [`types.ts`](src/misc/neis/info/types.ts) |
+| Service               | Module Name                                       |
+| --------------------- | ------------------------------------------------- |
+| [NEIS 학교 기본 정보] | [`NeisSearchSchool`](src/misc/neis/info/types.ts) |
 
 [NEIS 학교 기본 정보]: https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17020190531110010104913&infSeq=2
