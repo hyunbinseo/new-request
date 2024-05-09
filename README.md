@@ -43,16 +43,22 @@ import { SendGridSendEmail3 as sendEmail } from 'new-request';
 
 // Everything is typed and autocompleted.
 const response = await sendEmail(
+  // First parameter closely matches the API's request body.
+  // In this example, reference the SendGrid API documentation.
+  // https://docs.sendgrid.com/api-reference/mail-send/mail-send
   {
-    // Request body goes here. Reference the official documentation.
-    // The `from` value is optional, and will override the sender.
-    // https://docs.sendgrid.com/api-reference/mail-send/mail-send
+    personalizations: [{ to: [{ email: 'recipient@example.com' }] }],
+    subject: 'title',
+    content: [{ type: 'text/plain', value: 'body' }],
+    from: { email: 'sender@example.com' }, // optional, override
+    // ...
   },
-  // Following `options` object can modularized and reused.
+
+  // Second parameter `options` can be modularized and reused.
   {
     apiKey: 'SG.this_is_a_secret_api_key.do_not_expose',
-    from: { email: 'sender@example.com' },
-    // Custom `fetch` can be provided here.
+    from: { email: 'sender@example.com' }, // required
+    // Custom `fetch` function can be provided here.
   },
 );
 
