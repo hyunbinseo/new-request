@@ -86,8 +86,10 @@ Click the module name to view the TypeScript type.
 | SMS      | [Twilio SMS]    | [`TwilioSendSms2010`](src/sms/twilio/2010-04-01/POST/types.ts) |
 | SMS      | [NHN Cloud SMS] | [`NhnSendSms3`](src/sms/nhn/3.0/POST/types.ts)                 |
 | TTS      | [CLOVA Voice]   | [`NaverTextToSpeech1`](src/tts/naver/v1/types.ts)              |
+| Webhook  | [NHN Dooray!]   | [`DooraySendMessage`](src/webhook/dooray/POST/types.ts)        |
 
 [NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
+[NHN Dooray!]: https://dooray.com/
 
 ### GET Method
 
