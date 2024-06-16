@@ -12,11 +12,11 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@types/node": "20",
-		"prettier": "^3.1.0",
-		"publint": "^0.2.5",
-		"tsup": "^7.2.0",
-		"typescript": "^5.2.2"
+		"@types/node": "^20.14.2",
+		"prettier": "^3.3.2",
+		"publint": "^0.2.8",
+		"tsup": "^8.1.0",
+		"typescript": "^5.4.5"
 	},
 	"tsup": {
 		"entry": [
@@ -45,5 +45,5 @@
 		"url": "https://github.com/hyunbinseo/new-request/issues"
 	},
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
-	"packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
+	"packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
 }
