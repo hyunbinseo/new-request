@@ -7,21 +7,14 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "tsup --format cjs,esm --dts --clean && publint",
-		"prepublishOnly": "npm run build",
-		"format": "prettier --write ."
+		"build": "tsup && publint",
+		"prepublishOnly": "tsup && publint"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.2",
-		"prettier": "^3.3.2",
 		"publint": "^0.2.8",
 		"tsup": "^8.1.0",
 		"typescript": "^5.4.5"
-	},
-	"tsup": {
-		"entry": [
-			"src/index.ts"
-		]
 	},
 	"exports": {
 		".": {
