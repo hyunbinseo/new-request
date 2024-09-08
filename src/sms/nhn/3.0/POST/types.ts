@@ -5,7 +5,7 @@ export type Options = {
 	secretKey: string;
 	sendNo: string;
 	type: 'auth/sms' | 'sms' | 'mms' | 'ad-sms' | 'ad-mms';
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 export type RequestBody = {

@@ -1,6 +1,6 @@
 export type Options = {
 	apiKey: string;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 export type SearchParams = {

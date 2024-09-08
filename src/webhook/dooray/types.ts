@@ -3,7 +3,7 @@
 
 export type Options = {
 	url: `https://hook.dooray.com/services/${string}`;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 export type RequestBody = {

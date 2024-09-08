@@ -3,7 +3,7 @@
 export type Options = {
 	clientId: string;
 	clientSecret: string;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 export type RequestBody = { text: string; speaker: Speaker } & Partial<

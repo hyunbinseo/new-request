@@ -3,7 +3,7 @@
 export type Options = {
 	serverToken: string;
 	from: string;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 type Body =

@@ -4,7 +4,7 @@ export type Options = {
 	accountSid: string;
 	authToken: string;
 	from: string;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 // Reference https://www.twilio.com/docs/usage/requests-to-twilio

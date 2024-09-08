@@ -6,7 +6,7 @@ type Email = {
 export type Options = {
 	apiKey: string;
 	from: Email;
-	fetch?: Fetch;
+	fetch?: typeof fetch;
 };
 
 // Reference https://docs.sendgrid.com/for-developers/sending-email/personalizations
