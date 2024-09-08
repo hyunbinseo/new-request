@@ -8,7 +8,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsup && publint",
-		"prepublishOnly": "tsup && publint"
+		"prepublishOnly": "tsup && publint",
+		"postversion": "git push && git push --tags"
 	},
 	"devDependencies": {
 		"@types/node": "^22.5.4",
