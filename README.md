@@ -1,12 +1,16 @@
+[CLOVA Voice]: https://www.ncloud.com/product/aiService/clovaVoice
+[NEIS 학교 기본 정보]: https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17020190531110010104913&infSeq=2
+[NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
+[NHN Dooray!]: https://dooray.com/
+[Postmark]: https://postmarkapp.com/
+[SendGrid]: https://sendgrid.com/
+[Twilio SMS]: https://www.twilio.com/
+
 # new-request
 
 Use 3rd party REST APIs with confidence.
 
-[SendGrid], [Twilio SMS], [CLOVA Voice], … [show more](#services)
-
-[SendGrid]: https://sendgrid.com/
-[Twilio SMS]: https://www.twilio.com/
-[CLOVA Voice]: https://www.ncloud.com/product/aiService/clovaVoice
+[Twilio SMS], [SendGrid], [Postmark], … [show more](#services)
 
 ## Benefits
 
@@ -83,18 +87,14 @@ Click the module name to view the TypeScript type.
 | Category | Service         | Module Name                                                    |
 | -------- | --------------- | -------------------------------------------------------------- |
 | Email    | [SendGrid]      | [`SendGridSendEmail3`](src/email/send-grid/v3/POST/types.ts)   |
+| Email    | [Postmark]      | [`PostmarkSendEmail`](src/email/postmark/POST/types.ts)        |
 | SMS      | [Twilio SMS]    | [`TwilioSendSms2010`](src/sms/twilio/2010-04-01/POST/types.ts) |
 | SMS      | [NHN Cloud SMS] | [`NhnSendSms3`](src/sms/nhn/3.0/POST/types.ts)                 |
 | TTS      | [CLOVA Voice]   | [`NaverTextToSpeech1`](src/tts/naver/v1/types.ts)              |
 | Webhook  | [NHN Dooray!]   | [`DooraySendMessage`](src/webhook/dooray/POST/types.ts)        |
-
-[NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
-[NHN Dooray!]: https://dooray.com/
 
 ### GET Method
 
 | Service               | Module Name                                       |
 | --------------------- | ------------------------------------------------- |
 | [NEIS 학교 기본 정보] | [`NeisSearchSchool`](src/misc/neis/info/types.ts) |
-
-[NEIS 학교 기본 정보]: https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17020190531110010104913&infSeq=2
