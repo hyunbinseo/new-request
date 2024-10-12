@@ -5,7 +5,7 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 
 	const request = new Request(
 		new URL(
-			`/sms/v3.0/appKeys/${opts.appKey}/sender/${opts.type}`,
+			`/sms/v3.0/appKeys/${opts.appKey}/sender/${requestBody.type}`,
 			'https://api-sms.cloud.toast.com',
 		),
 		{

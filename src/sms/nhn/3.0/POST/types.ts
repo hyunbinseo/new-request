@@ -4,12 +4,13 @@ export type Options = {
 	appKey: string;
 	secretKey: string;
 	sendNo: string;
-	type: 'auth/sms' | 'sms' | 'mms' | 'ad-sms' | 'ad-mms';
 	fetch?: typeof fetch;
 };
 
-export type RequestBody = {
-	title?: string;
+type SMS = { title?: never; type: 'auth/sms' | 'sms' | 'ad-sms' };
+type MMS = { title: string; type: 'mms' | 'ad-mms' };
+
+export type RequestBody = (SMS | MMS) & {
 	body: string;
 	sendNo?: string;
 	recipientList: Array<{
