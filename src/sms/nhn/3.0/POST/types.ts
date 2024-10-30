@@ -9,23 +9,36 @@ export type Options = {
 type SMS = { title?: never; type: 'auth/sms' | 'sms' | 'ad-sms' };
 type MMS = { title: string; type: 'mms' | 'ad-mms' };
 
-export type RequestBody = (SMS | MMS) & {
-	body: string;
-	sendNo: string;
-	recipientList: Array<{
-		recipientNo: string;
-		countryCode?: string;
-		internationalRecipientNo?: string;
-		templateParameter?: Record<string, string>;
-		recipientGroupingKey?: string;
-	}>;
-	templateId?: string;
+type Shared = {
 	requestDate?: string;
 	senderGroupingKey?: string;
 	userId?: string;
 	statsId?: string;
 	originCode?: string;
 };
+
+type Recipient = {
+	recipientNo: string;
+	countryCode?: string;
+	internationalRecipientNo?: string;
+	recipientGroupingKey?: string;
+};
+
+type WithoutTemplate = {
+	templateId?: never;
+	body: string;
+	sendNo: string;
+	recipientList: Array<Recipient & { templateParameter?: never }>;
+};
+
+type WithTemplate = {
+	templateId: string;
+	body?: never;
+	sendNo?: never;
+	recipientList: Array<Recipient & { templateParameter: Record<string, string> }>;
+};
+
+export type RequestBody = Shared & (SMS | MMS) & (WithoutTemplate | WithTemplate);
 
 export type ResponseBody = {
 	header: {
