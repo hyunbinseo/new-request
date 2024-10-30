@@ -31,14 +31,15 @@ type WithoutTemplate = {
 	recipientList: Array<Recipient & { templateParameter?: never }>;
 };
 
-type WithTemplate = {
+type WithTemplate<TK extends string> = {
 	templateId: string;
 	body?: never;
 	sendNo?: never;
-	recipientList: Array<Recipient & { templateParameter: Record<string, string> }>;
+	recipientList: Array<Recipient & { templateParameter: Record<TK, string> }>;
 };
 
-export type RequestBody = Shared & (SMS | MMS) & (WithoutTemplate | WithTemplate);
+export type RequestBody<TK extends string = never> = //
+	Shared & (SMS | MMS) & (WithoutTemplate | WithTemplate<TK>);
 
 export type ResponseBody = {
 	header: {
