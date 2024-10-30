@@ -17,7 +17,7 @@ export type RequestBody = (SMS | MMS) & {
 		recipientNo: string;
 		countryCode?: string;
 		internationalRecipientNo?: string;
-		templateParameter?: Record<string, Record<string, unknown>>;
+		templateParameter?: Record<string, string>;
 		recipientGroupingKey?: string;
 	}>;
 	templateId?: string;
