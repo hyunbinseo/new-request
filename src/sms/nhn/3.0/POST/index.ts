@@ -1,8 +1,6 @@
 import type { Options, RequestBody, ResponseBody } from './types.js';
 
 export const sendSms = async (requestBody: RequestBody, opts: Options) => {
-	requestBody.sendNo = requestBody.sendNo || opts.sendNo;
-
 	const request = new Request(
 		new URL(
 			`/sms/v3.0/appKeys/${opts.appKey}/sender/${requestBody.type}`,

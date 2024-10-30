@@ -3,7 +3,6 @@
 export type Options = {
 	appKey: string;
 	secretKey: string;
-	sendNo: string;
 	fetch?: typeof fetch;
 };
 
@@ -12,7 +11,7 @@ type MMS = { title: string; type: 'mms' | 'ad-mms' };
 
 export type RequestBody = (SMS | MMS) & {
 	body: string;
-	sendNo?: string;
+	sendNo: string;
 	recipientList: Array<{
 		recipientNo: string;
 		countryCode?: string;
