@@ -6,9 +6,6 @@ export type Options = {
 	fetch?: typeof fetch;
 };
 
-type SMS = { title?: never; type: 'auth/sms' | 'sms' | 'ad-sms' };
-type MMS = { title: string; type: 'mms' | 'ad-mms' };
-
 type Shared = {
 	requestDate?: string;
 	senderGroupingKey?: string;
@@ -24,7 +21,10 @@ type Recipient = {
 	recipientGroupingKey?: string;
 };
 
-type WithoutTemplate = {
+type WithoutTemplate = (
+	| { title?: never; type: 'auth/sms' | 'sms' | 'ad-sms' }
+	| { title: string; type: 'mms' | 'ad-mms' }
+) & {
 	templateId?: never;
 	body: string;
 	sendNo: string;
@@ -32,14 +32,16 @@ type WithoutTemplate = {
 };
 
 type WithTemplate<TK extends string> = {
+	title?: never;
+	type: 'auth/sms' | 'sms' | 'ad-sms' | 'mms' | 'ad-mms';
+} & {
 	templateId: string;
 	body?: never;
 	sendNo?: never;
 	recipientList: Array<Recipient & { templateParameter: Record<TK, string> }>;
 };
 
-export type RequestBody<TK extends string = never> = //
-	Shared & (SMS | MMS) & (WithoutTemplate | WithTemplate<TK>);
+export type RequestBody<TK extends string = never> = Shared & (WithoutTemplate | WithTemplate<TK>);
 
 export type ResponseBody = {
 	header: {
