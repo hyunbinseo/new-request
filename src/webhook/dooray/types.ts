@@ -2,7 +2,7 @@
 // Reference https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079844453730084
 
 export type Options = {
-	url: `https://hook.dooray.com/services/${string}`;
+	url: string;
 	fetch?: typeof fetch;
 };
 

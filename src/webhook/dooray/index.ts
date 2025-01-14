@@ -1,6 +1,9 @@
 import type { Options, RequestBody } from './types.js';
 
 export const sendMessage = async (requestBody: RequestBody, opts: Options) => {
+	if (!opts.url.startsWith('https://hook.dooray.com/services/'))
+		return new RangeError('Invalid URL');
+
 	requestBody.botIconImage =
 		requestBody.botIconImage || 'https://static.dooray.com/static_images/dooray-bot.png';
 
