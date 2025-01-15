@@ -798,14 +798,6 @@ type Speaker =
 			isWoman: true;
 			isChild: false;
 			isPro: false;
-			name: '나래';
-			code: 'nnarae';
-	  }
-	| {
-			language: '한국어';
-			isWoman: true;
-			isChild: false;
-			isPro: false;
 			name: '봄달';
 			code: 'noyj';
 	  }

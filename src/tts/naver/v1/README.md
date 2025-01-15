@@ -95,7 +95,6 @@ await saveAsFile(
 | 한국어            | 기서         | TRUE  | FALSE | FALSE | ntiffany      |
 | 한국어            | 기태         | FALSE | FALSE | FALSE | nkitae        |
 | 한국어            | 기효         | FALSE | FALSE | FALSE | nes_c_kihyo   |
-| 한국어            | 나래         | TRUE  | FALSE | FALSE | nnarae        |
 | 한국어            | 늘봄         | TRUE  | FALSE | FALSE | napple        |
 | 한국어            | 다인         | TRUE  | TRUE  | FALSE | ndain         |
 | 한국어            | 다인         | TRUE  | FALSE | TRUE  | vdain         |
