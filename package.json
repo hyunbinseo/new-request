@@ -7,15 +7,14 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "tsup && publint",
-		"prepublishOnly": "tsup && publint",
+		"prepack": "tsup && publint",
 		"postversion": "git push && git push --tags"
 	},
 	"devDependencies": {
-		"@types/node": "^22.8.4",
-		"publint": "^0.2.12",
+		"@types/node": "^22.10.6",
+		"publint": "^0.3.2",
 		"tsup": "^8.3.5",
-		"typescript": "^5.6.3"
+		"typescript": "^5.7.3"
 	},
 	"exports": {
 		".": {
@@ -39,5 +38,5 @@
 		"url": "https://github.com/hyunbinseo/new-request/issues"
 	},
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
-	"packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
+	"packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
