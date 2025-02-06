@@ -1,4 +1,5 @@
 import type { Options, RequestBody, ResponseBody } from './types.js';
+export type { Options, RequestBody };
 
 export const sendSms = async <TemplateKeys extends string = never>(
 	requestBody: RequestBody<TemplateKeys>,

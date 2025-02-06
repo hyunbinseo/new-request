@@ -37,13 +37,26 @@ if (response.ok) response.body; // ResponseBody
 if (!response.ok) response.body; // ResponseBody4xx
 ```
 
-Reference the [services](#services) section for the specific types.
+Reference the [services](#services) section for all available modules.
 
 ```ts
-// Example using the SendGrid mail send API v3.
+import { send // This will autocomplete module import in most IDEs.
+```
 
-// Rename the imported module for better readability.
-import { SendGridSendEmail3 as sendEmail } from 'new-request';
+The parameter types are exported for TypeScript and JSDoc usage.
+
+```ts
+import type { RequestBody, Options } from 'new-request/email/send-grid/v3/POST/index.js';
+
+type Email = NonNullable<RequestBody['from']>;
+```
+
+## Example
+
+[SendGrid mail send API](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) v3
+
+```ts
+import { sendEmail } from 'new-request/email/send-grid/v3/POST/index.js';
 
 // Everything is typed and autocompleted.
 const response = await sendEmail(
@@ -82,19 +95,19 @@ if (response instanceof Error) {
 
 Click the module name to view the TypeScript type.
 
-### POST Method
+### POST Methods
 
-| Category | Service         | Module Name                                                    |
-| -------- | --------------- | -------------------------------------------------------------- |
-| Email    | [SendGrid]      | [`SendGridSendEmail3`](src/email/send-grid/v3/POST/types.ts)   |
-| Email    | [Postmark]      | [`PostmarkSendEmail`](src/email/postmark/POST/types.ts)        |
-| SMS      | [Twilio SMS]    | [`TwilioSendSms2010`](src/sms/twilio/2010-04-01/POST/types.ts) |
-| SMS      | [NHN Cloud SMS] | [`NhnSendSms3`](src/sms/nhn/3.0/POST/types.ts)                 |
-| TTS      | [CLOVA Voice]   | [`NaverTextToSpeech1`](src/tts/naver/v1/types.ts)              |
-| Webhook  | [NHN Dooray!]   | [`DooraySendMessage`](src/webhook/dooray/POST/types.ts)        |
+| Category | Service         | Module Name                                          |
+| -------- | --------------- | ---------------------------------------------------- |
+| Email    | [SendGrid]      | [`sendEmail`](src/email/send-grid/v3/POST/types.ts)  |
+| Email    | [Postmark]      | [`sendEmail`](src/email/postmark/POST/types.ts)      |
+| SMS      | [Twilio SMS]    | [`sendSms`](src/sms/twilio/2010-04-01/POST/types.ts) |
+| SMS      | [NHN Cloud SMS] | [`sendSms`](src/sms/nhn/3.0/POST/types.ts)           |
+| TTS      | [CLOVA Voice]   | [`textToSpeech`](src/tts/naver/v1/types.ts)          |
+| Webhook  | [NHN Dooray!]   | [`sendMessage`](src/webhook/dooray/types.ts)         |
 
-### GET Method
+### GET Methods
 
-| Service               | Module Name                                       |
-| --------------------- | ------------------------------------------------- |
-| [NEIS 학교 기본 정보] | [`NeisSearchSchool`](src/misc/neis/info/types.ts) |
+| Service               | Module Name                                   |
+| --------------------- | --------------------------------------------- |
+| [NEIS 학교 기본 정보] | [`searchSchool`](src/misc/neis/info/types.ts) |

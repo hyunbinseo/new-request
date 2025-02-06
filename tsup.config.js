@@ -1,11 +1,10 @@
 import { defineConfig } from 'tsup';
 
-// TODO Keep directory structure on build output.
-// Reference https://github.com/egoist/tsup/issues/728
-
 export default defineConfig({
-	entry: ['src/index.ts'],
-	format: ['cjs', 'esm'],
+	// Multiple entry points using glob pattern.
+	// https://github.com/egoist/tsup/issues/728
+	entry: ['src/**/index.ts'],
+	format: ['esm'],
 	dts: true,
 	clean: true,
 });

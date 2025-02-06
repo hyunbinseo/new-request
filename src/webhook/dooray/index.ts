@@ -1,4 +1,5 @@
 import type { Options, RequestBody } from './types.js';
+export type { Options, RequestBody };
 
 export const sendMessage = async (requestBody: RequestBody, opts: Options) => {
 	if (!opts.url.startsWith('https://hook.dooray.com/services/'))

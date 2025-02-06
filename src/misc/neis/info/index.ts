@@ -1,4 +1,5 @@
 import type { Options, ResponseBody, SearchParams } from './types.js';
+export type { Options };
 
 const keyRelations = [
 	['pageSize', 'pSize'],
