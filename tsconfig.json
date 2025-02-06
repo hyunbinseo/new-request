@@ -21,7 +21,7 @@
 		// Reference https://node.green/#ES2022
 
 		"target": "ES2022",
-		"lib": ["ES2022"],
+		"lib": ["DOM", "ES2022"],
 
 		"allowJs": true,
 		"checkJs": true,
