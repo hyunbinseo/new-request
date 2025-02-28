@@ -1,7 +1,7 @@
 {
 	"name": "new-request",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
-	"version": "0.0.30",
+	"version": "0.0.31",
 	"engines": {
 		"node": ">=18"
 	},
@@ -19,7 +19,13 @@
 		"typescript": "^5.7.3"
 	},
 	"exports": {
-		"./*": "./dist/*"
+		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
+		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
+		"./misc/neis/info": "./dist/misc/neis/info/index.js",
+		"./sms/nhn/3.0/POST": "./dist/sms/nhn/3.0/POST/index.js",
+		"./sms/twilio/2010-04-01/POST": "./dist/sms/twilio/2010-04-01/POST/index.js",
+		"./tts/naver/v1": "./dist/tts/naver/v1/index.js",
+		"./webhook/dooray": "./dist/webhook/dooray/index.js"
 	},
 	"files": [
 		"dist"
