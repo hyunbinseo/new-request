@@ -8,6 +8,7 @@
 	"type": "module",
 	"scripts": {
 		"prepack": "tsup && publint",
+		"version": "tsup && node cli/exports.js && git add package.json",
 		"postversion": "git push && git push --tags",
 		"check": "tsc --noEmit"
 	},

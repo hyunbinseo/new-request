@@ -23,7 +23,7 @@ Use 3rd party REST APIs with confidence.
 ## Usage
 
 ```shell
-npm i new-request -D
+npm i new-request
 ```
 
 All modules have a similar structure.
