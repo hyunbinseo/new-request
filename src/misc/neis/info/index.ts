@@ -33,10 +33,9 @@ export const searchSchool = async (params: SearchParams, opts: Options) => {
 		const schools = body.schoolInfo?.[1].row || [];
 
 		// Reference https://github.com/hyunbinseo/new-request/issues/1
-		for (let i = 0; i < schools.length; i++) {
-			const { SD_SCHUL_CODE } = schools[i];
-			if (SD_SCHUL_CODE === null) continue;
-			if (SD_SCHUL_CODE.replace(/ /g, '') === '') schools[i].SD_SCHUL_CODE = null;
+		for (const school of schools) {
+			if (school.SD_SCHUL_CODE === null) continue;
+			if (/^ *$/.test(school.SD_SCHUL_CODE)) school.SD_SCHUL_CODE = null;
 		}
 
 		return { ok, result, schools } as const;
