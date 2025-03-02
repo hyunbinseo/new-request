@@ -16,7 +16,8 @@
 		"@types/node": "^22.13.5",
 		"publint": "^0.3.7",
 		"tsup": "^8.4.0",
-		"typescript": "^5.7.3"
+		"typescript": "^5.7.3",
+		"valibot": "1.0.0-rc.3"
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
