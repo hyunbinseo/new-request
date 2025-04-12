@@ -1,7 +1,11 @@
+import type { Status4xx } from '../../../types.ts';
 import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './types.js';
 export type { Options, RequestBody };
 
 export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
+	if (requestBody.attachment && requestBody.attachment.size > 5242880)
+		return new Error('Content Too Large');
+
 	const requestInit: RequestInit = !requestBody.attachment
 		? {
 				method: 'POST',
@@ -33,13 +37,13 @@ export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 		const response = await (opts.fetch || fetch)(request);
 		return response.ok
 			? {
-					ok: true as const,
+					ok: response.ok,
 					status: response.status as 200,
 					body: (await response.json()) as ResponseBody200,
 			  }
 			: {
-					ok: false as const,
-					status: response.status as Exclude<number, 200>,
+					ok: response.ok,
+					status: response.status as Status4xx,
 					body: (await response.json()) as ResponseBody4xx,
 			  };
 	} catch (error) {

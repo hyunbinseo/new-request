@@ -59,11 +59,22 @@ type Url =
 	| { url: string; url_title?: string } //
 	| { url?: never; url_title?: never };
 
-export type RequestBody = { message: string } & (Attachment & Url) &
+type EmergencyPriority =
+	| Partial<{
+			priority: -2 | -1 | 0 | 1;
+			retry?: never;
+			expire?: never;
+	  }>
+	| {
+			priority: 2;
+			retry: number;
+			expire: number;
+	  };
+
+export type RequestBody = { message: string } & (Attachment & Url & EmergencyPriority) &
 	Partial<{
 		device: string;
 		html: 0 | 1;
-		priority: -2 | -1 | 0 | 1 | 2;
 		sound: Sound;
 		timestamp: number;
 		title: string;
