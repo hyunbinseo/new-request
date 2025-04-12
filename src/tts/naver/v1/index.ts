@@ -23,11 +23,12 @@ export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
 
 	try {
 		const response = await (opts.fetch || fetch)(request);
-		if (response.ok) return response;
-		return {
-			ok: false,
-			body: (await response.json()) as ResponseBodyError,
-		} as const;
+		return response.ok
+			? (response as Omit<Response, 'ok'> & { ok: true })
+			: {
+					ok: response.ok,
+					body: (await response.json()) as ResponseBodyError,
+			  };
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

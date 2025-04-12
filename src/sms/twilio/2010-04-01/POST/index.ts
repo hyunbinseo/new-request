@@ -23,8 +23,8 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok
-			? ({ ok: true, body: body as ResponseBody } as const)
-			: ({ ok: false, body: body as ResponseBodyException } as const);
+			? { ok: response.ok, body: body as ResponseBody }
+			: { ok: response.ok, body: body as ResponseBodyException };
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

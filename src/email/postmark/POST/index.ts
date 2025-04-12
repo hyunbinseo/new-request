@@ -18,12 +18,12 @@ export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
 		const response = await (opts.fetch || fetch)(request);
 		return response.ok
 			? {
-					ok: true as const,
+					ok: response.ok,
 					status: response.status as 200,
 					body: (await response.json()) as ResponseBody200,
 			  }
 			: {
-					ok: false as const,
+					ok: response.ok,
 					status: response.status as 401 | 404 | 413 | 415 | 422 | 429 | 500 | 503,
 					body: (await response.json()) as ResponseBody4xx,
 			  };

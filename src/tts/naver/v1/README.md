@@ -3,7 +3,7 @@
 Node.js 18+를 활용한 MP3 또는 WAV 파일 저장
 
 ```javascript
-import { NaverTextToSpeech1 } from 'new-request';
+import { textToSpeech } from 'new-request/tts/naver/v1';
 import { createWriteStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
@@ -17,7 +17,7 @@ import { finished } from 'node:stream/promises';
  * @param {string} filename
  */
 const saveAsFile = async (text, filename) => {
-  const response = await NaverTextToSpeech1(
+  const response = await textToSpeech(
     {
       text,
       speaker: {

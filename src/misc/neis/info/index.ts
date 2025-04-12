@@ -37,7 +37,7 @@ export const searchSchool = async (params: SearchParams, opts: Options) => {
 			school.SD_SCHUL_CODE = school.SD_SCHUL_CODE?.trim() || null;
 		}
 
-		return { ok, result, schools } as const;
+		return { ok, result, schools };
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}
