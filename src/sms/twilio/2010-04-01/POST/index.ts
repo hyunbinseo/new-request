@@ -8,7 +8,10 @@ export const sendSms = async (requestBody: RequestBody, opts: Options) => {
 	const authorization = `Basic ${btoa(`${opts.accountSid}:${opts.authToken}`)}`;
 
 	const request = new Request(
-		`https://api.twilio.com/2010-04-01/Accounts/${opts.accountSid}/Messages.json`,
+		new URL(
+			`/2010-04-01/Accounts/${opts.accountSid}/Messages.json`, //
+			'https://api.twilio.com',
+		),
 		{
 			method: 'POST',
 			headers: {
