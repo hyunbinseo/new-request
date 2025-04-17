@@ -68,14 +68,20 @@ type ErrorReason = {
 	500: 'Internal Server Error';
 };
 
-type ErrorStatus = keyof ErrorReason;
+export type ResponseError =
+	| _ResponseError<400>
+	| _ResponseError<403>
+	| _ResponseError<408>
+	| _ResponseError<413>
+	| _ResponseError<429>
+	| _ResponseError<500>;
 
-export type ResponseError<S extends ErrorStatus = ErrorStatus> = {
+type _ResponseError<Status extends keyof ErrorReason> = {
 	ok: false;
-	status: S;
+	status: Status;
 	body: {
 		request_id: string;
 		result: -1;
-		reason: ErrorReason[S];
+		reason: ErrorReason[Status];
 	};
 };
