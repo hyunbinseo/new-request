@@ -12,6 +12,21 @@ Use 3rd party REST APIs with confidence.
 
 [Twilio SMS], [SendGrid], [Postmark], … [show more](#services)
 
+```js
+// before
+await fetch('https://api.sendgrid.com/v3/mail/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer secret`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(body),
+});
+
+// after - and the request body is fully typed!
+await sendEmail(body, { apiKey: 'secret' });
+```
+
 ## Benefits
 
 - **Type Safety**: Fully typed request and response bodies.
