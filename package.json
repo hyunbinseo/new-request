@@ -7,27 +7,19 @@
 	},
 	"type": "module",
 	"scripts": {
-		"prepack": "tsup && publint",
-		"version": "tsup && node cli/exports.js && git add package.json",
+		"prepack": "zshy && publint",
+		"version": "zshy && node cli/exports.js && git add package.json",
 		"postversion": "git push && git push --tags",
 		"check": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@types/node": "^22.14.0",
-		"publint": "^0.3.10",
-		"tsup": "^8.4.0",
+		"@types/node": "^24.0.14",
+		"publint": "^0.3.12",
 		"typescript": "^5.8.3",
-		"valibot": "^1.0.0"
+		"valibot": "^1.1.0",
+		"zshy": "^0.2.5"
 	},
-	"exports": {
-		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
-		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
-		"./misc/neis/info": "./dist/misc/neis/info/index.js",
-		"./sms/nhn/3.0/POST": "./dist/sms/nhn/3.0/POST/index.js",
-		"./sms/twilio/2010-04-01/POST": "./dist/sms/twilio/2010-04-01/POST/index.js",
-		"./tts/naver/v1": "./dist/tts/naver/v1/index.js",
-		"./webhook/dooray": "./dist/webhook/dooray/index.js"
-	},
+	"zshy": "./src/**/index.ts",
 	"files": [
 		"dist"
 	],
@@ -41,5 +33,5 @@
 		"url": "https://github.com/hyunbinseo/new-request/issues"
 	},
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
-	"packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
+	"packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }
