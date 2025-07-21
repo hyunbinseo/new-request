@@ -9,7 +9,7 @@
 	"scripts": {
 		"prepack": "tsup && publint",
 		"version": "tsup && node cli/exports.ts && git add package.json",
-		"postversion": "git push && git push --tags",
+		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"check": "tsc --noEmit"
 	},
 	"devDependencies": {

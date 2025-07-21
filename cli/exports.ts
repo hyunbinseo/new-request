@@ -1,4 +1,10 @@
-import { globSync, readFileSync, writeFileSync } from 'node:fs';
+import assert from 'node:assert';
+import { globSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+
+assert(cwd() === join(import.meta.dirname, '..'));
+assert(statSync('./dist').isDirectory());
 
 const pkgJson = JSON.parse(readFileSync('package.json', { encoding: 'utf-8' }));
 
