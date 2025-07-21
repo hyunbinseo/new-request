@@ -1,4 +1,4 @@
-import type { Options, RequestBody, ResponseBody4xx, ResponseBody5xx } from './types.js';
+import type { Options, RequestBody, ResponseBody4xx, ResponseBody5xx } from './types.ts';
 export type { Options, RequestBody };
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {

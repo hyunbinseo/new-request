@@ -1,4 +1,4 @@
-import type { Options, ResponseBody, SearchParams } from './types.js';
+import type { Options, ResponseBody, SearchParams } from './types.ts';
 export type { Options };
 
 const keyRelations = [

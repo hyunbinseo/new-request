@@ -1,4 +1,4 @@
-import type { Options, RequestBody, ResponseBody200, ResponseError } from './types.js';
+import type { Options, RequestBody, ResponseBody200, ResponseError } from './types.ts';
 export type { Options, RequestBody };
 
 export const speechToText = async (requestBody: RequestBody, opts: Options) => {

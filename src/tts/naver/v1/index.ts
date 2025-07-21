@@ -1,4 +1,4 @@
-import type { Options, RequestBody, ResponseBodyError } from './types.js';
+import type { Options, RequestBody, ResponseBodyError } from './types.ts';
 export type { Options, RequestBody };
 
 export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
