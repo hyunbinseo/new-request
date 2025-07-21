@@ -3,6 +3,7 @@
 [NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
 [NHN Dooray!]: https://dooray.com/
 [Postmark]: https://postmarkapp.com/
+[Pushover]: https://pushover.net/
 [SendGrid]: https://sendgrid.com/
 [Twilio SMS]: https://www.twilio.com/
 
@@ -116,8 +117,9 @@ Click the module name to view the TypeScript type.
 | -------- | --------------- | ---------------------------------------------------- |
 | Email    | [SendGrid]      | [`sendEmail`](src/email/send-grid/v3/POST/types.ts)  |
 | Email    | [Postmark]      | [`sendEmail`](src/email/postmark/POST/types.ts)      |
+| Message  | [Pushover]      | [`pushMessage`](src/message/pushover/1/index.ts)     |
 | SMS      | [Twilio SMS]    | [`sendSms`](src/sms/twilio/2010-04-01/POST/types.ts) |
-| SMS      | [NHN Cloud SMS] | [`sendSms`](src/sms/nhn/3.0/POST/types.ts)           |
+| SMS      | [NHN Cloud SMS] | [`sendSms`](src/sms/nhn/v3.0/POST/types.ts)          |
 | TTS      | [CLOVA Voice]   | [`textToSpeech`](src/tts/naver/v1/types.ts)          |
 | Webhook  | [NHN Dooray!]   | [`sendMessage`](src/webhook/dooray/types.ts)         |
 

@@ -1,31 +1,5 @@
-import type { Options, RequestBody, ResponseBody } from './types.ts';
-export type { Options, RequestBody };
+// TODO Remove this export in a major version update.
 
-export const sendSms = async <TemplateKeys extends string = never>(
-	requestBody: RequestBody<TemplateKeys>,
-	opts: Options,
-) => {
-	const request = new Request(
-		new URL(
-			`/sms/v3.0/appKeys/${opts.appKey}/sender/${requestBody.type}`,
-			'https://api-sms.cloud.toast.com',
-		),
-		{
-			method: 'POST',
-			headers: {
-				'X-Secret-Key': opts.secretKey,
-				'Content-Type': 'application/json;charset=UTF-8',
-			},
-			body: JSON.stringify(requestBody),
-		},
-	);
+export type { Options, RequestBody } from '../../v3.0/POST/types.ts';
 
-	try {
-		// response.status is always 200
-		const response = await (opts.fetch || fetch)(request);
-		const body = (await response.json()) as ResponseBody;
-		return { ok: body.header.isSuccessful, ...body };
-	} catch (error) {
-		return error instanceof Error ? error : new Error();
-	}
-};
+export { sendSms } from '../../v3.0/POST/index.ts';
