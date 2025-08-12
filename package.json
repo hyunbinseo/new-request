@@ -1,7 +1,7 @@
 {
 	"name": "new-request",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
-	"version": "0.0.32",
+	"version": "0.0.33",
 	"engines": {
 		"node": ">=18"
 	},
@@ -22,6 +22,7 @@
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
+		"./message/dooray": "./dist/message/dooray/index.js",
 		"./message/pushover/1": "./dist/message/pushover/1/index.js",
 		"./misc/neis/info": "./dist/misc/neis/info/index.js",
 		"./sms/nhn/3.0/POST": "./dist/sms/nhn/3.0/POST/index.js",
