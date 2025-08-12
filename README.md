@@ -21,10 +21,10 @@ await fetch('https://api.sendgrid.com/v3/mail/send', {
     'Authorization': `Bearer secret`,
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify(body),
+  body: JSON.stringify(body), // not typed.
 });
 
-// after - and the request body is fully typed!
+// after - the request body is fully typed!
 await sendEmail(body, { apiKey: 'secret' });
 ```
 
@@ -109,22 +109,35 @@ if (response instanceof Error) {
 
 ## Services
 
-Click the module name to view the TypeScript type.
+**Email:** [SendGrid], [Postmark]
 
-### POST Methods
+```js
+import { sendEmail } from 'new-request/email/send-grid/v3/POST';
+import { sendEmail } from 'new-request/email/postmark/POST';
+```
 
-| Category | Service         | Module Name                                          |
-| -------- | --------------- | ---------------------------------------------------- |
-| Email    | [SendGrid]      | [`sendEmail`](src/email/send-grid/v3/POST/types.ts)  |
-| Email    | [Postmark]      | [`sendEmail`](src/email/postmark/POST/types.ts)      |
-| Message  | [Pushover]      | [`pushMessage`](src/message/pushover/1/index.ts)     |
-| SMS      | [Twilio SMS]    | [`sendSms`](src/sms/twilio/2010-04-01/POST/types.ts) |
-| SMS      | [NHN Cloud SMS] | [`sendSms`](src/sms/nhn/v3.0/POST/types.ts)          |
-| TTS      | [CLOVA Voice]   | [`textToSpeech`](src/tts/naver/v1/types.ts)          |
-| Webhook  | [NHN Dooray!]   | [`sendMessage`](src/webhook/dooray/types.ts)         |
+**SMS:** [Twilio SMS], [NHN Cloud SMS]
 
-### GET Methods
+```js
+import { sendSms } from 'new-request/sms/twilio/2010-04-01/POST';
+import { sendSms } from 'new-request/sms/nhn/v3.0/POST';
+```
 
-| Service               | Module Name                                   |
-| --------------------- | --------------------------------------------- |
-| [NEIS 학교 기본 정보] | [`searchSchool`](src/misc/neis/info/types.ts) |
+**Message:** [Pushover], [NHN Dooray!]
+
+```js
+import { pushMessage } from 'new-request/message/pushover/1';
+import { sendMessage } from 'new-request/message/dooray';
+```
+
+**TTS:** [CLOVA Voice]
+
+```js
+import { textToSpeech } from 'new-request/tts/naver/v1';
+```
+
+**Misc:** [NEIS 학교 기본 정보]
+
+```js
+import { searchSchool } from 'new-request/misc/neis/info';
+```
