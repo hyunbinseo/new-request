@@ -62,7 +62,7 @@ import { send // This will autocomplete module import in most IDEs.
 The parameter types are exported for TypeScript and JSDoc usage.
 
 ```ts
-import type { RequestBody, Options } from 'new-request/email/send-grid/v3/POST/index.js';
+import type { RequestBody, Options } from 'new-request/email/send-grid/v3/POST';
 
 type Email = NonNullable<RequestBody['from']>;
 ```
@@ -72,7 +72,7 @@ type Email = NonNullable<RequestBody['from']>;
 [SendGrid mail send API](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) v3
 
 ```ts
-import { sendEmail } from 'new-request/email/send-grid/v3/POST/index.js';
+import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 
 // Everything is typed and autocompleted.
 const response = await sendEmail(
