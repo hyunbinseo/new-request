@@ -111,6 +111,8 @@ if (response instanceof Error) {
 
 **Email:** [SendGrid], [Postmark]
 
+<!-- Resend's official Node.js SDK uses the Fetch API. -->
+
 ```js
 import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 import { sendEmail } from 'new-request/email/postmark/POST';
