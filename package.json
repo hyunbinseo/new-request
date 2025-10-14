@@ -7,15 +7,15 @@
 	},
 	"type": "module",
 	"scripts": {
-		"prepack": "tsup && publint",
-		"version": "tsup && node cli/exports.ts && git add package.json",
+		"prepack": "tsdown && publint",
+		"version": "tsdown && node cli/exports.ts && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"check": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@types/node": "^24.0.15",
 		"publint": "^0.3.12",
-		"tsup": "^8.5.0",
+		"tsdown": "^0.15.7",
 		"typescript": "^5.8.3",
 		"valibot": "^1.1.0"
 	},
