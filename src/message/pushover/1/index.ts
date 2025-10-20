@@ -10,11 +10,14 @@ export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 		? {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: Object.entries(requestBody).reduce((searchParams, [key, value]) => {
-					if (value) searchParams.append(key, value.toString());
-					return searchParams;
-				}, new URLSearchParams({ token: opts.token, user: opts.user })),
-		  }
+				body: Object.entries(requestBody).reduce(
+					(searchParams, [key, value]) => {
+						if (value) searchParams.append(key, value.toString());
+						return searchParams;
+					},
+					new URLSearchParams({ token: opts.token, user: opts.user }),
+				),
+			}
 		: {
 				method: 'POST',
 				body: Object.entries(requestBody).reduce((formData, [key, value], index) => {
@@ -29,7 +32,7 @@ export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 					}
 					return formData;
 				}, new FormData()),
-		  };
+			};
 
 	const request = new Request('https://api.pushover.net/1/messages.json', requestInit);
 
@@ -40,12 +43,12 @@ export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 					ok: response.ok,
 					status: response.status as 200,
 					body: (await response.json()) as ResponseBody200,
-			  }
+				}
 			: {
 					ok: response.ok,
 					status: response.status as Status4xx,
 					body: (await response.json()) as ResponseBody4xx,
-			  };
+				};
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

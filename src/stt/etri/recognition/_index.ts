@@ -18,12 +18,12 @@ export const speechToText = async (requestBody: RequestBody, opts: Options) => {
 					ok: response.ok,
 					status: response.status as 200,
 					body: (await response.json()) as ResponseBody200,
-			  }
+				}
 			: ({
 					ok: response.ok,
 					status: response.status,
 					body: await response.json(),
-			  } as ResponseError);
+				} as ResponseError);
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

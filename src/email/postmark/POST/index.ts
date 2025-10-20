@@ -21,12 +21,12 @@ export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
 					ok: response.ok,
 					status: response.status as 200,
 					body: (await response.json()) as ResponseBody200,
-			  }
+				}
 			: {
 					ok: response.ok,
 					status: response.status as 401 | 404 | 413 | 415 | 422 | 429 | 500 | 503,
 					body: (await response.json()) as ResponseBody4xx,
-			  };
+				};
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}

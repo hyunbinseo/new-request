@@ -28,7 +28,7 @@ export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
 			: {
 					ok: response.ok,
 					body: (await response.json()) as ResponseBodyError,
-			  };
+				};
 	} catch (error) {
 		return error instanceof Error ? error : new Error();
 	}
