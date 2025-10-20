@@ -1,22 +1,27 @@
 ## 예제
 
-Node.js 18+를 활용한 MP3 또는 WAV 파일 저장
+TTS를 MP3 또는 WAV 파일 형식으로 저장 (Node.js 22.18 이상)
 
-```javascript
+```bash
+# .env 파일을 생성하고 API 키 입력
+CLIENT_ID=""
+CLIENT_SECRET=""
+```
+
+```ts
 import { textToSpeech } from 'new-request/tts/naver/v1';
 import { createWriteStream } from 'node:fs';
+import { join } from 'node:path';
+import { env, loadEnvFile } from 'node:process';
 import { Readable } from 'node:stream';
-import { finished } from 'node:stream/promises';
+import { pipeline } from 'node:stream/promises';
 
-// 코드 완성 지원 도구가 활성화돼있어야 함
-// 예시) Visual Studio Code JavaScript IntelliSense
-// 참고) https://code.visualstudio.com/docs/nodejs/working-with-javascript
+loadEnvFile(join(import.meta.dirname, '.env'));
 
-/**
- * @param {string} text
- * @param {string} filename
- */
-const saveAsFile = async (text, filename) => {
+const { CLIENT_ID, CLIENT_SECRET } = env;
+if (!CLIENT_ID || !CLIENT_SECRET) throw new TypeError();
+
+const saveAsFile = async (text: string, file: string) => {
   const response = await textToSpeech(
     {
       text,
@@ -25,32 +30,33 @@ const saveAsFile = async (text, filename) => {
         isWoman: true,
         isChild: false,
         isPro: false,
-        // 위 조건 4가지를 채우면 name부터 선택지가 제공됨
-        // name을 채우고 나면 code 선택지는 1가지만 제공됨
+        // 위 항목 4개를 채우고 나면 name부터 자동완성됨
         name: '유나', // 예를 들어 `유나`라고 입력했다면
-        code: 'nyuna', // 코드는 `nyuna`로만 자동완성됨
+        code: 'nyuna', // 코드는 `nyuna`로 자동완성됨
       },
     },
     // 애플리케이션 등록 시 발급 받은 ID, Secret 값 입력
-    { clientId: '', clientSecret: '' },
+    { clientId: CLIENT_ID, clientSecret: CLIENT_SECRET },
   );
 
-  // 네트워크 오류 또는 HTTP 400, 500 응답
-  if (response instanceof Error || !response.ok) return;
+  if (response instanceof Error || !response.ok) throw new Error();
 
-  // WAV 형식으로 요청한 경우 확장자를 변경해야함
-  const writeStream = createWriteStream(`./${filename}.mp3`);
+  const writeStream = createWriteStream(file);
 
-  await finished(
+  await pipeline(
     // @ts-expect-error Two different definitions.
     // Reference https://stackoverflow.com/a/66629140
-    Readable.fromWeb(response.body).pipe(writeStream),
+    Readable.fromWeb(response.body),
+    writeStream,
   );
 };
 
 await saveAsFile(
-  '저기 사라진 별의 자리, 아스라이 하얀 빛, 한동안은 꺼내 볼 수 있을 거야',
-  '윤하 - 사건의 지평선', // Reference https://youtu.be/BBdC1rl5sKY
+  `석양이 지는 하늘에 물들어 밤을 기다리는 낮
+다시 태어나도 종착할 여기 포인트 니모에서
+멀어져 가는 그때의 나와 그 곁에 너에게
+사랑한다 말하고 싶어`,
+  join(import.meta.dirname, '윤하 - 포인트 니모.mp3'),
 );
 ```
 
@@ -189,7 +195,7 @@ I can pause [3 second pause].
 I can play a sound [audio file plays].
 ```
 
-네이버 API에는 이런 기능이 없으므로 빈 (무음) 오디오 파일을 생성해 합성해야 합니다.
+네이버 API에는 이런 기능이 없으므로 빈(무음) 오디오 파일을 생성해 합성해야 합니다.
 
 ```shell
 ffmpeg -i "./original.mp3"
