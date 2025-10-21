@@ -6,6 +6,8 @@ export type Options = {
 	fetch?: typeof fetch;
 };
 
+type IntegerValue = -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5;
+
 export type RequestBody = { text: string; speaker: Speaker } & Partial<
 	Record<
 		| 'volume' // 음성 볼륨
@@ -13,7 +15,7 @@ export type RequestBody = { text: string; speaker: Speaker } & Partial<
 		| 'pitch' // 음성 피치
 		| 'alpha' // 음색
 		| 'end-pitch', // 끝음 처리
-		-5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5
+		IntegerValue
 	>
 > &
 	Partial<{
@@ -21,16 +23,9 @@ export type RequestBody = { text: string; speaker: Speaker } & Partial<
 		'emotion-strength': 0 | 1 | 2; // 감정의 강도
 	}> &
 	Partial<
-		| {
-				// mp3 포맷은 24000에서 변경 불가
-				'format': 'mp3'; // 음성 포맷
-				'sampling-rate': 24000; // 샘플링 레이트
-		  }
-		| {
-				// wav 포맷일 때만 지원
-				'format': 'wav'; // 음성 포맷
-				'sampling-rate': 8000 | 16000 | 24000 | 48000; // 샘플링 레이트
-		  }
+		// 음성 포맷, 샘플링 레이트
+		| { 'format': 'mp3'; 'sampling-rate': 24000 }
+		| { 'format': 'wav'; 'sampling-rate': 8000 | 16000 | 24000 | 48000 }
 	>;
 
 export type ResponseBodyError = {

@@ -6,7 +6,7 @@ export const textToSpeech = async (requestBody: RequestBody, opts: Options) => {
 
 	const searchParams = new URLSearchParams(
 		// Reference https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1568
-		rest as Record<string, string | number | boolean> as Record<string, string>,
+		rest as Record<string, string | number> as Record<string, string>,
 	);
 
 	searchParams.append('speaker', speaker.code);
