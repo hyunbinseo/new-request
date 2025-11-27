@@ -4,19 +4,6 @@
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 
-		// tsup build target priorities:
-		// 1. `tsup.config.js` file's `target` option
-		// 2. `tsconfig.json` file's `target` value
-		// 3. `node14` if unspecified (undesirable)
-
-		// TypeScript configuration supports ECMAScript versions.
-		// Reference https://www.typescriptlang.org/tsconfig#target
-
-		// tsup configuration supports esbuild's target values.
-		// e.g. es2020, chrome58, firefox57, node12, node12.19.0
-		// Reference https://tsup.egoist.dev/#target-environment
-		// Reference https://esbuild.github.io/api/#target
-
 		// Node.js 18 LTS supports all ES2022 APIs.
 		// Reference https://node.green/#ES2022
 
