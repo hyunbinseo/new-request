@@ -9,102 +9,90 @@
 
 # new-request
 
-Use 3rd party REST APIs with confidence.
+Type-safe wrappers for third-party REST APIs.
 
-[Twilio SMS], [SendGrid], [Postmark], … [show more](#services)
+Supports [Twilio SMS], [SendGrid], [Postmark], and more. [Show all](#services)
 
-```js
-// before
+```ts
+// before - nothing is typed
 await fetch('https://api.sendgrid.com/v3/mail/send', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer secret`,
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify(body), // not typed.
+  body: JSON.stringify(body),
 });
 
-// after - the request body is fully typed!
+// after - fully typed request and response
 await sendEmail(body, { apiKey: 'secret' });
 ```
 
-## Benefits
+## Features
 
-- **Type Safety**: Fully typed request and response bodies.
-- **Easy Migration**: Uses the API's request body format.
-- **Small in Size**: Mostly types. Minimum runtime code.
-- **Error Handling** without using a `try...catch` block.
-- **Fetch API ❤️** with a custom `fetch` function support.
+- **Type Safety**: Fully typed request and response bodies
+- **Zero Overhead**: Primarily types with minimal runtime code
+- **Easy Migration**: Uses each API's native request body format
+- **Explicit Errors**: Type-safe responses without `try...catch`
+- **Fetch API**: Built on the Fetch API with override support
+
+## Installation
+
+```shell
+npm install new-request
+```
 
 ## Usage
 
-```shell
-npm i new-request
-```
-
-All modules have a similar structure.
+All modules follow a consistent pattern:
 
 ```ts
-// Pseudocode using TypeScript type names.
-const response = await moduleName(RequestBody, Options);
+const response = await moduleName(requestBody, options);
 
-// Response body type can be easily narrowed.
-if (response.ok) response.body; // ResponseBody
-if (!response.ok) response.body; // ResponseBody4xx
-```
-
-Reference the [services](#services) section for all available modules.
-
-```ts
-import { send // This will autocomplete module import in most IDEs.
-```
-
-The parameter types are exported for TypeScript and JSDoc usage.
-
-```ts
-import type { RequestBody, Options } from 'new-request/email/send-grid/v3/POST';
-
-type Email = NonNullable<RequestBody['from']>;
+// Response types are automatically narrowed
+if (response.ok) response.body; // success type
+if (!response.ok) response.body; // error type
 ```
 
 ## Example
 
-[SendGrid mail send API](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) v3
+Sending an email with the [SendGrid API](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send):
 
 ```ts
-import { sendEmail } from 'new-request/email/send-grid/v3/POST';
+import { sendEmail, type Options } from 'new-request/email/send-grid/v3/POST';
 
-// Everything is typed and autocompleted.
+// Options can be modularized and exported
+const options: Options = {
+  apiKey: 'SG.your_api_key_here',
+  from: { email: 'sender@example.com' },
+};
+
 const response = await sendEmail(
-  // First parameter closely matches the API's request body.
-  // In this example, reference the SendGrid API documentation.
-  // https://docs.sendgrid.com/api-reference/mail-send/mail-send
   {
+    // Request body matches the SendGrid API for easy migration
+    // https://www.twilio.com/docs/sendgrid/api-reference/mail-send
     personalizations: [{ to: [{ email: 'recipient@example.com' }] }],
-    subject: 'title',
-    content: [{ type: 'text/plain', value: 'body' }],
-    from: { email: 'sender@example.com' }, // optional, override
-    // ...
+    subject: 'Hello World',
+    content: [{ type: 'text/plain', value: 'Email body' }],
+    from: { email: 'sender@example.com' }, // optional override
   },
-
-  // Second parameter `options` can be modularized and reused.
-  {
-    apiKey: 'SG.this_is_a_secret_api_key.do_not_expose',
-    from: { email: 'sender@example.com' }, // required
-    // Custom `fetch` function can be provided here.
-  },
+  options,
 );
 
 if (response instanceof Error) {
-  // Handle fetch error, which is most-likely a network issue.
-} else if (!response.ok) {
-  response.status; // 400 | 401 | 403 | 404 | 413 | 500
-  // The response body can be narrowed based on the status.
-  if (response.status !== 500) response.body; // ResponseBody4xx
-  if (response.status === 500) response.body; // ResponseBody5xx
-} else {
-  response.status; // 202, Successfully sent the mail.
+  // Network error or fetch failure
+  console.error('Request failed:', response.message);
+  return;
 }
+
+if (!response.ok) {
+  response.status; // 400 | 401 | 403 | 404 | 413 | 500
+  if (response.status !== 500) response.body; // 4xx error details
+  if (response.status === 500) response.body; // 5xx error details
+  return;
+}
+
+response.status; // 202 Accepted
 ```
 
 ## Services
@@ -113,33 +101,33 @@ if (response instanceof Error) {
 
 <!-- Resend's official Node.js SDK uses the Fetch API. -->
 
-```js
+```ts
 import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 import { sendEmail } from 'new-request/email/postmark/POST';
 ```
 
 **SMS:** [Twilio SMS], [NHN Cloud SMS]
 
-```js
+```ts
 import { sendSms } from 'new-request/sms/twilio/2010-04-01/POST';
 import { sendSms } from 'new-request/sms/nhn/v3.0/POST';
 ```
 
 **Message:** [Pushover], [NHN Dooray!]
 
-```js
+```ts
 import { pushMessage } from 'new-request/message/pushover/1';
 import { sendMessage } from 'new-request/message/dooray';
 ```
 
 **TTS:** [CLOVA Voice]
 
-```js
+```ts
 import { textToSpeech } from 'new-request/tts/naver/v1';
 ```
 
 **Misc:** [NEIS 학교 기본 정보]
 
-```js
+```ts
 import { searchSchool } from 'new-request/misc/neis/info';
 ```
