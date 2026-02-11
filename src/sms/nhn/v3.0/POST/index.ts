@@ -8,7 +8,8 @@ export const sendSms = async <TemplateKeys extends string = never>(
 	const request = new Request(
 		new URL(
 			`/sms/v3.0/appKeys/${opts.appKey}/sender/${requestBody.type}`,
-			'https://api-sms.cloud.toast.com',
+			// See https://www.nhncloud.com/kr/support/notice/7645
+			'https://sms.api.nhncloudservice.com',
 		),
 		{
 			method: 'POST',
