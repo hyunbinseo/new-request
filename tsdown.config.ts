@@ -2,8 +2,10 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
 	entry: 'src/**/index.ts',
-	format: ['esm'],
 	dts: true,
-	clean: true,
+	format: ['esm'],
 	platform: 'neutral',
+	exports: true,
+	publint: true,
+	attw: { profile: 'esm-only' },
 });

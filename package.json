@@ -7,17 +7,18 @@
 	},
 	"type": "module",
 	"scripts": {
-		"prepack": "tsdown && publint",
-		"version": "tsdown && node cli/exports.ts && git add package.json",
+		"build": "tsdown",
+		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"check": "tsc --noEmit",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@types/node": "^24.10.1",
-		"prettier": "^3.6.2",
-		"publint": "^0.3.15",
-		"tsdown": "^0.16.7",
+		"@arethetypeswrong/core": "^0.18.2",
+		"@types/node": "^24.11.0",
+		"prettier": "^3.8.1",
+		"publint": "^0.3.18",
+		"tsdown": "^0.20.3",
 		"typescript": "^5.9.3",
 		"valibot": "^1.2.0"
 	},
@@ -31,7 +32,8 @@
 		"./sms/nhn/v3.0/POST": "./dist/sms/nhn/v3.0/POST/index.js",
 		"./sms/twilio/2010-04-01/POST": "./dist/sms/twilio/2010-04-01/POST/index.js",
 		"./tts/naver/v1": "./dist/tts/naver/v1/index.js",
-		"./webhook/dooray": "./dist/webhook/dooray/index.js"
+		"./webhook/dooray": "./dist/webhook/dooray/index.js",
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"dist"
@@ -46,5 +48,5 @@
 		"url": "https://github.com/hyunbinseo/new-request/issues"
 	},
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
-	"packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
+	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }
