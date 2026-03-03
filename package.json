@@ -1,27 +1,21 @@
 {
 	"name": "new-request",
-	"description": "Type-check and autocomplete for 3rd party REST API requests",
 	"version": "0.0.34",
-	"engines": {
-		"node": ">=18"
+	"description": "Type-check and autocomplete for 3rd party REST API requests",
+	"homepage": "https://github.com/hyunbinseo/new-request#readme",
+	"bugs": {
+		"url": "https://github.com/hyunbinseo/new-request/issues"
 	},
+	"license": "MIT",
+	"author": "Hyunbin Seo",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hyunbinseo/new-request.git"
+	},
+	"files": [
+		"dist"
+	],
 	"type": "module",
-	"scripts": {
-		"build": "tsdown",
-		"version": "tsdown && git add package.json",
-		"postversion": "git push && git push --tags && node cli/postversion.ts",
-		"check": "tsc --noEmit",
-		"format": "prettier --write ."
-	},
-	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.2",
-		"@types/node": "^24.11.0",
-		"prettier": "^3.8.1",
-		"publint": "^0.3.18",
-		"tsdown": "^0.20.3",
-		"typescript": "^5.9.3",
-		"valibot": "^1.2.0"
-	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
@@ -35,18 +29,25 @@
 		"./webhook/dooray": "./dist/webhook/dooray/index.js",
 		"./package.json": "./package.json"
 	},
-	"files": [
-		"dist"
-	],
-	"author": "Hyunbin Seo",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/hyunbinseo/new-request.git"
+	"scripts": {
+		"build": "tsdown",
+		"version": "tsdown && git add package.json",
+		"postversion": "git push && git push --tags && node cli/postversion.ts",
+		"check": "tsc --noEmit",
+		"fmt": "oxfmt",
+		"fmt:check": "oxfmt --check"
 	},
-	"bugs": {
-		"url": "https://github.com/hyunbinseo/new-request/issues"
+	"devDependencies": {
+		"@arethetypeswrong/core": "^0.18.2",
+		"@types/node": "^24.11.0",
+		"oxfmt": "^0.36.0",
+		"publint": "^0.3.18",
+		"tsdown": "^0.20.3",
+		"typescript": "^5.9.3",
+		"valibot": "^1.2.0"
 	},
-	"homepage": "https://github.com/hyunbinseo/new-request#readme",
+	"engines": {
+		"node": ">=18"
+	},
 	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }

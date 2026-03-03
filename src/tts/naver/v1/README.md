@@ -22,41 +22,41 @@ const { CLIENT_ID, CLIENT_SECRET } = env;
 if (!CLIENT_ID || !CLIENT_SECRET) throw new TypeError();
 
 const saveAsFile = async (text: string, file: string) => {
-  const response = await textToSpeech(
-    {
-      text,
-      speaker: {
-        language: '한국어',
-        isWoman: true,
-        isChild: false,
-        isPro: false,
-        // 위 항목 4개를 채우고 나면 name부터 자동완성됨
-        name: '유나', // 예를 들어 `유나`라고 입력했다면
-        code: 'nyuna', // 코드는 `nyuna`로 자동완성됨
-      },
-    },
-    // 애플리케이션 등록 시 발급 받은 ID, Secret 값 입력
-    { clientId: CLIENT_ID, clientSecret: CLIENT_SECRET },
-  );
+	const response = await textToSpeech(
+		{
+			text,
+			speaker: {
+				language: '한국어',
+				isWoman: true,
+				isChild: false,
+				isPro: false,
+				// 위 항목 4개를 채우고 나면 name부터 자동완성됨
+				name: '유나', // 예를 들어 `유나`라고 입력했다면
+				code: 'nyuna', // 코드는 `nyuna`로 자동완성됨
+			},
+		},
+		// 애플리케이션 등록 시 발급 받은 ID, Secret 값 입력
+		{ clientId: CLIENT_ID, clientSecret: CLIENT_SECRET },
+	);
 
-  if (response instanceof Error || !response.ok) throw new Error();
+	if (response instanceof Error || !response.ok) throw new Error();
 
-  const writeStream = createWriteStream(file);
+	const writeStream = createWriteStream(file);
 
-  await pipeline(
-    // @ts-expect-error Two different definitions.
-    // Reference https://stackoverflow.com/a/66629140
-    Readable.fromWeb(response.body),
-    writeStream,
-  );
+	await pipeline(
+		// @ts-expect-error Two different definitions.
+		// Reference https://stackoverflow.com/a/66629140
+		Readable.fromWeb(response.body),
+		writeStream,
+	);
 };
 
 await saveAsFile(
-  `석양이 지는 하늘에 물들어 밤을 기다리는 낮
+	`석양이 지는 하늘에 물들어 밤을 기다리는 낮
 다시 태어나도 종착할 여기 포인트 니모에서
 멀어져 가는 그때의 나와 그 곁에 너에게
 사랑한다 말하고 싶어`,
-  join(import.meta.dirname, '윤하 - 포인트 니모.mp3'),
+	join(import.meta.dirname, '윤하 - 포인트 니모.mp3'),
 );
 ```
 

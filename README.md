@@ -16,12 +16,12 @@ Supports [Twilio SMS], [SendGrid], [Postmark], and more. [Show all](#services)
 ```ts
 // before - nothing is typed
 await fetch('https://api.sendgrid.com/v3/mail/send', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer secret`,
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(body),
+	method: 'POST',
+	headers: {
+		'Authorization': `Bearer secret`,
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify(body),
 });
 
 // after - fully typed request and response
@@ -63,33 +63,33 @@ import { sendEmail, type Options } from 'new-request/email/send-grid/v3/POST';
 
 // Options can be modularized and exported
 const options: Options = {
-  apiKey: 'SG.your_api_key_here',
-  from: { email: 'sender@example.com' },
+	apiKey: 'SG.your_api_key_here',
+	from: { email: 'sender@example.com' },
 };
 
 const response = await sendEmail(
-  {
-    // Request body matches the SendGrid API for easy migration
-    // https://www.twilio.com/docs/sendgrid/api-reference/mail-send
-    personalizations: [{ to: [{ email: 'recipient@example.com' }] }],
-    subject: 'Hello World',
-    content: [{ type: 'text/plain', value: 'Email body' }],
-    from: { email: 'sender@example.com' }, // optional override
-  },
-  options,
+	{
+		// Request body matches the SendGrid API for easy migration
+		// https://www.twilio.com/docs/sendgrid/api-reference/mail-send
+		personalizations: [{ to: [{ email: 'recipient@example.com' }] }],
+		subject: 'Hello World',
+		content: [{ type: 'text/plain', value: 'Email body' }],
+		from: { email: 'sender@example.com' }, // optional override
+	},
+	options,
 );
 
 if (response instanceof Error) {
-  // Network error or fetch failure
-  console.error('Request failed:', response.message);
-  return;
+	// Network error or fetch failure
+	console.error('Request failed:', response.message);
+	return;
 }
 
 if (!response.ok) {
-  response.status; // 400 | 401 | 403 | 404 | 413 | 500
-  if (response.status !== 500) response.body; // 4xx error details
-  if (response.status === 500) response.body; // 5xx error details
-  return;
+	response.status; // 400 | 401 | 403 | 404 | 413 | 500
+	if (response.status !== 500) response.body; // 4xx error details
+	if (response.status === 500) response.body; // 5xx error details
+	return;
 }
 
 response.status; // 202 Accepted
