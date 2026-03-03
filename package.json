@@ -1,6 +1,6 @@
 {
 	"name": "new-request",
-	"version": "0.0.34",
+	"version": "0.0.36",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
 	"bugs": {
