@@ -1,13 +1,13 @@
 import { doesNotThrow } from 'node:assert';
-import { env, loadEnvFile } from 'node:process';
+import { env } from 'node:process';
 import test from 'node:test';
 import { digits, length, nullable, object, parse, pipe, string } from 'valibot';
 import { searchSchool } from './index.ts';
 
-loadEnvFile('.env.local');
-if (!env.NEIS_API_KEY) throw new TypeError();
+const { NEIS_API_KEY } = env;
+if (!NEIS_API_KEY) throw new TypeError();
 
-const response = await searchSchool({ educationOffice: 'V10' }, { apiKey: env.NEIS_API_KEY });
+const response = await searchSchool({ educationOffice: 'V10' }, { apiKey: NEIS_API_KEY });
 if (response instanceof Error) throw response;
 if (!response.ok || !response.schools.length) throw new Error();
 

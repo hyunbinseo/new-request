@@ -35,7 +35,8 @@
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"check": "tsc --noEmit",
 		"fmt": "oxfmt",
-		"fmt:check": "oxfmt --check"
+		"fmt:check": "oxfmt --check",
+		"test": "node --env-file=.env --test"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.2",

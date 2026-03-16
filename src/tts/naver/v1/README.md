@@ -16,7 +16,7 @@ import { env, loadEnvFile } from 'node:process';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
-loadEnvFile(join(import.meta.dirname, '.env'));
+loadEnvFile();
 
 const { CLIENT_ID, CLIENT_SECRET } = env;
 if (!CLIENT_ID || !CLIENT_SECRET) throw new TypeError();
