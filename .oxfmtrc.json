@@ -4,5 +4,8 @@
 	"singleQuote": true,
 	"quoteProps": "consistent",
 	"trailingComma": "all",
-	"printWidth": 100
+	"printWidth": 100,
+	"sortImports": {
+		"newlinesBetween": false
+	}
 }
