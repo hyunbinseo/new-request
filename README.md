@@ -125,9 +125,3 @@ import { sendMessage } from 'new-request/message/dooray';
 ```ts
 import { textToSpeech } from 'new-request/tts/naver/v1';
 ```
-
-**Misc:** [NEIS 학교 기본 정보]
-
-```ts
-import { searchSchool } from 'new-request/misc/neis/info';
-```

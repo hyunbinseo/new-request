@@ -37,8 +37,7 @@
 		"fmt": "oxfmt",
 		"fmt:check": "oxfmt --check",
 		"lint": "oxlint",
-		"lint:fix": "oxlint --fix",
-		"test": "node --env-file=.env --test"
+		"lint:fix": "oxlint --fix"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.2",
