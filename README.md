@@ -116,12 +116,12 @@ import { sendSms } from 'new-request/sms/nhn/v3.0/POST';
 **Message:** [Pushover], [NHN Dooray!]
 
 ```ts
-import { pushMessage } from 'new-request/message/pushover/1';
-import { sendMessage } from 'new-request/message/dooray';
+import { pushMessage } from 'new-request/message/pushover/1/POST';
+import { sendMessage } from 'new-request/message/dooray/POST';
 ```
 
 **TTS:** [CLOVA Voice]
 
 ```ts
-import { textToSpeech } from 'new-request/tts/naver/v1';
+import { textToSpeech } from 'new-request/tts/naver/v1/POST';
 ```

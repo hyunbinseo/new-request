@@ -9,7 +9,7 @@ CLIENT_SECRET=""
 ```
 
 ```ts
-import { textToSpeech } from 'new-request/tts/naver/v1';
+import { textToSpeech } from 'new-request/tts/naver/v1/POST';
 import { createWriteStream } from 'node:fs';
 import { join } from 'node:path';
 import { env, loadEnvFile } from 'node:process';

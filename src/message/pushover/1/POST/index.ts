@@ -1,4 +1,4 @@
-import type { Status4xx } from '../../../types.ts';
+import type { Status4xx } from '../../../../types.ts';
 import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './types.ts';
 export type { Options, RequestBody };
 
