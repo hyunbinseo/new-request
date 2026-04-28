@@ -1,6 +1,6 @@
 {
 	"name": "new-request",
-	"version": "0.0.36",
+	"version": "0.0.40",
 	"description": "Type-check and autocomplete for 3rd party REST API requests",
 	"homepage": "https://github.com/hyunbinseo/new-request#readme",
 	"bugs": {
@@ -22,14 +22,11 @@
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
-		"./message/dooray": "./dist/message/dooray/index.js",
-		"./message/pushover/1": "./dist/message/pushover/1/index.js",
-		"./misc/neis/info": "./dist/misc/neis/info/index.js",
-		"./sms/nhn/3.0/POST": "./dist/sms/nhn/3.0/POST/index.js",
+		"./message/dooray/POST": "./dist/message/dooray/POST/index.js",
+		"./message/pushover/1/POST": "./dist/message/pushover/1/POST/index.js",
 		"./sms/nhn/v3.0/POST": "./dist/sms/nhn/v3.0/POST/index.js",
 		"./sms/twilio/2010-04-01/POST": "./dist/sms/twilio/2010-04-01/POST/index.js",
-		"./tts/naver/v1": "./dist/tts/naver/v1/index.js",
-		"./webhook/dooray": "./dist/webhook/dooray/index.js",
+		"./tts/naver/v1/POST": "./dist/tts/naver/v1/POST/index.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {
