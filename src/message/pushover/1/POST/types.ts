@@ -1,4 +1,4 @@
-// Reference https://pushover.net/api
+// See https://pushover.net/api
 
 export type Options = {
 	token: string;

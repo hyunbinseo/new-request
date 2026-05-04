@@ -1,4 +1,4 @@
-// Reference https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+// See https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 
 export type Status4xx =
 	| 400

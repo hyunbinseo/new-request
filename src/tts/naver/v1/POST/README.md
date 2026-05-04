@@ -45,7 +45,7 @@ const saveAsFile = async (text: string, file: string) => {
 
 	await pipeline(
 		// @ts-expect-error Two different definitions.
-		// Reference https://stackoverflow.com/a/66629140
+		// See https://stackoverflow.com/a/66629140
 		Readable.fromWeb(response.body),
 		writeStream,
 	);

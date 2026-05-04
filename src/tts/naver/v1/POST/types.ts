@@ -1,4 +1,4 @@
-// Reference https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium
+// See https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium
 
 export type Options = {
 	clientId: string;

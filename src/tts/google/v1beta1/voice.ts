@@ -1,4 +1,4 @@
-// Reference https://cloud.google.com/text-to-speech/docs/voices
+// See https://cloud.google.com/text-to-speech/docs/voices
 
 export type VoiceSelectionParams =
 	| {

@@ -9,7 +9,7 @@ export type Options = {
 	fetch?: typeof fetch;
 };
 
-// Reference https://docs.sendgrid.com/for-developers/sending-email/personalizations
+// See https://docs.sendgrid.com/for-developers/sending-email/personalizations
 type Personalization = { to: Array<Email> } & Partial<{
 	cc: Array<Email>;
 	bcc: Array<Email>;
@@ -21,7 +21,7 @@ type Personalization = { to: Array<Email> } & Partial<{
 	send_at: number;
 }>;
 
-// Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
+// See https://docs.sendgrid.com/api-reference/mail-send/mail-send
 export type RequestBody = {
 	personalizations: Array<Personalization>;
 	from?: Email;
@@ -57,7 +57,7 @@ export type RequestBody = {
 	// tracking_settings
 }>;
 
-// Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
+// See https://docs.sendgrid.com/api-reference/mail-send/mail-send
 export type ResponseBody4xx = {
 	errors: Array<{
 		message: string;
@@ -67,5 +67,5 @@ export type ResponseBody4xx = {
 	id?: string;
 };
 
-// Reference https://docs.sendgrid.com/api-reference/mail-send/mail-send
+// See https://docs.sendgrid.com/api-reference/mail-send/mail-send
 export type ResponseBody5xx = { errors: Array<{ message?: string }> };

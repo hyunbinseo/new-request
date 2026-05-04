@@ -1,4 +1,4 @@
-// Reference https://postmarkapp.com/developer/api/email-api
+// See https://postmarkapp.com/developer/api/email-api
 
 export type Options = {
 	serverToken: string;
@@ -43,7 +43,7 @@ export type ResponseBody4xx = {
 	Message: string;
 };
 
-// Reference https://postmarkapp.com/developer/api/overview#error-codes
+// See https://postmarkapp.com/developer/api/overview#error-codes
 type ErrorCode =
 	| 10
 	| 11

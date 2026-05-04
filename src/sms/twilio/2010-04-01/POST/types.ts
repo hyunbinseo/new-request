@@ -1,4 +1,4 @@
-// Reference https://www.twilio.com/docs/usage/api
+// See https://www.twilio.com/docs/usage/api
 
 export type Options = {
 	accountSid: string;
@@ -7,10 +7,10 @@ export type Options = {
 	fetch?: typeof fetch;
 };
 
-// Reference https://www.twilio.com/docs/usage/requests-to-twilio
+// See https://www.twilio.com/docs/usage/requests-to-twilio
 export type RequestBody = {
 	// The message content is specified via one of the following parameters:
-	// Reference https://www.twilio.com/docs/messaging/api/message-resource
+	// See https://www.twilio.com/docs/messaging/api/message-resource
 	from?: string;
 	body: string;
 	to: string;
@@ -31,7 +31,7 @@ type Status =
 // | 'partially_delivered'
 // | 'canceled';
 
-// Reference https://www.twilio.com/docs/usage/twilios-response
+// See https://www.twilio.com/docs/usage/twilios-response
 export type ResponseBody = {
 	account_sid: string;
 	api_version: '2010-04-01';
@@ -40,7 +40,7 @@ export type ResponseBody = {
 	date_sent: null | string;
 	date_updated: string;
 	direction: 'outbound-api';
-	// Reference https://www.twilio.com/docs/api/errors
+	// See https://www.twilio.com/docs/api/errors
 	error_code: null | number;
 	error_message: null | string;
 	from: string;
@@ -57,7 +57,7 @@ export type ResponseBody = {
 	uri: string;
 };
 
-// Reference https://www.twilio.com/docs/usage/twilios-response
+// See https://www.twilio.com/docs/usage/twilios-response
 export type ResponseBodyException = {
 	status: number;
 	message: string;
