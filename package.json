@@ -22,6 +22,7 @@
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
+		"./message/bizgo/v1/send/omni/POST": "./dist/message/bizgo/v1/send/omni/POST/index.js",
 		"./message/dooray/POST": "./dist/message/dooray/POST/index.js",
 		"./message/pushover/1/POST": "./dist/message/pushover/1/POST/index.js",
 		"./sms/nhn/v3.0/POST": "./dist/sms/nhn/v3.0/POST/index.js",

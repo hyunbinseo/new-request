@@ -1,17 +1,12 @@
-[CLOVA Voice]: https://www.ncloud.com/product/aiService/clovaVoice
-[NEIS 학교 기본 정보]: https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17020190531110010104913&infSeq=2
-[NHN Cloud SMS]: https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/
-[NHN Dooray!]: https://dooray.com/
-[Postmark]: https://postmarkapp.com/
-[Pushover]: https://pushover.net/
-[SendGrid]: https://sendgrid.com/
-[Twilio SMS]: https://www.twilio.com/
-
 # new-request
 
 Type-safe wrappers for third-party REST APIs.
 
-Supports [Twilio SMS], [SendGrid], [Postmark], and more. [Show all](#services)
+Supports [Twilio], [SendGrid], [Postmark], and more. [Show all](#services)
+
+[Twilio]: https://www.twilio.com/
+[SendGrid]: https://sendgrid.com/
+[Postmark]: https://postmarkapp.com/
 
 ```ts
 // before - nothing is typed
@@ -97,30 +92,43 @@ response.status; // 202 Accepted
 
 ## Services
 
-**Email:** [SendGrid], [Postmark]
+### Email
+
+- [SendGrid](https://sendgrid.com/)
+- [Postmark](https://postmarkapp.com/)
 
 <!-- Resend's official Node.js SDK uses the Fetch API. -->
 
 ```ts
-import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 import { sendEmail } from 'new-request/email/postmark/POST';
+import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 ```
 
-**SMS:** [Twilio SMS], [NHN Cloud SMS]
+### Message (Web Hook, Push, etc.)
+
+- [Pushover](https://pushover.net/)
+- [비즈고](https://developers.bizgo.io/) (문자, RCS, 카카오 비즈메시지, 네이버 톡톡)
+- [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
-import { sendSms } from 'new-request/sms/twilio/2010-04-01/POST';
-import { sendSms } from 'new-request/sms/nhn/v3.0/POST';
-```
-
-**Message:** [Pushover], [NHN Dooray!]
-
-```ts
-import { pushMessage } from 'new-request/message/pushover/1/POST';
+import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
+import { pushMessage } from 'new-request/message/pushover/1/POST';
 ```
 
-**TTS:** [CLOVA Voice]
+### SMS
+
+- [Twilio](https://www.twilio.com/en-us/messaging/channels/sms)
+- [NHN Cloud Notification](https://docs.nhncloud.com/ko/Notification/SMS/ko/Overview/)
+
+```ts
+import { sendSms } from 'new-request/sms/nhn/v3.0/POST';
+import { sendSms } from 'new-request/sms/twilio/2010-04-01/POST';
+```
+
+### TTS
+
+- [CLOVA Voice](https://www.ncloud.com/product/aiService/clovaVoice)
 
 ```ts
 import { textToSpeech } from 'new-request/tts/naver/v1/POST';
