@@ -26,12 +26,17 @@ type AlimtalkButton = {
 	telNumber?: string;
 };
 
-export type AlimtalkMessage = {
-	msgType: 'AT' | 'AI';
+type AlimtalkMessageBase = {
 	senderKey: string;
 	templateCode: string;
 	responseMethod?: string;
 	timeout?: string;
+	price?: string;
+	currencyType?: string;
+};
+
+type AlimtalkMessageRegular = AlimtalkMessageBase & {
+	msgType: 'AT' | 'AI';
 	text: string;
 	title?: string;
 	header?: string;
@@ -57,11 +62,9 @@ export type AlimtalkMessage = {
 			}[];
 		};
 	};
-	price?: string;
-	currencyType?: string;
-	paymentCode?: string;
-	groupKey?: string;
-	idempotencyKey?: string;
-	idempotencyTtl?: number;
-	ref?: string;
+	sendType?: never;
 };
+
+type AlimtalkMessageTemplate = AlimtalkMessageBase & { sendType: 'template' };
+
+export type AlimtalkMessage = AlimtalkMessageRegular | AlimtalkMessageTemplate;

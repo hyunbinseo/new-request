@@ -39,6 +39,10 @@ export type Options = {
 export type RequestBody = {
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
+	paymentCode?: string;
+	groupKey?: string;
+	idempotencyKey?: string;
+	idempotencyTtl?: number;
 	ref?: string;
 };
 
@@ -53,7 +57,7 @@ type DestinationResult = {
 	msgKey: string;
 	code: string;
 	result: string;
-	ref: string;
+	ref?: string;
 };
 
 export type ResponseBody = {
@@ -64,7 +68,7 @@ export type ResponseBody = {
 		data: {
 			destinations: DestinationResult[];
 		};
-		ref: string;
+		ref?: string;
 	};
 };
 

@@ -25,6 +25,4 @@ export type NaverTalkMessage = {
 		label?: string;
 		value?: string;
 	};
-	groupKey?: string;
-	paymentCode?: string;
 };

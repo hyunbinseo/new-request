@@ -5,9 +5,4 @@ export type SmsMessage = {
 	text: string;
 	ttl?: string;
 	originCID?: string;
-	paymentCode?: string;
-	groupKey?: string;
-	idempotencyKey?: string;
-	idempotencyTtl?: number;
-	ref?: string;
 };

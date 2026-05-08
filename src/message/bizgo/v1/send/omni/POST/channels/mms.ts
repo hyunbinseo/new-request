@@ -7,9 +7,4 @@ export type MmsMessage = {
 	fileKey?: string[];
 	ttl?: string;
 	originCID?: string;
-	paymentCode?: string;
-	groupKey?: string;
-	idempotencyKey?: string;
-	idempotencyTtl?: number;
-	ref?: string;
 };

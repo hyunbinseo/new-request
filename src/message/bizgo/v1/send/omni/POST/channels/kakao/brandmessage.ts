@@ -12,6 +12,7 @@ type BrandMessageButton = {
 	bizFormKey?: string;
 };
 
+// MAYBE split into a discriminated union based on `sendType`
 export type BrandMessage = {
 	senderKey: string;
 	sendType: 'basic' | 'template' | 'free';
@@ -22,23 +23,22 @@ export type BrandMessage = {
 	header?: string;
 	additionalContent?: string;
 	pushAlarm?: string;
-	groupTagKey?: string;
-	adult?: string;
-	adFlag?: string;
 	originCID?: string;
 	unsubscribePhoneNumber?: string;
 	unsubscribeAuthNumber?: string;
-	paymentCode?: string;
-	groupKey?: string;
-	idempotencyKey?: string;
-	idempotencyTtl?: number;
-	messageVariable?: object;
-	buttonVariable?: object;
-	couponVariable?: object;
-	imageVariable?: object;
-	videoVariable?: object;
-	commerceVariable?: object;
-	carouselVariable?: object[];
+	messageVariable?: Record<string, unknown>;
+	buttonVariable?: Record<string, unknown>;
+	couponVariable?: Record<string, unknown>;
+	imageVariable?: Record<string, unknown>;
+	videoVariable?: Record<string, unknown>;
+	commerceVariable?: Record<string, unknown>;
+	carouselVariable?: {
+		messageVariable?: Record<string, unknown>;
+		buttonVariable?: Record<string, unknown>;
+		couponVariable?: Record<string, unknown>;
+		imageVariable?: Record<string, unknown>;
+		commerceVariable?: Record<string, unknown>;
+	}[];
 	attachment?: {
 		button?: BrandMessageButton[];
 		image?: { imgUrl: string; imgLink?: string };
@@ -78,7 +78,30 @@ export type BrandMessage = {
 				schemeAndroid?: string;
 				schemeIos?: string;
 			};
-			list?: object[];
+			list?: {
+				header?: string;
+				message?: string;
+				additionalContent?: string;
+				attachment?: {
+					button?: BrandMessageButton[];
+					image?: { imgUrl: string; imgLink?: string };
+					coupon?: {
+						title: string;
+						description: string;
+						urlPc?: string;
+						urlMobile?: string;
+						schemeAndroid?: string;
+						schemeIos?: string;
+					};
+					commerce?: {
+						title: string;
+						regularPrice: number;
+						discountPrice?: number;
+						discountRate?: number;
+						discountFixed?: number;
+					};
+				};
+			}[];
 			tail?: {
 				urlMobile: string;
 				urlPc?: string;

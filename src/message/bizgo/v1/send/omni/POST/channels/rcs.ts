@@ -8,7 +8,7 @@ type RcsButtonAction = {
 			location: { latitude: number; longitude: number; label?: number };
 			query: string;
 			fallbackUrl?: string;
-			requestLocationPush?: object;
+			requestLocationPush?: Record<string, unknown>;
 		};
 	};
 	calendarAction?: {
@@ -47,8 +47,7 @@ export type RcsMessage = {
 	agencyId?: string;
 	agencyKey?: string;
 	ttl?: string;
-	paymentCode?: string;
-	groupKey?: string;
-	idempotencyKey?: string;
-	idempotencyTtl?: number;
+	copyAllowed?: string;
+	header?: string;
+	footer?: string;
 };
