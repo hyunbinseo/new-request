@@ -92,6 +92,9 @@ response.status; // 202 Accepted
 
 ## Services
 
+> [!NOTE]
+> 나이스 교육정보 개방 포털 학교기본정보 was removed. Use [`neis-school-info`](https://github.com/hyunbinseo/neis-school-info) instead.
+
 ### Email
 
 - [SendGrid](https://sendgrid.com/)
