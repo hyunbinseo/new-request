@@ -16,6 +16,7 @@
 		"dist"
 	],
 	"type": "module",
+	"sideEffects": false,
 	"imports": {
 		"#lib/*": "./src/lib/*",
 		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*"
@@ -31,28 +32,42 @@
 		"./tts/naver/v1/POST": "./dist/tts/naver/v1/POST/index.js",
 		"./package.json": "./package.json"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"prepack": "tsdown",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
-		"check": "tsc --noEmit",
 		"fmt": "oxfmt",
 		"fmt:check": "oxfmt --check",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.2",
-		"@types/node": "^24.12.3",
-		"oxfmt": "^0.48.0",
-		"oxlint": "^1.63.0",
-		"publint": "^0.3.19",
-		"tsdown": "^0.22.0",
-		"typescript": "^6.0.3",
-		"valibot": "^1.4.0"
+		"@arethetypeswrong/core": "^0.18.5",
+		"@types/node": "^24.13.3",
+		"oxfmt": "^0.67.0",
+		"oxlint": "^1.82.0",
+		"oxlint-tsgolint": "^7.0.2001",
+		"publint": "^0.3.24",
+		"tsdown": "^0.23.0",
+		"typescript": "^7.0.2",
+		"valibot": "^1.4.2"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.4.0",
+			"onFail": "download"
+		},
+		"runtime": {
+			"name": "node",
+			"version": "24.21.0",
+			"onFail": "download"
+		}
 	},
 	"engines": {
 		"node": ">=18"
-	},
-	"packageManager": "pnpm@11.0.8+sha512.4c4097e1dd2d42372c4e7fa5a791ff28fc75a484c7ac192e64b1df0fdef17594ba982f9b4fed9adfb3c757846f565b799b2763fb3733d1de1bcb82cf46684912"
+	}
 }

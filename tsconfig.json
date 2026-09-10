@@ -2,8 +2,8 @@
 	"compilerOptions": {
 		// Environment Settings
 		"module": "nodenext",
-		"target": "esnext",
-		"lib": ["ES2022"], // See https://node.green/#ES2022
+		"target": "es2022",
+		"lib": ["es2022"],
 		"types": ["node"],
 
 		// Other Outputs
@@ -34,5 +34,6 @@
 		"noUncheckedSideEffectImports": true,
 		"moduleDetection": "force",
 		"skipLibCheck": true
-	}
+	},
+	"exclude": ["dist"]
 }
