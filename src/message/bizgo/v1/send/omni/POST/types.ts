@@ -1,9 +1,9 @@
-import type { AlimtalkMessage } from './channels/kakao/alimtalk.ts';
-import type { BrandMessage } from './channels/kakao/brandmessage.ts';
-import type { MmsMessage } from './channels/mms.ts';
-import type { NaverTalkMessage } from './channels/naver/navertalk.ts';
-import type { RcsMessage } from './channels/rcs.ts';
-import type { SmsMessage } from './channels/sms.ts';
+import type { AlimtalkMessage } from '#bizgo/channels/kakao/alimtalk.ts';
+import type { BrandMessage } from '#bizgo/channels/kakao/brandmessage.ts';
+import type { MmsMessage } from '#bizgo/channels/mms.ts';
+import type { NaverTalkMessage } from '#bizgo/channels/navertalk.ts';
+import type { RcsMessage } from '#bizgo/channels/rcs.ts';
+import type { SmsMessage } from '#bizgo/channels/sms.ts';
 
 export type {
 	AlimtalkMessage, //

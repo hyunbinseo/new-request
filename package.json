@@ -17,7 +17,8 @@
 	],
 	"type": "module",
 	"imports": {
-		"#lib/*": "./src/lib/*"
+		"#lib/*": "./src/lib/*",
+		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*"
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
