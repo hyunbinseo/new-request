@@ -1,0 +1,13 @@
+{
+	"mcpServers": {
+		"chrome-devtools": {
+			"type": "stdio",
+			"command": "pnpm",
+			"args": ["dlx", "chrome-devtools-mcp@latest", "--no-usage-statistics"]
+		},
+		"valibot": {
+			"type": "http",
+			"url": "https://valibot.dev/mcp"
+		}
+	}
+}
