@@ -38,6 +38,7 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
+		"test": "node --test src/**/*.test.ts",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
