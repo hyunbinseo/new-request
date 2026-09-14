@@ -11,7 +11,11 @@ export type Options = {
 };
 
 export type RequestBody = {
-	/** Uses KST (Asia/Seoul), e.g. `2026-05-01 10:00:00`. */
+	/**
+	 * Uses KST (Asia/Seoul), e.g. `2026-05-01 10:00:00`.
+	 * Must be at least 10 minutes and at most 1 year from now.
+	 * See https://community.bizgo.io/t/topic/91/3
+	 */
 	resvSendTime: string;
 	resvName?: string;
 };
