@@ -2,15 +2,17 @@ import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
 export const getReservation = async (resvKey: string, opts: Options) => {
-	const request = new Request(
-		new URL(`/api/comm/v1/reservation/resvKey/${resvKey}`, opts.baseURL ?? 'https://mars.ibapi.kr'),
-		{
-			method: 'GET',
-			headers: { Authorization: opts.apiKey },
-		},
-	);
-
 	try {
+		const request = new Request(
+			new URL(
+				`/api/comm/v1/reservation/resvKey/${resvKey}`,
+				opts.baseURL ?? 'https://mars.ibapi.kr',
+			),
+			{
+				method: 'GET',
+				headers: { Authorization: opts.apiKey },
+			},
+		);
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok

@@ -6,19 +6,21 @@ export const updateReservation = async (
 	requestBody: RequestBody,
 	opts: Options,
 ) => {
-	const request = new Request(
-		new URL(`/api/comm/v1/reservation/resvKey/${resvKey}`, opts.baseURL ?? 'https://mars.ibapi.kr'),
-		{
-			method: 'PUT',
-			headers: {
-				'Authorization': opts.apiKey,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(requestBody),
-		},
-	);
-
 	try {
+		const request = new Request(
+			new URL(
+				`/api/comm/v1/reservation/resvKey/${resvKey}`,
+				opts.baseURL ?? 'https://mars.ibapi.kr',
+			),
+			{
+				method: 'PUT',
+				headers: {
+					'Authorization': opts.apiKey,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(requestBody),
+			},
+		);
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok

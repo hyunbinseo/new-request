@@ -117,3 +117,16 @@ void test('returns an Error when the fetch call throws', async () => {
 	assert.ok(result instanceof Error);
 	assert.equal(result.message, 'network down');
 });
+
+void test('returns an Error instead of throwing when request construction fails', async () => {
+	const result = await createReservation(
+		{
+			destinations: [{ to: '01000000000' }],
+			messageFlow: [{ sms: { from: '01000000000', text: 'test' } }],
+			resvSendTime: '2026-05-01 10:00:00',
+		},
+		{ apiKey: 'invalid\nheader\nvalue' },
+	);
+
+	assert.ok(result instanceof Error);
+});
