@@ -114,6 +114,7 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 - [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
+import { reserveMessage } from 'new-request/message/bizgo/v1/reservation/POST';
 import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
