@@ -1,3 +1,5 @@
+// See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
+
 import type { Common, Reservation } from '#bizgo/reservation';
 
 export type Options = {

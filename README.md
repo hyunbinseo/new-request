@@ -117,8 +117,6 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
-
-// 비즈고 예약 발송 (Bizgo Reservation)
 import { createReservation } from 'new-request/message/bizgo/v1/reservation/POST';
 import { listReservations } from 'new-request/message/bizgo/v1/reservation/list/GET';
 import { getReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/GET';

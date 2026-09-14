@@ -1,3 +1,5 @@
+// See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
+
 import type { Common, Reservation } from '#bizgo/reservation';
 
 export type Options = {
@@ -9,7 +11,6 @@ export type Options = {
 };
 
 export type RequestBody = {
-	/** e.g. `2026-05-01 10:00:00` */
 	resvSendTime: string;
 	resvName?: string;
 };

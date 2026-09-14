@@ -1,3 +1,5 @@
+// See https://developers.bizgo.io/api-sdk/api-reference/comm/mt
+
 import type { AlimtalkMessage } from '#bizgo/channels/kakao/alimtalk.ts';
 import type { BrandMessage } from '#bizgo/channels/kakao/brandmessage.ts';
 import type { MmsMessage } from '#bizgo/channels/mms.ts';
@@ -34,7 +36,6 @@ export type Options = {
 export type RequestBody = {
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
-	/** Reservation send time. e.g. `2026-05-01 10:00:00` */
 	resvSendTime: string;
 	resvName?: string;
 	paymentCode?: string;
