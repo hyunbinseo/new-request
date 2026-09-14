@@ -6,18 +6,17 @@ export const deleteReservationDestination = async (
 	msgKey: string,
 	opts: Options,
 ) => {
-	const request = new Request(
-		new URL(
-			`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations/msgKey/${encodeURIComponent(msgKey)}`,
-			opts.baseURL ?? 'https://mars.ibapi.kr',
-		),
-		{
-			method: 'DELETE',
-			headers: { Authorization: opts.apiKey },
-		},
-	);
-
 	try {
+		const request = new Request(
+			new URL(
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations/msgKey/${encodeURIComponent(msgKey)}`,
+				opts.baseURL ?? 'https://mars.ibapi.kr',
+			),
+			{
+				method: 'DELETE',
+				headers: { Authorization: opts.apiKey },
+			},
+		);
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok

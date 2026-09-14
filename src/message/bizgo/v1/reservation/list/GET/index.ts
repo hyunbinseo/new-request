@@ -8,12 +8,11 @@ export const listReservations = async (query: Query, opts: Options) => {
 	if (query.lastSeq !== undefined) url.searchParams.set('lastSeq', query.lastSeq.toString());
 	if (query.limit !== undefined) url.searchParams.set('limit', query.limit.toString());
 
-	const request = new Request(url, {
-		method: 'GET',
-		headers: { Authorization: opts.apiKey },
-	});
-
 	try {
+		const request = new Request(url, {
+			method: 'GET',
+			headers: { Authorization: opts.apiKey },
+		});
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok

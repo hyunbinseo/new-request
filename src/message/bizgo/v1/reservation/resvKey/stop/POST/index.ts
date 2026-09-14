@@ -2,18 +2,17 @@ import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
 export const stopReservation = async (resvKey: string, opts: Options) => {
-	const request = new Request(
-		new URL(
-			`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/stop`,
-			opts.baseURL ?? 'https://mars.ibapi.kr',
-		),
-		{
-			method: 'POST',
-			headers: { Authorization: opts.apiKey },
-		},
-	);
-
 	try {
+		const request = new Request(
+			new URL(
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/stop`,
+				opts.baseURL ?? 'https://mars.ibapi.kr',
+			),
+			{
+				method: 'POST',
+				headers: { Authorization: opts.apiKey },
+			},
+		);
 		const response = await (opts.fetch || fetch)(request);
 		const body = await response.json();
 		return response.ok
