@@ -36,6 +36,7 @@ export type Options = {
 export type RequestBody = {
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
+	/** Uses KST (Asia/Seoul), e.g. `2026-05-01 10:00:00`. */
 	resvSendTime: string;
 	resvName?: string;
 	paymentCode?: string;

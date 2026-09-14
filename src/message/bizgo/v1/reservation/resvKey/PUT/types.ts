@@ -11,6 +11,7 @@ export type Options = {
 };
 
 export type RequestBody = {
+	/** Uses KST (Asia/Seoul), e.g. `2026-05-01 10:00:00`. */
 	resvSendTime: string;
 	resvName?: string;
 };

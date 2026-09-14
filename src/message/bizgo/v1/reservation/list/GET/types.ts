@@ -11,6 +11,7 @@ export type Options = {
 };
 
 export type Query = {
+	/** Uses KST (Asia/Seoul). Accepts month, day, or time granularity, e.g. `2026-05`, `2026-05-01`, `2026-05-01 10:00:00`. */
 	resvSendTime: string;
 	paymentCode?: string;
 	lastSeq?: number;
