@@ -5,7 +5,7 @@ export const cancelReservation = async (resvKey: string, opts: Options) => {
 	try {
 		const request = new Request(
 			new URL(
-				`/api/comm/v1/reservation/resvKey/${resvKey}/cancel`,
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/cancel`,
 				opts.baseURL ?? 'https://mars.ibapi.kr',
 			),
 			{

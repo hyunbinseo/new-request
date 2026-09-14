@@ -27,6 +27,24 @@ void test('sends a GET request to the resvKey endpoint', async () => {
 	assert.equal(request.headers.get('Authorization'), 'test-api-key');
 });
 
+void test('encodes special characters in resvKey', async () => {
+	let request: Request | undefined;
+
+	await getReservation('key/with?special#chars', {
+		...opts,
+		fetch: async (input) => {
+			request = input as Request;
+			return Response.json({});
+		},
+	});
+
+	assert.ok(request);
+	assert.equal(
+		request.url,
+		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars',
+	);
+});
+
 void test('returns ok: false with the parsed body on failure', async () => {
 	const responseBody = {
 		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },

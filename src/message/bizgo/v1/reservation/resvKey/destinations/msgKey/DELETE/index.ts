@@ -9,7 +9,7 @@ export const deleteReservationDestination = async (
 	try {
 		const request = new Request(
 			new URL(
-				`/api/comm/v1/reservation/resvKey/${resvKey}/destinations/msgKey/${msgKey}`,
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations/msgKey/${encodeURIComponent(msgKey)}`,
 				opts.baseURL ?? 'https://mars.ibapi.kr',
 			),
 			{

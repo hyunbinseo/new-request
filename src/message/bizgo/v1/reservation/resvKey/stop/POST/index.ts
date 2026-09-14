@@ -5,7 +5,7 @@ export const stopReservation = async (resvKey: string, opts: Options) => {
 	try {
 		const request = new Request(
 			new URL(
-				`/api/comm/v1/reservation/resvKey/${resvKey}/stop`,
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/stop`,
 				opts.baseURL ?? 'https://mars.ibapi.kr',
 			),
 			{

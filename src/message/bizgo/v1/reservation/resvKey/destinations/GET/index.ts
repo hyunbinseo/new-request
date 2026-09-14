@@ -4,7 +4,7 @@ export type { Options, Query };
 export const listReservationDestinations = async (resvKey: string, query: Query, opts: Options) => {
 	try {
 		const url = new URL(
-			`/api/comm/v1/reservation/resvKey/${resvKey}/destinations`,
+			`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations`,
 			opts.baseURL ?? 'https://mars.ibapi.kr',
 		);
 		if (query.lastSeq !== undefined) url.searchParams.set('lastSeq', query.lastSeq.toString());

@@ -9,7 +9,7 @@ export const addReservationDestinations = async (
 	try {
 		const request = new Request(
 			new URL(
-				`/api/comm/v1/reservation/resvKey/${resvKey}/destinations`,
+				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations`,
 				opts.baseURL ?? 'https://mars.ibapi.kr',
 			),
 			{
