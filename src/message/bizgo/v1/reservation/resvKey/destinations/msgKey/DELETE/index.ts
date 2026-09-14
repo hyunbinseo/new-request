@@ -1,19 +1,19 @@
-import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
-export type { Options, RequestBody };
+import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
+export type { Options };
 
-export const createReservation = async (requestBody: RequestBody, opts: Options) => {
+export const deleteReservationDestination = async (
+	resvKey: string,
+	msgKey: string,
+	opts: Options,
+) => {
 	const request = new Request(
 		new URL(
-			'/api/comm/v1/reservation', //
+			`/api/comm/v1/reservation/resvKey/${resvKey}/destinations/msgKey/${msgKey}`,
 			opts.baseURL ?? 'https://mars.ibapi.kr',
 		),
 		{
-			method: 'POST',
-			headers: {
-				'Authorization': opts.apiKey,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(requestBody),
+			method: 'DELETE',
+			headers: { Authorization: opts.apiKey },
 		},
 	);
 

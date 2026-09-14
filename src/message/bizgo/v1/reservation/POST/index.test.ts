@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { reserveMessage } from './index.ts';
+import { createReservation } from './index.ts';
 
 const opts = { apiKey: 'test-api-key' };
 
 void test('sends a POST request to the reservation endpoint', async () => {
 	let request: Request | undefined;
 
-	await reserveMessage(
+	await createReservation(
 		{
 			destinations: [{ to: '01000000000' }],
 			messageFlow: [{ sms: { from: '01000000000', text: '예약 SMS 발송 테스트입니다.' } }],
@@ -44,7 +44,7 @@ void test('sends a POST request to the reservation endpoint', async () => {
 void test('respects a custom baseURL', async () => {
 	let url: string | undefined;
 
-	await reserveMessage(
+	await createReservation(
 		{
 			destinations: [{ to: '01000000000' }],
 			messageFlow: [{ sms: { from: '01000000000', text: 'test' } }],
@@ -69,7 +69,7 @@ void test('returns ok: true with the parsed body on success', async () => {
 		data: { code: 'A000', result: 'Success', resvKey: 'MO20260501100000abcdef' },
 	};
 
-	const result = await reserveMessage(
+	const result = await createReservation(
 		{
 			destinations: [{ to: '01000000000' }],
 			messageFlow: [{ sms: { from: '01000000000', text: 'test' } }],
@@ -87,7 +87,7 @@ void test('returns ok: false with the parsed body on failure', async () => {
 		data: { code: 'E001', result: 'Fail' },
 	};
 
-	const result = await reserveMessage(
+	const result = await createReservation(
 		{
 			destinations: [{ to: '01000000000' }],
 			messageFlow: [{ sms: { from: '01000000000', text: 'test' } }],
@@ -100,7 +100,7 @@ void test('returns ok: false with the parsed body on failure', async () => {
 });
 
 void test('returns an Error when the fetch call throws', async () => {
-	const result = await reserveMessage(
+	const result = await createReservation(
 		{
 			destinations: [{ to: '01000000000' }],
 			messageFlow: [{ sms: { from: '01000000000', text: 'test' } }],

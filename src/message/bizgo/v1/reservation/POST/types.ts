@@ -4,6 +4,7 @@ import type { MmsMessage } from '#bizgo/channels/mms.ts';
 import type { NaverTalkMessage } from '#bizgo/channels/navertalk.ts';
 import type { RcsMessage } from '#bizgo/channels/rcs.ts';
 import type { SmsMessage } from '#bizgo/channels/sms.ts';
+import type { Common, Destination } from '#bizgo/reservation';
 
 export type {
 	AlimtalkMessage, //
@@ -22,12 +23,6 @@ type MessageFlowItem =
 	| { brandmessage: BrandMessage }
 	| { navertalk: NaverTalkMessage };
 
-type Destination = {
-	to: string;
-	replaceWords?: Record<string, string>;
-	ref?: string;
-};
-
 export type Options = {
 	apiKey: string;
 	baseURL?:
@@ -44,12 +39,6 @@ export type RequestBody = {
 	resvName?: string;
 	paymentCode?: string;
 	ref?: string;
-};
-
-type Common = {
-	authCode: string;
-	authResult: string;
-	infobankTrId: string;
 };
 
 export type ResponseBody = {

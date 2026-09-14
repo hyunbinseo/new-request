@@ -1,14 +1,15 @@
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, RequestBody };
 
-export const createReservation = async (requestBody: RequestBody, opts: Options) => {
+export const updateReservation = async (
+	resvKey: string,
+	requestBody: RequestBody,
+	opts: Options,
+) => {
 	const request = new Request(
-		new URL(
-			'/api/comm/v1/reservation', //
-			opts.baseURL ?? 'https://mars.ibapi.kr',
-		),
+		new URL(`/api/comm/v1/reservation/resvKey/${resvKey}`, opts.baseURL ?? 'https://mars.ibapi.kr'),
 		{
-			method: 'POST',
+			method: 'PUT',
 			headers: {
 				'Authorization': opts.apiKey,
 				'Content-Type': 'application/json',

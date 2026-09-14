@@ -114,10 +114,21 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 - [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
-import { reserveMessage } from 'new-request/message/bizgo/v1/reservation/POST';
 import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
+
+// 비즈고 예약 발송 (Bizgo Reservation)
+import { createReservation } from 'new-request/message/bizgo/v1/reservation/POST';
+import { listReservations } from 'new-request/message/bizgo/v1/reservation/list/GET';
+import { getReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/GET';
+import { updateReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/PUT';
+import { cancelReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/cancel/POST';
+import { stopReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/stop/POST';
+import { resumeReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/resume/POST';
+import { addReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/POST';
+import { listReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/GET';
+import { deleteReservationDestination } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/msgKey/DELETE';
 ```
 
 ### SMS
