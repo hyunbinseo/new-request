@@ -1,1 +1,5 @@
-export { updateReservation, type Options, type RequestBody } from './key/index.ts';
+export {
+	updateReservation,
+	type Options as UpdateReservationOptions,
+	type RequestBody as UpdateReservationRequestBody,
+} from './key/index.ts';
