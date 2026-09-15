@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env } from '../../env.ts';
+import { env, live } from '../../env.ts';
 import { addReservationDestinations } from './index.ts';
 
-const opts = { apiKey: env.BIZGO_API_KEY };
+const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
 void test('sends a POST request with the new destinations', async () => {
 	let request: Request | undefined;
@@ -14,7 +14,8 @@ void test('sends a POST request with the new destinations', async () => {
 		{
 			...opts,
 			fetch: async (input) => {
-				request = input as Request;
+				request = (input as Request).clone();
+				if (live) return fetch(input);
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 					data: { code: 'A000', result: 'Success', data: { inserted: 1 } },
@@ -27,7 +28,7 @@ void test('sends a POST request with the new destinations', async () => {
 	assert.equal(request.method, 'POST');
 	assert.equal(
 		request.url,
-		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations',
+		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations',
 	);
 	assert.deepEqual(await request.json(), {
 		destinations: [{ to: '01000000000', replaceWords: { name: '홍길동' }, ref: 'dest-001' }],

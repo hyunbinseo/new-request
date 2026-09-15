@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env } from '../../env.ts';
+import { env, live } from '../../env.ts';
 import { getReservationDestinations } from './index.ts';
 
-const opts = { apiKey: env.BIZGO_API_KEY };
+const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
 void test('sends a GET request with the query params', async () => {
 	let request: Request | undefined;
@@ -14,7 +14,8 @@ void test('sends a GET request with the query params', async () => {
 		{
 			...opts,
 			fetch: async (input) => {
-				request = input as Request;
+				request = (input as Request).clone();
+				if (live) return fetch(input);
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 					data: {
@@ -31,7 +32,7 @@ void test('sends a GET request with the query params', async () => {
 	assert.equal(request.method, 'GET');
 	assert.equal(
 		request.url,
-		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations?limit=100',
+		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations?limit=100',
 	);
 });
 
