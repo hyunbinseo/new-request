@@ -1,37 +1,37 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { listReservations } from './list.ts';
+import { updateReservation } from './index.ts';
 
 const opts = { apiKey: 'test-api-key' };
 
-void test('sends a GET request with the query params', async () => {
+void test('sends a PUT request with the updated fields', async () => {
 	let request: Request | undefined;
 
-	await listReservations(
-		{ resvSendTime: '2026-05', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
+	await updateReservation(
+		'MO20260501100000abcdef',
+		{ resvSendTime: '2026-05-01 11:00:00', resvName: '금요일 캠페인 수정' },
 		{
 			...opts,
 			fetch: async (input) => {
 				request = input as Request;
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: {
-						code: 'A000',
-						result: 'Success',
-						data: { lastSeq: 100, hasNext: false, reservations: [] },
-					},
+					data: { code: 'A000', result: 'Success', data: { resvKey: 'MO20260501100000abcdef' } },
 				});
 			},
 		},
 	);
 
 	assert.ok(request);
-	assert.equal(request.method, 'GET');
+	assert.equal(request.method, 'PUT');
 	assert.equal(
 		request.url,
-		'https://mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
+		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef',
 	);
-	assert.equal(request.headers.get('Authorization'), 'test-api-key');
+	assert.deepEqual(await request.json(), {
+		resvSendTime: '2026-05-01 11:00:00',
+		resvName: '금요일 캠페인 수정',
+	});
 });
 
 void test('returns ok: false with the parsed body on failure', async () => {
@@ -40,8 +40,9 @@ void test('returns ok: false with the parsed body on failure', async () => {
 		data: { code: 'E001', result: 'Fail' },
 	};
 
-	const result = await listReservations(
-		{ resvSendTime: '2026-05' },
+	const result = await updateReservation(
+		'MO20260501100000abcdef',
+		{ resvSendTime: '2026-05-01 11:00:00' },
 		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
 	);
 

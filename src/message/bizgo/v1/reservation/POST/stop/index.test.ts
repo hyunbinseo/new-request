@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { stopReservation } from './stop.ts';
+import { stopReservation } from './index.ts';
 
 const opts = { apiKey: 'test-api-key' };
 

@@ -2,12 +2,12 @@ export {
 	createReservation,
 	type Options as CreateReservationOptions,
 	type RequestBody as CreateReservationRequestBody,
-} from './create.ts';
-export { cancelReservation, type Options as CancelReservationOptions } from './cancel.ts';
+} from './create/index.ts';
+export { cancelReservation, type Options as CancelReservationOptions } from './cancel/index.ts';
 export {
 	addReservationDestinations,
 	type Options as AddReservationDestinationsOptions,
 	type RequestBody as AddReservationDestinationsRequestBody,
-} from './destinations.ts';
-export { resumeReservation, type Options as ResumeReservationOptions } from './resume.ts';
-export { stopReservation, type Options as StopReservationOptions } from './stop.ts';
+} from './destinations/index.ts';
+export { resumeReservation, type Options as ResumeReservationOptions } from './resume/index.ts';
+export { stopReservation, type Options as StopReservationOptions } from './stop/index.ts';

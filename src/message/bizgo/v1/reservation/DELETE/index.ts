@@ -1,1 +1,1 @@
-export { deleteReservationDestination, type Options } from './destinations.ts';
+export { deleteReservationDestination, type Options } from './destinations/index.ts';

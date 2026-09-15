@@ -1,37 +1,37 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { updateReservation } from './key.ts';
+import { listReservations } from './index.ts';
 
 const opts = { apiKey: 'test-api-key' };
 
-void test('sends a PUT request with the updated fields', async () => {
+void test('sends a GET request with the query params', async () => {
 	let request: Request | undefined;
 
-	await updateReservation(
-		'MO20260501100000abcdef',
-		{ resvSendTime: '2026-05-01 11:00:00', resvName: '금요일 캠페인 수정' },
+	await listReservations(
+		{ resvSendTime: '2026-05', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
 		{
 			...opts,
 			fetch: async (input) => {
 				request = input as Request;
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: { code: 'A000', result: 'Success', data: { resvKey: 'MO20260501100000abcdef' } },
+					data: {
+						code: 'A000',
+						result: 'Success',
+						data: { lastSeq: 100, hasNext: false, reservations: [] },
+					},
 				});
 			},
 		},
 	);
 
 	assert.ok(request);
-	assert.equal(request.method, 'PUT');
+	assert.equal(request.method, 'GET');
 	assert.equal(
 		request.url,
-		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef',
+		'https://mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
 	);
-	assert.deepEqual(await request.json(), {
-		resvSendTime: '2026-05-01 11:00:00',
-		resvName: '금요일 캠페인 수정',
-	});
+	assert.equal(request.headers.get('Authorization'), 'test-api-key');
 });
 
 void test('returns ok: false with the parsed body on failure', async () => {
@@ -40,9 +40,8 @@ void test('returns ok: false with the parsed body on failure', async () => {
 		data: { code: 'E001', result: 'Fail' },
 	};
 
-	const result = await updateReservation(
-		'MO20260501100000abcdef',
-		{ resvSendTime: '2026-05-01 11:00:00' },
+	const result = await listReservations(
+		{ resvSendTime: '2026-05' },
 		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
 	);
 
