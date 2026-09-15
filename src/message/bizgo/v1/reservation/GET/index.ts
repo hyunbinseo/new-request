@@ -1,11 +1,11 @@
 export {
-	listReservations,
-	type Options as ListReservationsOptions,
-	type Query as ListReservationsQuery,
-} from './list/index.ts';
+	getReservations,
+	type Options as GetReservationsOptions,
+	type Query as GetReservationsQuery,
+} from './reservations/index.ts';
 export { getReservation, type Options as GetReservationOptions } from './key/index.ts';
 export {
-	listReservationDestinations,
-	type Options as ListReservationDestinationsOptions,
-	type Query as ListReservationDestinationsQuery,
+	getReservationDestinations,
+	type Options as GetReservationDestinationsOptions,
+	type Query as GetReservationDestinationsQuery,
 } from './destinations/index.ts';

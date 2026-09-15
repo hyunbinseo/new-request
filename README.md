@@ -123,9 +123,9 @@ import { pushMessage } from 'new-request/message/pushover/1/POST';
 
 ```ts
 import {
-	listReservations,
+	getReservations,
 	getReservation,
-	listReservationDestinations,
+	getReservationDestinations,
 } from 'new-request/message/bizgo/v1/reservation/GET';
 import {
 	createReservation,

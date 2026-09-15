@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { listReservations } from './index.ts';
+import { getReservations } from './index.ts';
 
 const opts = { apiKey: 'test-api-key' };
 
 void test('sends a GET request with the query params', async () => {
 	let request: Request | undefined;
 
-	await listReservations(
+	await getReservations(
 		{ resvSendTime: '2026-05', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
 		{
 			...opts,
@@ -40,7 +40,7 @@ void test('returns ok: false with the parsed body on failure', async () => {
 		data: { code: 'E001', result: 'Fail' },
 	};
 
-	const result = await listReservations(
+	const result = await getReservations(
 		{ resvSendTime: '2026-05' },
 		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
 	);

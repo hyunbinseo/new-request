@@ -1,7 +1,7 @@
 import type { Options, Query, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, Query };
 
-export const listReservationDestinations = async (resvKey: string, query: Query, opts: Options) => {
+export const getReservationDestinations = async (resvKey: string, query: Query, opts: Options) => {
 	try {
 		const url = new URL(
 			`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations`,

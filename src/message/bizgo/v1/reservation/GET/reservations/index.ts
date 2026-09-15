@@ -1,7 +1,7 @@
 import type { Options, Query, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, Query };
 
-export const listReservations = async (query: Query, opts: Options) => {
+export const getReservations = async (query: Query, opts: Options) => {
 	const url = new URL('/api/comm/v1/reservation/list', opts.baseURL ?? 'https://mars.ibapi.kr');
 	url.searchParams.set('resvSendTime', query.resvSendTime);
 	if (query.paymentCode !== undefined) url.searchParams.set('paymentCode', query.paymentCode);
