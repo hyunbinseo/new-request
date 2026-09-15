@@ -53,6 +53,17 @@ export type ResponseBody = {
 		code: string;
 		result: string;
 		resvKey: string;
+		/** Echoes the request's `ref`. Undocumented; confirmed by live testing. */
+		ref?: string;
+		/** Per-destination validation result. Undocumented; confirmed by live testing. */
+		data?: {
+			destinations: {
+				to: string;
+				msgKey: string;
+				code: string;
+				result: string;
+			}[];
+		};
 	};
 };
 

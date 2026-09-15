@@ -10,7 +10,10 @@ export const resumeReservation = async (resvKey: string, opts: Options) => {
 			),
 			{
 				method: 'POST',
-				headers: { Authorization: opts.apiKey },
+				headers: {
+					'Authorization': opts.apiKey,
+					'Content-Type': 'application/json',
+				},
 			},
 		);
 		const response = await (opts.fetch || fetch)(request);

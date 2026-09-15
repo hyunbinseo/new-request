@@ -25,6 +25,7 @@ void test('sends a POST request to the resume endpoint', async () => {
 		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/resume',
 	);
 	assert.equal(request.headers.get('Authorization'), 'test-api-key');
+	assert.equal(request.headers.get('Content-Type'), 'application/json');
 });
 
 void test('returns ok: false with the parsed body on failure', async () => {

@@ -20,7 +20,13 @@ export type Reservation = {
 	productType: string;
 	status: string;
 	adYn: string;
+	/** Space-separated on write (KST), but returned as an ISO 8601 string with a +09:00 offset. */
 	resvSendTime: string;
+	/**
+	 * A JSON-stringified copy of the original registration request body.
+	 * Undocumented; confirmed by live testing. May be absent on some responses.
+	 */
+	resvData?: string;
 	expectedCnt: number;
 	sentCnt: number;
 	successCnt: number;
