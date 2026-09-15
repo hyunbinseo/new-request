@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { env } from '../../env.ts';
 import { getReservation } from './index.ts';
 
-const opts = { apiKey: 'test-api-key' };
+const opts = { apiKey: env.BIZGO_API_KEY };
 
 void test('sends a GET request to the resvKey endpoint', async () => {
 	let request: Request | undefined;
@@ -24,7 +25,7 @@ void test('sends a GET request to the resvKey endpoint', async () => {
 		request.url,
 		'https://mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef',
 	);
-	assert.equal(request.headers.get('Authorization'), 'test-api-key');
+	assert.equal(request.headers.get('Authorization'), env.BIZGO_API_KEY);
 });
 
 void test('encodes special characters in resvKey', async () => {

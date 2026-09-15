@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { env } from '../../env.ts';
 import { addReservationDestinations } from './index.ts';
 
-const opts = { apiKey: 'test-api-key' };
+const opts = { apiKey: env.BIZGO_API_KEY };
 
 void test('sends a POST request with the new destinations', async () => {
 	let request: Request | undefined;

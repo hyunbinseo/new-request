@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { env } from '../../env.ts';
 import { createReservation } from './index.ts';
 
-const opts = { apiKey: 'test-api-key' };
+const opts = { apiKey: env.BIZGO_API_KEY };
 
 void test('sends a POST request to the reservation endpoint', async () => {
 	let request: Request | undefined;
@@ -30,7 +31,7 @@ void test('sends a POST request to the reservation endpoint', async () => {
 	assert.ok(request);
 	assert.equal(request.method, 'POST');
 	assert.equal(request.url, 'https://mars.ibapi.kr/api/comm/v1/reservation');
-	assert.equal(request.headers.get('Authorization'), 'test-api-key');
+	assert.equal(request.headers.get('Authorization'), env.BIZGO_API_KEY);
 	assert.equal(request.headers.get('Content-Type'), 'application/json');
 	assert.deepEqual(await request.json(), {
 		destinations: [{ to: '01000000000' }],
