@@ -1,4 +1,4 @@
-import type { Options, Query, ResponseBody, ResponseBodyException } from './types.ts';
+import type { Options, Query, ResponseBody, ResponseBodyException } from './destinations.types.ts';
 export type { Options, Query };
 
 export const listReservationDestinations = async (resvKey: string, query: Query, opts: Options) => {

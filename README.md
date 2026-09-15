@@ -117,16 +117,20 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
-import { createReservation } from 'new-request/message/bizgo/v1/reservation/POST';
-import { listReservations } from 'new-request/message/bizgo/v1/reservation/list/GET';
-import { getReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/GET';
-import { updateReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/PUT';
-import { cancelReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/cancel/POST';
-import { stopReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/stop/POST';
-import { resumeReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/resume/POST';
-import { addReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/POST';
-import { listReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/GET';
-import { deleteReservationDestination } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/msgKey/DELETE';
+import {
+	listReservations,
+	getReservation,
+	listReservationDestinations,
+} from 'new-request/message/bizgo/v1/reservation/GET';
+import {
+	createReservation,
+	cancelReservation,
+	addReservationDestinations,
+	resumeReservation,
+	stopReservation,
+} from 'new-request/message/bizgo/v1/reservation/POST';
+import { updateReservation } from 'new-request/message/bizgo/v1/reservation/PUT';
+import { deleteReservationDestination } from 'new-request/message/bizgo/v1/reservation/DELETE';
 ```
 
 ### SMS

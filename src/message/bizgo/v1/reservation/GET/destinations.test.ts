@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { listReservationDestinations } from './index.ts';
+import { listReservationDestinations } from './destinations.ts';
 
 const opts = { apiKey: 'test-api-key' };
 
