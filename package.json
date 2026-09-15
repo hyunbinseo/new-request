@@ -19,11 +19,16 @@
 	"sideEffects": false,
 	"imports": {
 		"#lib/*": "./src/lib/*",
-		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*"
+		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*",
+		"#bizgo/reservation": "./src/message/bizgo/v1/reservation/types.ts"
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
+		"./message/bizgo/v1/reservation/DELETE": "./dist/message/bizgo/v1/reservation/DELETE/index.js",
+		"./message/bizgo/v1/reservation/GET": "./dist/message/bizgo/v1/reservation/GET/index.js",
+		"./message/bizgo/v1/reservation/POST": "./dist/message/bizgo/v1/reservation/POST/index.js",
+		"./message/bizgo/v1/reservation/PUT": "./dist/message/bizgo/v1/reservation/PUT/index.js",
 		"./message/bizgo/v1/send/omni/POST": "./dist/message/bizgo/v1/send/omni/POST/index.js",
 		"./message/dooray/POST": "./dist/message/dooray/POST/index.js",
 		"./message/pushover/1/POST": "./dist/message/pushover/1/POST/index.js",
@@ -37,6 +42,8 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
+		"test": "node --test",
+		"test:integration": "node --test --env-file=.env",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
