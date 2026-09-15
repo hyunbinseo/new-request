@@ -20,7 +20,7 @@
 	"imports": {
 		"#lib/*": "./src/lib/*",
 		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*",
-		"#bizgo/reservation": "./src/message/bizgo/v1/reservation/reservation.ts"
+		"#bizgo/reservation": "./src/message/bizgo/v1/reservation/types.ts"
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
@@ -42,7 +42,8 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
-		"test": "node --test src/**/*.test.ts",
+		"test": "node --test",
+		"test:integration": "node --test --env-file=.env",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
