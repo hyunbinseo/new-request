@@ -6,7 +6,7 @@ export const createReservation = async (requestBody: RequestBody, opts: Options)
 		const request = new Request(
 			new URL(
 				'/api/comm/v1/reservation', //
-				opts.baseURL ?? 'https://mars.ibapi.kr',
+				opts.baseURL,
 			),
 			{
 				method: 'POST',

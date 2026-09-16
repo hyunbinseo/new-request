@@ -4,10 +4,7 @@ export type { Options };
 export const stopReservation = async (resvKey: string, opts: Options) => {
 	try {
 		const request = new Request(
-			new URL(
-				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/stop`,
-				opts.baseURL ?? 'https://mars.ibapi.kr',
-			),
+			new URL(`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/stop`, opts.baseURL),
 			{
 				method: 'POST',
 				headers: {

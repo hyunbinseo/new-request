@@ -5,7 +5,7 @@ export const getReservationDestinations = async (resvKey: string, query: Query, 
 	try {
 		const url = new URL(
 			`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations`,
-			opts.baseURL ?? 'https://mars.ibapi.kr',
+			opts.baseURL,
 		);
 		if (query.lastSeq !== undefined) url.searchParams.set('lastSeq', query.lastSeq.toString());
 		if (query.limit !== undefined) url.searchParams.set('limit', query.limit.toString());

@@ -8,10 +8,7 @@ export const updateReservation = async (
 ) => {
 	try {
 		const request = new Request(
-			new URL(
-				`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}`,
-				opts.baseURL ?? 'https://mars.ibapi.kr',
-			),
+			new URL(`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}`, opts.baseURL),
 			{
 				method: 'PUT',
 				headers: {

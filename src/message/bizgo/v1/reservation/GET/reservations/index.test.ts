@@ -49,3 +49,12 @@ void test('returns ok: false with the parsed body on failure', async () => {
 
 	assert.deepEqual(result, { ok: false, body: responseBody });
 });
+
+void test('returns an Error instead of throwing when request construction fails', async () => {
+	const result = await getReservations(
+		{ resvSendTime: '2026-05' },
+		{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
+	);
+
+	assert.ok(result instanceof Error);
+});

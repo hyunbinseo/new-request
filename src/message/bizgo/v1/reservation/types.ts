@@ -1,9 +1,23 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
+export type Options = {
+	apiKey: string;
+	baseURL: 'https://mars.ibapi.kr' | 'https://sandbox-mars.ibapi.kr'; // Production | Sandbox
+	fetch?: typeof fetch;
+};
+
 export type Common = {
 	authCode: string;
 	authResult: string;
 	infobankTrId: string;
+};
+
+export type ResponseBodyException = {
+	common: Common;
+	data: {
+		code: string;
+		result: string;
+	};
 };
 
 export type Destination = {

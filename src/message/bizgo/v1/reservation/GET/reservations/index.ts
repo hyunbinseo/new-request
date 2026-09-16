@@ -2,13 +2,13 @@ import type { Options, Query, ResponseBody, ResponseBodyException } from './type
 export type { Options, Query };
 
 export const getReservations = async (query: Query, opts: Options) => {
-	const url = new URL('/api/comm/v1/reservation/list', opts.baseURL ?? 'https://mars.ibapi.kr');
-	url.searchParams.set('resvSendTime', query.resvSendTime);
-	if (query.paymentCode !== undefined) url.searchParams.set('paymentCode', query.paymentCode);
-	if (query.lastSeq !== undefined) url.searchParams.set('lastSeq', query.lastSeq.toString());
-	if (query.limit !== undefined) url.searchParams.set('limit', query.limit.toString());
-
 	try {
+		const url = new URL('/api/comm/v1/reservation/list', opts.baseURL);
+		url.searchParams.set('resvSendTime', query.resvSendTime);
+		if (query.paymentCode !== undefined) url.searchParams.set('paymentCode', query.paymentCode);
+		if (query.lastSeq !== undefined) url.searchParams.set('lastSeq', query.lastSeq.toString());
+		if (query.limit !== undefined) url.searchParams.set('limit', query.limit.toString());
+
 		const request = new Request(url, {
 			method: 'GET',
 			headers: { Authorization: opts.apiKey },
