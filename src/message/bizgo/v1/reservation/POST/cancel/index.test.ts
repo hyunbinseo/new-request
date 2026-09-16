@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env, live } from '../../env.ts';
+import { env } from '../../env.ts';
 import { cancelReservation } from './index.ts';
 
 const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
@@ -12,7 +12,7 @@ void test('sends a POST request to the cancel endpoint', async () => {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
-			if (live) return fetch(input);
+			if (env.useSandboxApi) return fetch(input);
 			return Response.json({
 				common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 				data: { code: 'A000', result: 'Success', data: { status: 'CANCELLED' } },

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env, live } from '../../env.ts';
+import { env } from '../../env.ts';
 import { getReservations } from './index.ts';
 
 const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
@@ -14,7 +14,7 @@ void test('sends a GET request with the query params', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (live) return fetch(input);
+				if (env.useSandboxApi) return fetch(input);
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 					data: {
