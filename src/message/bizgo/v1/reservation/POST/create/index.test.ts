@@ -67,6 +67,27 @@ void test('sends a POST request to the reservation endpoint', async () => {
 	});
 });
 
+void test('rejects the entire reservation when a destination is malformed', async () => {
+	// Confirmed by live sandbox testing: there's no per-destination partial success. An
+	// invalid `to` in any destination rejects the whole request with a top-level error,
+	// even though the other destination(s) are valid.
+	const responseBody = {
+		common: { authCode: 'A000', authResult: 'SUCCESS', infobankTrId: 'id' },
+		data: { code: 'A306', result: "Invalid or empty 'to'" },
+	};
+
+	const result = await createReservation(
+		{
+			destinations: [{ to: env.BIZGO_PHONE_NUMBER }, { to: '000' }],
+			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			resvSendTime: '2026-05-01 10:00:00',
+		},
+		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
+	);
+
+	assert.deepEqual(result, { ok: false, body: responseBody });
+});
+
 void test('respects a custom baseURL', async () => {
 	let url: string | undefined;
 
@@ -151,7 +172,7 @@ void test('returns an Error instead of throwing when request construction fails'
 			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
-		{ apiKey: 'invalid\nheader\nvalue' },
+		{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
 	);
 
 	assert.ok(result instanceof Error);

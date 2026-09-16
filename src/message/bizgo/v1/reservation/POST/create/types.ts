@@ -1,36 +1,27 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/mt
 
-import type { AlimtalkMessage } from '#bizgo/channels/kakao/alimtalk.ts';
-import type { BrandMessage } from '#bizgo/channels/kakao/brandmessage.ts';
-import type { MmsMessage } from '#bizgo/channels/mms.ts';
-import type { NaverTalkMessage } from '#bizgo/channels/navertalk.ts';
-import type { RcsMessage } from '#bizgo/channels/rcs.ts';
-import type { SmsMessage } from '#bizgo/channels/sms.ts';
-import type { Common, Destination } from '#bizgo/reservation';
-
-export type {
-	AlimtalkMessage, //
+import type {
+	AlimtalkMessage,
 	BrandMessage,
+	InternationalMessage,
+	MessageFlowItem,
 	MmsMessage,
 	NaverTalkMessage,
 	RcsMessage,
 	SmsMessage,
-};
+} from '#bizgo/channels/index.ts';
+import type { Common, Destination, Options, ResponseBodyException } from '#bizgo/reservation';
 
-type MessageFlowItem =
-	| { sms: SmsMessage }
-	| { mms: MmsMessage }
-	| { rcs: RcsMessage }
-	| { alimtalk: AlimtalkMessage }
-	| { brandmessage: BrandMessage }
-	| { navertalk: NaverTalkMessage };
-
-export type Options = {
-	apiKey: string;
-	baseURL?:
-		| 'https://mars.ibapi.kr' // Production
-		| 'https://sandbox-mars.ibapi.kr'; // Sandbox
-	fetch?: typeof fetch;
+export type {
+	AlimtalkMessage, //
+	BrandMessage,
+	InternationalMessage,
+	MmsMessage,
+	NaverTalkMessage,
+	Options,
+	RcsMessage,
+	ResponseBodyException,
+	SmsMessage,
 };
 
 export type RequestBody = {
@@ -57,7 +48,13 @@ export type ResponseBody = {
 		resvKey: string;
 		/** Echoes the request's `ref`. Undocumented; confirmed by live testing. */
 		ref?: string;
-		/** Per-destination validation result. Undocumented; confirmed by live testing. */
+		/**
+		 * Per-destination *registration* result, not the final delivery outcome — confirmed
+		 * by live testing. A malformed `to` (e.g. wrong format) fails the entire request instead
+		 * (see `ResponseBodyException`), so every entry here is `code: 'A000'` as long as the
+		 * request succeeds; whether the message is actually delivered at `resvSendTime` can
+		 * only be checked afterwards via `getReservationDestinations`.
+		 */
 		data?: {
 			destinations: {
 				to: string;
@@ -66,13 +63,5 @@ export type ResponseBody = {
 				result: string;
 			}[];
 		};
-	};
-};
-
-export type ResponseBodyException = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
 	};
 };
