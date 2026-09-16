@@ -110,7 +110,7 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 ### Message (Web Hook, Push, etc.)
 
 - [Pushover](https://pushover.net/)
-- [비즈고](https://developers.bizgo.io/) (문자, RCS, 카카오 비즈메시지, 네이버 톡톡)
+- [비즈고](https://developers.bizgo.io/) (문자, RCS, 카카오 비즈메시지, 네이버 톡톡, 국제메시지)
 - [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
