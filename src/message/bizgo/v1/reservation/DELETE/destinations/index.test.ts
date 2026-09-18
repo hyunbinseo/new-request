@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv } from '../../env.ts';
+import { bizgoEnv, skip } from '../../env.ts';
 import { deleteReservationDestination } from './index.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
-void test('sends a DELETE request to the msgKey endpoint', async () => {
+void test('sends a DELETE request to the msgKey endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
 	await deleteReservationDestination('MO20260501100000abcdef', '20260424104234546POM101182450000', {

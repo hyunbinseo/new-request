@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv } from '../../env.ts';
+import { bizgoEnv, skip } from '../../env.ts';
 import { getReservation } from './index.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
-void test('sends a GET request to the resvKey endpoint', async () => {
+void test('sends a GET request to the resvKey endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
 	await getReservation('MO20260501100000abcdef', {
@@ -25,7 +25,7 @@ void test('sends a GET request to the resvKey endpoint', async () => {
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 });
 
-void test('encodes special characters in resvKey', async () => {
+void test('encodes special characters in resvKey', { skip }, async () => {
 	let request: Request | undefined;
 
 	await getReservation('key/with?special#chars', {

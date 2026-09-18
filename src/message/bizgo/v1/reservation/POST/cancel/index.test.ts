@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv } from '../../env.ts';
+import { bizgoEnv, skip } from '../../env.ts';
 import { cancelReservation } from './index.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
-void test('sends a POST request to the cancel endpoint', async () => {
+void test('sends a POST request to the cancel endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
 	await cancelReservation('MO20260501100000abcdef', {

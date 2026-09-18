@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv } from '../../env.ts';
+import { bizgoEnv, skip } from '../../env.ts';
 import { getReservationDestinations } from './index.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
-void test('sends a GET request with the query params', async () => {
+void test('sends a GET request with the query params', { skip }, async () => {
 	let request: Request | undefined;
 
 	await getReservationDestinations(
