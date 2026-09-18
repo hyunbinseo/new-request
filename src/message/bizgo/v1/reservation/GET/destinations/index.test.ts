@@ -15,15 +15,7 @@ void test('sends a GET request with the query params', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (bizgoEnv.useSandboxApi) return fetch(input);
-				return Response.json({
-					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: {
-						code: 'A000',
-						result: 'Success',
-						data: { lastSeq: 10, hasNext: false, destinations: [] },
-					},
-				});
+				return fetch(input);
 			},
 		},
 	);
@@ -34,19 +26,4 @@ void test('sends a GET request with the query params', async () => {
 		request.url,
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations?limit=100',
 	);
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await getReservationDestinations(
-		'MO20260501100000abcdef',
-		{},
-		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
-	);
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });

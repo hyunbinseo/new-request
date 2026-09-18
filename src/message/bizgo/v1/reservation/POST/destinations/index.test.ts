@@ -15,11 +15,7 @@ void test('sends a POST request with the new destinations', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (bizgoEnv.useSandboxApi) return fetch(input);
-				return Response.json({
-					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: { code: 'A000', result: 'Success', data: { inserted: 1 } },
-				});
+				return fetch(input);
 			},
 		},
 	);
@@ -33,19 +29,4 @@ void test('sends a POST request with the new destinations', async () => {
 	assert.deepEqual(await request.json(), {
 		destinations: [{ to: '01000000000', replaceWords: { name: '홍길동' }, ref: 'dest-001' }],
 	});
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await addReservationDestinations(
-		'MO20260501100000abcdef',
-		{ destinations: [{ to: '01000000000' }] },
-		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
-	);
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });

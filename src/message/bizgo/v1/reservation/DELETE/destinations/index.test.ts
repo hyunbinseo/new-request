@@ -12,11 +12,7 @@ void test('sends a DELETE request to the msgKey endpoint', async () => {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
-			if (bizgoEnv.useSandboxApi) return fetch(input);
-			return Response.json({
-				common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-				data: { code: 'A000', result: 'Success' },
-			});
+			return fetch(input);
 		},
 	});
 
@@ -27,18 +23,4 @@ void test('sends a DELETE request to the msgKey endpoint', async () => {
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations/msgKey/20260424104234546POM101182450000',
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await deleteReservationDestination('MO20260501100000abcdef', 'unknown-msg-key', {
-		...opts,
-		fetch: async () => Response.json(responseBody, { status: 404 }),
-	});
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });

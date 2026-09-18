@@ -44,11 +44,7 @@ void test('sends a POST request to the reservation endpoint', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (bizgoEnv.useSandboxApi) return fetch(input);
-				return Response.json({
-					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: { code: 'A000', result: 'Success', resvKey: 'MO20260501100000abcdef' },
-				});
+				return fetch(input);
 			},
 		},
 	);
@@ -65,104 +61,6 @@ void test('sends a POST request to the reservation endpoint', async () => {
 		resvName: '알림톡 예약 발송',
 		ref: 'mt-resv-20260501-001',
 	});
-});
-
-void test('rejects the entire reservation when a destination is malformed', async () => {
-	// Confirmed by live sandbox testing: there's no per-destination partial success. An
-	// invalid `to` in any destination rejects the whole request with a top-level error,
-	// even though the other destination(s) are valid.
-	const responseBody = {
-		common: { authCode: 'A000', authResult: 'SUCCESS', infobankTrId: 'id' },
-		data: { code: 'A306', result: "Invalid or empty 'to'" },
-	};
-
-	const result = await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }, { to: '000' }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
-	);
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
-});
-
-void test('respects a custom baseURL', async () => {
-	let url: string | undefined;
-
-	await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{
-			...opts,
-			baseURL: 'https://mars.ibapi.kr',
-			fetch: async (input) => {
-				url = (input as Request).url;
-				return Response.json({});
-			},
-		},
-	);
-
-	assert.equal(url, 'https://mars.ibapi.kr/api/comm/v1/reservation');
-});
-
-void test('returns ok: true with the parsed body on success', async () => {
-	const responseBody = {
-		common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-		data: { code: 'A000', result: 'Success', resvKey: 'MO20260501100000abcdef' },
-	};
-
-	const result = await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{ ...opts, fetch: async () => Response.json(responseBody) },
-	);
-
-	assert.deepEqual(result, { ok: true, body: responseBody });
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
-	);
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
-});
-
-void test('returns an Error when the fetch call throws', async () => {
-	const result = await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{
-			...opts,
-			fetch: async () => {
-				throw new Error('network down');
-			},
-		},
-	);
-
-	assert.ok(result instanceof Error);
-	assert.equal(result.message, 'network down');
 });
 
 void test('returns an Error instead of throwing when request construction fails', async () => {

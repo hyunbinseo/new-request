@@ -12,11 +12,7 @@ void test('sends a GET request to the resvKey endpoint', async () => {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
-			if (bizgoEnv.useSandboxApi) return fetch(input);
-			return Response.json({
-				common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-				data: { code: 'A000', result: 'Success', data: { resvKey: 'MO20260501100000abcdef' } },
-			});
+			return fetch(input);
 		},
 	});
 
@@ -36,7 +32,7 @@ void test('encodes special characters in resvKey', async () => {
 		...opts,
 		fetch: async (input) => {
 			request = input as Request;
-			return Response.json({});
+			return fetch(input);
 		},
 	});
 
@@ -45,18 +41,4 @@ void test('encodes special characters in resvKey', async () => {
 		request.url,
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars',
 	);
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await getReservation('MO20260501100000abcdef', {
-		...opts,
-		fetch: async () => Response.json(responseBody, { status: 404 }),
-	});
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });

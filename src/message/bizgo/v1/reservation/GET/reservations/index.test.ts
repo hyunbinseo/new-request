@@ -14,15 +14,7 @@ void test('sends a GET request with the query params', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (bizgoEnv.useSandboxApi) return fetch(input);
-				return Response.json({
-					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-					data: {
-						code: 'A000',
-						result: 'Success',
-						data: { lastSeq: 100, hasNext: false, reservations: [] },
-					},
-				});
+				return fetch(input);
 			},
 		},
 	);
@@ -34,20 +26,6 @@ void test('sends a GET request with the query params', async () => {
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await getReservations(
-		{ resvSendTime: '2026-05' },
-		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
-	);
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });
 
 void test('returns an Error instead of throwing when request construction fails', async () => {

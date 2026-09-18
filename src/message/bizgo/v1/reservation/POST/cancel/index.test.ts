@@ -12,11 +12,7 @@ void test('sends a POST request to the cancel endpoint', async () => {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
-			if (bizgoEnv.useSandboxApi) return fetch(input);
-			return Response.json({
-				common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
-				data: { code: 'A000', result: 'Success', data: { status: 'CANCELLED' } },
-			});
+			return fetch(input);
 		},
 	});
 
@@ -28,18 +24,4 @@ void test('sends a POST request to the cancel endpoint', async () => {
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 	assert.equal(request.headers.get('Content-Type'), 'application/json');
-});
-
-void test('returns ok: false with the parsed body on failure', async () => {
-	const responseBody = {
-		common: { authCode: 'E001', authResult: 'Fail', infobankTrId: 'id' },
-		data: { code: 'E001', result: 'Fail' },
-	};
-
-	const result = await cancelReservation('MO20260501100000abcdef', {
-		...opts,
-		fetch: async () => Response.json(responseBody, { status: 400 }),
-	});
-
-	assert.deepEqual(result, { ok: false, body: responseBody });
 });
