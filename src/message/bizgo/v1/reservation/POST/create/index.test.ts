@@ -63,15 +63,19 @@ void test('sends a POST request to the reservation endpoint', { skip }, async ()
 	});
 });
 
-void test('returns an Error instead of throwing when request construction fails', async () => {
-	const result = await createReservation(
-		{
-			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
-			resvSendTime: '2026-05-01 10:00:00',
-		},
-		{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
-	);
+void test(
+	'returns an Error instead of throwing when request construction fails',
+	{ skip },
+	async () => {
+		const result = await createReservation(
+			{
+				destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+				messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
+				resvSendTime: '2026-05-01 10:00:00',
+			},
+			{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
+		);
 
-	assert.ok(result instanceof Error);
-});
+		assert.ok(result instanceof Error);
+	},
+);

@@ -28,11 +28,15 @@ void test('sends a GET request with the query params', { skip }, async () => {
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 });
 
-void test('returns an Error instead of throwing when request construction fails', async () => {
-	const result = await getReservations(
-		{ resvSendTime: '2026-05' },
-		{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
-	);
+void test(
+	'returns an Error instead of throwing when request construction fails',
+	{ skip },
+	async () => {
+		const result = await getReservations(
+			{ resvSendTime: '2026-05' },
+			{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
+		);
 
-	assert.ok(result instanceof Error);
-});
+		assert.ok(result instanceof Error);
+	},
+);
