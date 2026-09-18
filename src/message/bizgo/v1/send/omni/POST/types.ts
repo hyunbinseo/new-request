@@ -8,6 +8,7 @@ import type {
 	RcsMessage,
 	SmsMessage,
 } from '#bizgo/channels/index.ts';
+import type { Common, Destination, ResponseBodyException } from '#bizgo/reservation';
 
 export type {
 	AlimtalkMessage, //
@@ -16,13 +17,8 @@ export type {
 	MmsMessage,
 	NaverTalkMessage,
 	RcsMessage,
+	ResponseBodyException,
 	SmsMessage,
-};
-
-type Destination = {
-	to: string;
-	replaceWords?: Record<string, string>;
-	ref?: string;
 };
 
 export type Options = {
@@ -43,12 +39,6 @@ export type RequestBody = {
 	ref?: string;
 };
 
-type Common = {
-	authCode: string;
-	authResult: string;
-	infobankTrId: string;
-};
-
 type DestinationResult = {
 	to: string;
 	msgKey: string;
@@ -66,13 +56,5 @@ export type ResponseBody = {
 			destinations: DestinationResult[];
 		};
 		ref?: string;
-	};
-};
-
-export type ResponseBodyException = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
 	};
 };

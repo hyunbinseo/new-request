@@ -14,11 +14,19 @@ export const getReservations = async (query: Query, opts: Options) => {
 			headers: { Authorization: opts.apiKey },
 		});
 		const response = await (opts.fetch || fetch)(request);
-		const body = await response.json();
+		// Read as text first: a success body may be empty, and gateway/auth errors can be
+		// plain text or HTML — either makes response.json() throw and hides the HTTP status.
+		const text = await response.text();
+		let body: unknown;
+		try {
+			body = text ? JSON.parse(text) : undefined;
+		} catch {
+			body = text;
+		}
 		return response.ok
 			? { ok: response.ok, body: body as ResponseBody }
 			: { ok: response.ok, body: body as ResponseBodyException };
 	} catch (error) {
-		return error instanceof Error ? error : new Error();
+		return error instanceof Error ? error : new Error(String(error), { cause: error });
 	}
 };
