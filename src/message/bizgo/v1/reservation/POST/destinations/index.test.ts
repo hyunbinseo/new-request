@@ -8,7 +8,7 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a POST request with the new destinations', { skip }, async () => {
 	let request: Request | undefined;
 
-	await addReservationDestinations(
+	const result = await addReservationDestinations(
 		'MO20260501100000abcdef',
 		{ destinations: [{ to: '01000000000', replaceWords: { name: '홍길동' }, ref: 'dest-001' }] },
 		{
@@ -29,4 +29,8 @@ void test('sends a POST request with the new destinations', { skip }, async () =
 	assert.deepEqual(await request.json(), {
 		destinations: [{ to: '01000000000', replaceWords: { name: '홍길동' }, ref: 'dest-001' }],
 	});
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });

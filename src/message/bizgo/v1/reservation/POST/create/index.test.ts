@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv, skip } from '../../env.ts';
+import { bizgoEnv, skip, skipCreate } from '../../env.ts';
+import { cancelReservation } from '../cancel/index.ts';
 import { createReservation } from './index.ts';
+import type { ResponseBody } from './types.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
@@ -16,7 +18,7 @@ const kstFormatter = new Intl.DateTimeFormat('sv-SE', {
 	hourCycle: 'h23',
 });
 
-void test('sends a POST request to the reservation endpoint', { skip }, async () => {
+void test('sends a POST request to the reservation endpoint', { skip: skipCreate }, async () => {
 	let request: Request | undefined;
 
 	const messageFlow = [
@@ -31,14 +33,16 @@ void test('sends a POST request to the reservation endpoint', { skip }, async ()
 	];
 	// Must be at least 10 minutes from now; 30 minutes leaves margin for the request itself.
 	const resvSendTime = kstFormatter.format(new Date(Date.now() + 30 * 60 * 1000));
+	// Unique per run so repeated runs don't collide on ref uniqueness.
+	const ref = `mt-resv-${Date.now()}`;
 
-	await createReservation(
+	const result = await createReservation(
 		{
 			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
 			messageFlow,
 			resvSendTime,
 			resvName: '알림톡 예약 발송',
-			ref: 'mt-resv-20260501-001',
+			ref,
 		},
 		{
 			...opts,
@@ -59,8 +63,17 @@ void test('sends a POST request to the reservation endpoint', { skip }, async ()
 		messageFlow,
 		resvSendTime,
 		resvName: '알림톡 예약 발송',
-		ref: 'mt-resv-20260501-001',
+		ref,
 	});
+
+	// The sandbox must have accepted it and returned a resvKey, not just echoed the request.
+	if (result instanceof Error) throw result;
+	assert.equal(result.ok, true);
+	const { resvKey } = (result.body as ResponseBody).data;
+	assert.ok(resvKey);
+
+	// Clean up so the reservation doesn't linger in the sandbox.
+	await cancelReservation(resvKey, opts);
 });
 
 void test(

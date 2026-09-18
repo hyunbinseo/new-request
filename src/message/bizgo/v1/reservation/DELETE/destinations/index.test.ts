@@ -8,13 +8,17 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a DELETE request to the msgKey endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
-	await deleteReservationDestination('MO20260501100000abcdef', '20260424104234546POM101182450000', {
-		...opts,
-		fetch: async (input) => {
-			request = (input as Request).clone();
-			return fetch(input);
+	const result = await deleteReservationDestination(
+		'MO20260501100000abcdef',
+		'20260424104234546POM101182450000',
+		{
+			...opts,
+			fetch: async (input) => {
+				request = (input as Request).clone();
+				return fetch(input);
+			},
 		},
-	});
+	);
 
 	assert.ok(request);
 	assert.equal(request.method, 'DELETE');
@@ -23,4 +27,8 @@ void test('sends a DELETE request to the msgKey endpoint', { skip }, async () =>
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations/msgKey/20260424104234546POM101182450000',
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });

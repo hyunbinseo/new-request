@@ -8,7 +8,7 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a GET request with the query params', { skip }, async () => {
 	let request: Request | undefined;
 
-	await getReservations(
+	const result = await getReservations(
 		{ resvSendTime: '2026-05', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
 		{
 			...opts,
@@ -26,6 +26,10 @@ void test('sends a GET request with the query params', { skip }, async () => {
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });
 
 void test(

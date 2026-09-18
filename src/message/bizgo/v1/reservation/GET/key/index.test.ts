@@ -8,7 +8,7 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a GET request to the resvKey endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
-	await getReservation('MO20260501100000abcdef', {
+	const result = await getReservation('MO20260501100000abcdef', {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
@@ -23,6 +23,10 @@ void test('sends a GET request to the resvKey endpoint', { skip }, async () => {
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef',
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });
 
 void test('encodes special characters in resvKey', { skip }, async () => {

@@ -8,7 +8,7 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a POST request to the resume endpoint', { skip }, async () => {
 	let request: Request | undefined;
 
-	await resumeReservation('MO20260501100000abcdef', {
+	const result = await resumeReservation('MO20260501100000abcdef', {
 		...opts,
 		fetch: async (input) => {
 			request = (input as Request).clone();
@@ -24,4 +24,8 @@ void test('sends a POST request to the resume endpoint', { skip }, async () => {
 	);
 	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 	assert.equal(request.headers.get('Content-Type'), 'application/json');
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });

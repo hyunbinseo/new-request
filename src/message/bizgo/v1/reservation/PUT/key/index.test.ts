@@ -8,7 +8,7 @@ const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ib
 void test('sends a PUT request with the updated fields', { skip }, async () => {
 	let request: Request | undefined;
 
-	await updateReservation(
+	const result = await updateReservation(
 		'MO20260501100000abcdef',
 		{ resvSendTime: '2026-05-01 11:00:00', resvName: '금요일 캠페인 수정' },
 		{
@@ -30,4 +30,8 @@ void test('sends a PUT request with the updated fields', { skip }, async () => {
 		resvSendTime: '2026-05-01 11:00:00',
 		resvName: '금요일 캠페인 수정',
 	});
+
+	// The sandbox round-trip and JSON parse must have produced a structured result.
+	if (result instanceof Error) throw result;
+	assert.equal(typeof result.ok, 'boolean');
 });
