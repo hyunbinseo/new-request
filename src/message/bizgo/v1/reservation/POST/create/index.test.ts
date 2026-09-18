@@ -72,8 +72,11 @@ void test('sends a POST request to the reservation endpoint', { skip: skipCreate
 	const { resvKey } = (result.body as ResponseBody).data;
 	assert.ok(resvKey);
 
-	// Clean up so the reservation doesn't linger in the sandbox.
-	await cancelReservation(resvKey, opts);
+	// Clean up so the reservation doesn't linger and actually fire in the sandbox; a failed
+	// cancel must fail the test rather than leave a live reservation behind.
+	const cancelled = await cancelReservation(resvKey, opts);
+	if (cancelled instanceof Error) throw cancelled;
+	assert.equal(cancelled.ok, true);
 });
 
 void test(

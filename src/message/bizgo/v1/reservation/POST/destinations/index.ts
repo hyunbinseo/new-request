@@ -1,3 +1,4 @@
+import { parseBizgoResponse } from '#bizgo/response';
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, RequestBody };
 
@@ -22,18 +23,7 @@ export const addReservationDestinations = async (
 			},
 		);
 		const response = await (opts.fetch || fetch)(request);
-		// Read as text first: a success body may be empty, and gateway/auth errors can be
-		// plain text or HTML — either makes response.json() throw and hides the HTTP status.
-		const text = await response.text();
-		let body: unknown;
-		try {
-			body = text ? JSON.parse(text) : undefined;
-		} catch {
-			body = text;
-		}
-		return response.ok
-			? { ok: response.ok, body: body as ResponseBody }
-			: { ok: response.ok, body: body as ResponseBodyException };
+		return await parseBizgoResponse<ResponseBody, ResponseBodyException>(response);
 	} catch (error) {
 		return error instanceof Error ? error : new Error(String(error), { cause: error });
 	}
