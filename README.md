@@ -114,7 +114,7 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 - [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
-import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
+import { sendMessage } from 'new-request/message/bizgo/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
 ```
@@ -136,16 +136,16 @@ import {
 	getReservations,
 	getReservation,
 	getReservationDestinations,
-} from 'new-request/message/bizgo/v1/reservation/GET';
+} from 'new-request/message/bizgo/reservation/GET';
 import {
 	createReservation,
 	cancelReservation,
 	addReservationDestinations,
 	resumeReservation,
 	stopReservation,
-} from 'new-request/message/bizgo/v1/reservation/POST';
-import { updateReservation } from 'new-request/message/bizgo/v1/reservation/PUT';
-import { deleteReservationDestination } from 'new-request/message/bizgo/v1/reservation/DELETE';
+} from 'new-request/message/bizgo/reservation/POST';
+import { updateReservation } from 'new-request/message/bizgo/reservation/PUT';
+import { deleteReservationDestination } from 'new-request/message/bizgo/reservation/DELETE';
 ```
 
 ### SMS
