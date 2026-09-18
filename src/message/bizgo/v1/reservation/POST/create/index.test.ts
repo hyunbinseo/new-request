@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env } from '../../env.ts';
+import { bizgoEnv } from '../../env.ts';
 import { createReservation } from './index.ts';
 
-const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
+const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
 const kstFormatter = new Intl.DateTimeFormat('sv-SE', {
 	timeZone: 'Asia/Seoul',
@@ -23,8 +23,8 @@ void test('sends a POST request to the reservation endpoint', async () => {
 		{
 			alimtalk: {
 				msgType: 'AT' as const,
-				senderKey: env.BIZGO_KAKAO_SENDER_KEY,
-				templateCode: env.BIZGO_KAKAO_TEMPLATE_CODE,
+				senderKey: bizgoEnv.BIZGO_KAKAO_SENDER_KEY,
+				templateCode: bizgoEnv.BIZGO_KAKAO_TEMPLATE_CODE,
 				text: '예약 알림톡 발송 테스트입니다.',
 			},
 		},
@@ -34,7 +34,7 @@ void test('sends a POST request to the reservation endpoint', async () => {
 
 	await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
 			messageFlow,
 			resvSendTime,
 			resvName: '알림톡 예약 발송',
@@ -44,7 +44,7 @@ void test('sends a POST request to the reservation endpoint', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (env.useSandboxApi) return fetch(input);
+				if (bizgoEnv.useSandboxApi) return fetch(input);
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 					data: { code: 'A000', result: 'Success', resvKey: 'MO20260501100000abcdef' },
@@ -56,10 +56,10 @@ void test('sends a POST request to the reservation endpoint', async () => {
 	assert.ok(request);
 	assert.equal(request.method, 'POST');
 	assert.equal(request.url, 'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation');
-	assert.equal(request.headers.get('Authorization'), env.BIZGO_API_KEY);
+	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 	assert.equal(request.headers.get('Content-Type'), 'application/json');
 	assert.deepEqual(await request.json(), {
-		destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
+		destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
 		messageFlow,
 		resvSendTime,
 		resvName: '알림톡 예약 발송',
@@ -78,8 +78,8 @@ void test('rejects the entire reservation when a destination is malformed', asyn
 
 	const result = await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }, { to: '000' }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }, { to: '000' }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
@@ -93,8 +93,8 @@ void test('respects a custom baseURL', async () => {
 
 	await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{
@@ -118,8 +118,8 @@ void test('returns ok: true with the parsed body on success', async () => {
 
 	const result = await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{ ...opts, fetch: async () => Response.json(responseBody) },
@@ -136,8 +136,8 @@ void test('returns ok: false with the parsed body on failure', async () => {
 
 	const result = await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{ ...opts, fetch: async () => Response.json(responseBody, { status: 400 }) },
@@ -149,8 +149,8 @@ void test('returns ok: false with the parsed body on failure', async () => {
 void test('returns an Error when the fetch call throws', async () => {
 	const result = await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{
@@ -168,8 +168,8 @@ void test('returns an Error when the fetch call throws', async () => {
 void test('returns an Error instead of throwing when request construction fails', async () => {
 	const result = await createReservation(
 		{
-			destinations: [{ to: env.BIZGO_PHONE_NUMBER }],
-			messageFlow: [{ sms: { from: env.BIZGO_PHONE_NUMBER, text: 'test' } }],
+			destinations: [{ to: bizgoEnv.BIZGO_PHONE_NUMBER }],
+			messageFlow: [{ sms: { from: bizgoEnv.BIZGO_PHONE_NUMBER, text: 'test' } }],
 			resvSendTime: '2026-05-01 10:00:00',
 		},
 		{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },

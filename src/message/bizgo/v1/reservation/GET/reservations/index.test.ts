@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { env } from '../../env.ts';
+import { bizgoEnv } from '../../env.ts';
 import { getReservations } from './index.ts';
 
-const opts = { apiKey: env.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
+const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
 void test('sends a GET request with the query params', async () => {
 	let request: Request | undefined;
@@ -14,7 +14,7 @@ void test('sends a GET request with the query params', async () => {
 			...opts,
 			fetch: async (input) => {
 				request = (input as Request).clone();
-				if (env.useSandboxApi) return fetch(input);
+				if (bizgoEnv.useSandboxApi) return fetch(input);
 				return Response.json({
 					common: { authCode: 'A000', authResult: 'Success', infobankTrId: 'id' },
 					data: {
@@ -33,7 +33,7 @@ void test('sends a GET request with the query params', async () => {
 		request.url,
 		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
 	);
-	assert.equal(request.headers.get('Authorization'), env.BIZGO_API_KEY);
+	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
 });
 
 void test('returns ok: false with the parsed body on failure', async () => {

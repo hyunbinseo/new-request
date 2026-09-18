@@ -1,6 +1,6 @@
 import { fallback, object, parse, pipe, startsWith, string, transform } from 'valibot';
 
-export const env = parse(
+export const bizgoEnv = parse(
 	pipe(
 		object({
 			BIZGO_API_KEY: fallback(pipe(string(), startsWith('mars_')), 'test-api-key'),
