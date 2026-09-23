@@ -107,6 +107,14 @@ import { sendEmail } from 'new-request/email/postmark/POST';
 import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 ```
 
+### Meeting
+
+- [Zoom](https://developers.zoom.us/docs/api/) (Server-to-Server OAuth)
+
+```ts
+import { getAccessToken } from 'new-request/meeting/zoom/oauth/token/POST';
+```
+
 ### Message (Web Hook, Push, etc.)
 
 - [Pushover](https://pushover.net/)
