@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parse } from 'valibot';
-import { skip, zoomEnv } from '../env.ts';
-import { vUserTokenQuery, vUserTokenResponse } from './user/valibot.gen.ts';
+import { skip, zoomEnv } from '../../../env.ts';
+import { vUserTokenQuery, vUserTokenResponse } from './valibot.gen.ts';
 
 const getAccessToken = async () => {
 	const response = await fetch('https://zoom.us/oauth/token', {
