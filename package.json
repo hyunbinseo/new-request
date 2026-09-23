@@ -37,6 +37,8 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
+		"test": "node --test",
+		"test:integration": "node --test --env-file=.env",
 		"zoom:codegen": "openapi-ts && oxfmt src/meeting/zoom/generated",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
