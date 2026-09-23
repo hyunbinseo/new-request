@@ -37,6 +37,7 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
+		"zoom:codegen": "node cli/zoom/codegen.ts",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
@@ -47,6 +48,8 @@
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.5",
 		"@types/node": "^24.13.3",
+		"json-schema-to-typescript": "^16.0.0",
+		"json-schema-to-valibot": "^0.3.1",
 		"oxfmt": "^0.67.0",
 		"oxlint": "^1.82.0",
 		"oxlint-tsgolint": "^7.0.2001",
