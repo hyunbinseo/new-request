@@ -24,3 +24,20 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 POST /v1/user/id/{id}/ban  →  v1/user/id/ban/POST
 GET  /v1/user/id/{id}      →  v1/user/id/GET
 ```
+
+## Testing
+
+### Unit Tests
+
+- Colocated as `<METHOD>/index.test.ts`, with `fetch` stubbed by `captureFetch`.
+- Added only where the wrapper does its own work:
+  - Building the URL from arguments (conditional query params, encoded path parameters).
+  - Interpreting the response (`{ ok, body }` parsing, returning an `Error` instead of throwing).
+- Not added for pass-through bodies or fixed methods, URLs, or headers.
+- Shared helpers are tested once, not per endpoint.
+
+### Integration Tests
+
+- Added for every implemented endpoint when the vendor has a sandbox.
+- Run against the sandbox with real credentials, listed in `.env.example`.
+- Grouped into one lifecycle test when endpoints depend on each other.
