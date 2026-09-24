@@ -114,7 +114,7 @@ import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 - [NHN Dooray! 두레이 메신저 웹 훅](https://helpdesk.dooray.com/share/pages/9wWo-xwiR66BO5LGshgVTg/2900079421986850197)
 
 ```ts
-import { sendMessage } from 'new-request/message/bizgo/send/omni/POST';
+import { sendMessage } from 'new-request/message/bizgo/v1/send/omni/POST';
 import { sendMessage } from 'new-request/message/dooray/POST';
 import { pushMessage } from 'new-request/message/pushover/1/POST';
 ```
@@ -134,20 +134,16 @@ import { pushMessage } from 'new-request/message/pushover/1/POST';
 > `getReservations`는 문서상 "월/일/시각 단위 조회 가능"이라고 되어 있지만, 실제로는 전체 타임스탬프만 통과되고 월/일 단위는 A213 에러가 남.
 
 ```ts
-import {
-	getReservations,
-	getReservation,
-	getReservationDestinations,
-} from 'new-request/message/bizgo/reservation/GET';
-import {
-	createReservation,
-	cancelReservation,
-	addReservationDestinations,
-	resumeReservation,
-	stopReservation,
-} from 'new-request/message/bizgo/reservation/POST';
-import { updateReservation } from 'new-request/message/bizgo/reservation/PUT';
-import { deleteReservationDestination } from 'new-request/message/bizgo/reservation/DELETE';
+import { createReservation } from 'new-request/message/bizgo/v1/reservation/POST';
+import { getReservations } from 'new-request/message/bizgo/v1/reservation/list/GET';
+import { getReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/GET';
+import { updateReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/PUT';
+import { cancelReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/cancel/POST';
+import { resumeReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/resume/POST';
+import { stopReservation } from 'new-request/message/bizgo/v1/reservation/resvKey/stop/POST';
+import { getReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/GET';
+import { addReservationDestinations } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/POST';
+import { deleteReservationDestination } from 'new-request/message/bizgo/v1/reservation/resvKey/destinations/msgKey/DELETE';
 ```
 
 ### SMS

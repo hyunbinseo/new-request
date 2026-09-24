@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv, skip } from '../../env.ts';
+import { bizgoEnv, skip } from '../../../env.ts';
 import { getReservationDestinations } from './index.ts';
 
 const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };

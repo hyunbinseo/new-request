@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv, skip, skipCreate } from '../../env.ts';
-import { cancelReservation } from '../cancel/index.ts';
+import { bizgoEnv, skip, skipCreate } from '../env.ts';
+import { cancelReservation } from '../resvKey/cancel/POST/index.ts';
 import { createReservation } from './index.ts';
 import type { ResponseBody } from './types.ts';
 
