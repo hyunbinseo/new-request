@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.5",
-		"@types/node": "^24.13.6",
+		"@types/node": "^20.19.43",
 		"oxfmt": "^0.70.0",
 		"oxlint": "^1.85.0",
 		"oxlint-tsgolint": "^7.0.2002",
@@ -68,6 +68,6 @@
 		}
 	},
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	}
 }
