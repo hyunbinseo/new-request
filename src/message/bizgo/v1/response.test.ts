@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { parseBizgoResponse } from './response.ts';
+import { fetchBizgo, parseBizgoResponse } from './response.ts';
 
-// A pure parser, so these run without credentials or the network.
+// `fetch` is stubbed, so these run without credentials or the network.
 
 void test('parses a 2xx JSON body as ok: true', async () => {
 	const result = await parseBizgoResponse(Response.json({ data: { code: 'A000' } }));
@@ -27,4 +27,29 @@ void test('returns an Error for a non-JSON body instead of casting it', async ()
 	);
 	assert.ok(result instanceof Error);
 	assert.match(result.message, /HTTP 502/);
+});
+
+void test('returns an Error instead of throwing when request construction fails', async () => {
+	let called = false;
+	const result = await fetchBizgo(
+		() =>
+			new Request('https://sandbox-mars.ibapi.kr', {
+				headers: { Authorization: 'invalid\nheader\nvalue' },
+			}),
+		{
+			fetch: async () => {
+				called = true;
+				return Response.json({});
+			},
+		},
+	);
+	assert.ok(result instanceof Error);
+	assert.equal(called, false);
+});
+
+void test('returns an Error instead of throwing when fetch rejects', async () => {
+	const result = await fetchBizgo(() => new Request('https://sandbox-mars.ibapi.kr'), {
+		fetch: () => Promise.reject(new TypeError('fetch failed')),
+	});
+	assert.ok(result instanceof TypeError);
 });
