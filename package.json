@@ -50,8 +50,7 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
-		"test": "node --test",
-		"test:integration": "node --test --env-file=.env",
+		"test": "node --test --env-file-if-exists=.env",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
