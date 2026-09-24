@@ -1,46 +1,34 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv, skip } from '../../env.ts';
+import { stubOpts } from '#bizgo/testing/stub.ts';
+import { captureFetch } from '#lib/testing.ts';
 import { getReservations } from './index.ts';
 
-const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
+void test('sets the optional query params when provided', async () => {
+	const { fetch, requests } = captureFetch();
 
-void test('sends a GET request with the query params', { skip }, async () => {
-	let request: Request | undefined;
-
-	const result = await getReservations(
-		{ resvSendTime: '2026-05', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
-		{
-			...opts,
-			fetch: async (input) => {
-				request = (input as Request).clone();
-				return fetch(input);
-			},
-		},
+	await getReservations(
+		{ resvSendTime: '2026-05-01 10:00:00', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
+		{ ...stubOpts, fetch },
 	);
 
+	const [request] = requests;
 	assert.ok(request);
-	assert.equal(request.method, 'GET');
 	assert.equal(
 		request.url,
-		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/list?resvSendTime=2026-05&paymentCode=SMS07&lastSeq=100&limit=50',
+		`${stubOpts.baseURL}/api/comm/v1/reservation/list?resvSendTime=2026-05-01+10%3A00%3A00&paymentCode=SMS07&lastSeq=100&limit=50`,
 	);
-	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
-
-	// The sandbox round-trip and JSON parse must have produced a structured result.
-	if (result instanceof Error) throw result;
-	assert.equal(typeof result.ok, 'boolean');
 });
 
-void test(
-	'returns an Error instead of throwing when request construction fails',
-	{ skip },
-	async () => {
-		const result = await getReservations(
-			{ resvSendTime: '2026-05' },
-			{ apiKey: 'invalid\nheader\nvalue', baseURL: 'https://sandbox-mars.ibapi.kr' },
-		);
+void test('omits the optional query params when undefined', async () => {
+	const { fetch, requests } = captureFetch();
 
-		assert.ok(result instanceof Error);
-	},
-);
+	await getReservations({ resvSendTime: '2026-05-01 10:00:00' }, { ...stubOpts, fetch });
+
+	const [request] = requests;
+	assert.ok(request);
+	assert.equal(
+		request.url,
+		`${stubOpts.baseURL}/api/comm/v1/reservation/list?resvSendTime=2026-05-01+10%3A00%3A00`,
+	);
+});

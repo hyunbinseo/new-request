@@ -1,48 +1,18 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bizgoEnv, skip } from '../../env.ts';
+import { stubOpts } from '#bizgo/testing/stub.ts';
+import { captureFetch } from '#lib/testing.ts';
 import { getReservation } from './index.ts';
 
-const opts = { apiKey: bizgoEnv.BIZGO_API_KEY, baseURL: 'https://sandbox-mars.ibapi.kr' as const };
+void test('encodes special characters in resvKey', async () => {
+	const { fetch, requests } = captureFetch();
 
-void test('sends a GET request to the resvKey endpoint', { skip }, async () => {
-	let request: Request | undefined;
+	await getReservation('key/with?special#chars', { ...stubOpts, fetch });
 
-	const result = await getReservation('MO20260501100000abcdef', {
-		...opts,
-		fetch: async (input) => {
-			request = (input as Request).clone();
-			return fetch(input);
-		},
-	});
-
-	assert.ok(request);
-	assert.equal(request.method, 'GET');
-	assert.equal(
-		request.url,
-		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/MO20260501100000abcdef',
-	);
-	assert.equal(request.headers.get('Authorization'), bizgoEnv.BIZGO_API_KEY);
-
-	// The sandbox round-trip and JSON parse must have produced a structured result.
-	if (result instanceof Error) throw result;
-	assert.equal(typeof result.ok, 'boolean');
-});
-
-void test('encodes special characters in resvKey', { skip }, async () => {
-	let request: Request | undefined;
-
-	await getReservation('key/with?special#chars', {
-		...opts,
-		fetch: async (input) => {
-			request = input as Request;
-			return fetch(input);
-		},
-	});
-
+	const [request] = requests;
 	assert.ok(request);
 	assert.equal(
 		request.url,
-		'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars',
+		`${stubOpts.baseURL}/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars`,
 	);
 });

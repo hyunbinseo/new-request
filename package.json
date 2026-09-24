@@ -20,6 +20,7 @@
 	"imports": {
 		"#lib/*": "./src/lib/*",
 		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*",
+		"#bizgo/testing/*": "./src/message/bizgo/v1/testing/*",
 		"#bizgo/reservation": "./src/message/bizgo/v1/reservation/types.ts",
 		"#bizgo/response": "./src/message/bizgo/v1/response.ts"
 	},
