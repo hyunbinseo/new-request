@@ -13,7 +13,7 @@ export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					body: Object.entries(requestBody).reduce(
 						(searchParams, [key, value]) => {
-							if (value) searchParams.append(key, value.toString());
+							if (value !== undefined) searchParams.append(key, value.toString());
 							return searchParams;
 						},
 						new URLSearchParams({ token: opts.token, user: opts.user }),
