@@ -32,16 +32,8 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
 
 ## Errors
 
-- Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
-
-## Arguments
-
-- Not validated. Requests are sent as-is and rejected by the API.
-- Not mutated. Defaults (e.g. `opts.from`) are applied to a copy.
-
-## Errors
-
-- Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
+- Not thrown. Returned as an `Error` by `tryFetch` (e.g. invalid request, `fetch` rejection, unparsable body).
+- Non-2xx responses are not errors. They are returned with `ok: false`.
 
 ## Testing
 
