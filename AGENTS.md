@@ -34,6 +34,13 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
 
 - Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
 
+## JSDoc
+
+- Added only for what the type can't express:
+  - Value constraints (e.g. format, time zone, range).
+  - Behavior confirmed by integration tests that differs from, or is missing in, the vendor docs.
+- Not added for field descriptions, or for links to `docs/`.
+
 ## Testing
 
 ### Unit Tests
@@ -55,3 +62,5 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
 - Added for every implemented endpoint when the vendor has a sandbox.
 - Run against the sandbox with real credentials, listed in `.env.example`.
 - Grouped into one lifecycle test when endpoints depend on each other.
+- Placed in the endpoint's `index.test.ts`, except lifecycle tests, which go in `<version>/<resource>/lifecycle.test.ts`.
+- Sandbox helpers go in `<vendor>/<version>/sandbox/`.
