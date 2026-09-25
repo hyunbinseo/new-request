@@ -1,3 +1,4 @@
+import { env } from 'node:process';
 import {
 	digits,
 	entriesFromList,
@@ -5,6 +6,7 @@ import {
 	minLength,
 	object,
 	optional,
+	parse,
 	pipe,
 	regex,
 	startsWith,
@@ -20,7 +22,7 @@ const keys = [
 	'BIZGO_KAKAO_TEMPLATE_CODE',
 ] as const;
 
-export const SandboxEnvSchema = pipe(
+const SandboxEnvSchema = pipe(
 	object(
 		entriesFromList(
 			keys,
@@ -46,20 +48,26 @@ export const SandboxEnvSchema = pipe(
 		BIZGO_KAKAO_TEMPLATE_CODE: optional(string()),
 	}),
 	transform((v) => {
-		if (!v.BIZGO_API_KEY) return undefined;
+		if (
+			!v.BIZGO_API_KEY ||
+			!v.BIZGO_DESTINATION_PHONE_NUMBER ||
+			!v.BIZGO_KAKAO_SENDER_KEY ||
+			!v.BIZGO_KAKAO_TEMPLATE_CODE
+		)
+			return undefined;
 		return {
 			opts: {
 				apiKey: v.BIZGO_API_KEY,
 				baseURL: 'https://sandbox-mars.ibapi.kr' as const,
 			},
 			destinationPhoneNumber: v.BIZGO_DESTINATION_PHONE_NUMBER,
-			kakao:
-				v.BIZGO_KAKAO_SENDER_KEY && v.BIZGO_KAKAO_TEMPLATE_CODE
-					? {
-							senderKey: v.BIZGO_KAKAO_SENDER_KEY,
-							templateCode: v.BIZGO_KAKAO_TEMPLATE_CODE,
-						}
-					: undefined,
+			kakao: {
+				senderKey: v.BIZGO_KAKAO_SENDER_KEY,
+				templateCode: v.BIZGO_KAKAO_TEMPLATE_CODE,
+			},
 		};
 	}),
 );
+
+/** Undefined unless every sandbox variable is set. */
+export const sandbox = parse(SandboxEnvSchema, env);

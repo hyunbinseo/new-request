@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
-import { env } from 'node:process';
+import { randomBytes } from 'node:crypto';
 import { describe, test } from 'node:test';
-import { parse } from 'valibot';
-import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
+import { sandbox } from '#bizgo/v1/testing/env.ts';
 import { getReservations, type Query } from './list/GET/index.ts';
 import { createReservation, type RequestBody } from './POST/index.ts';
 import { cancelReservation } from './resvKey/cancel/POST/index.ts';
@@ -17,8 +16,6 @@ import { updateReservation } from './resvKey/PUT/index.ts';
 import { resumeReservation } from './resvKey/resume/POST/index.ts';
 import { stopReservation } from './resvKey/stop/POST/index.ts';
 
-const sandbox = parse(SandboxEnvSchema, env);
-
 const KST_OFFSET = 9 * 60 * 60 * 1000;
 
 const getFutureResvSendTime = (ms: number) =>
@@ -29,7 +26,8 @@ const getFutureResvSendTime = (ms: number) =>
 
 void describe('message/bizgo/v1/reservation', () => {
 	void test('creates, edits, and cancels a reservation in the sandbox', async (t) => {
-		if (!sandbox?.destinationPhoneNumber || !sandbox.kakao) return t.skip();
+		if (!sandbox) return t.skip();
+		// Destructured so the narrowing carries into the subtest callbacks.
 		const { opts, destinationPhoneNumber, kakao } = sandbox;
 
 		const input: RequestBody = {
@@ -39,8 +37,7 @@ void describe('message/bizgo/v1/reservation', () => {
 			],
 			resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
 			resvName: '알림톡 예약 발송',
-			// Unique per run so repeated runs don't collide on ref uniqueness.
-			ref: `mt-resv-${Date.now()}`,
+			ref: `mt-resv-${Date.now()}-${randomBytes(4).toString('hex')}`,
 		};
 
 		const created = await createReservation(input, opts);
@@ -48,12 +45,12 @@ void describe('message/bizgo/v1/reservation', () => {
 		assert.ok(!(created instanceof Error));
 		assert.equal(created.ok, true, JSON.stringify(created.body));
 
-		const { resvKey, data } = created.body.data;
+		const { resvKey } = created.body.data;
 
 		assert.ok(resvKey);
-		assert.ok(data);
+		assert.ok(created.body.data.data);
 
-		const initialMsgKeys = new Set(data.destinations.map((d) => d.msgKey));
+		const initialMsgKeys = new Set(created.body.data.data.destinations.map((d) => d.msgKey));
 
 		// Cancel even if a later step fails, so the reservation doesn't actually fire in the sandbox.
 		let cancelled = false;
@@ -95,11 +92,11 @@ void describe('message/bizgo/v1/reservation', () => {
 				assert.ok(!(response instanceof Error));
 				assert.equal(response.ok, true, JSON.stringify(response.body));
 
-				const { data } = response.body.data;
-				if (data.reservations.some((r) => r.resvKey === resvKey)) break;
-				assert.ok(data.hasNext, `${resvKey} is not in the list`);
-				assert.notEqual(data.lastSeq, query.lastSeq, 'lastSeq did not advance');
-				query.lastSeq = data.lastSeq;
+				const page = response.body.data.data;
+				if (page.reservations.some((r) => r.resvKey === resvKey)) break;
+				assert.ok(page.hasNext, `${resvKey} is not in the list`);
+				assert.notEqual(page.lastSeq, query.lastSeq, 'lastSeq did not advance');
+				query.lastSeq = page.lastSeq;
 			}
 		});
 
@@ -122,12 +119,12 @@ void describe('message/bizgo/v1/reservation', () => {
 				assert.ok(!(response instanceof Error));
 				assert.equal(response.ok, true, JSON.stringify(response.body));
 
-				const { data } = response.body.data;
-				addedDestination = data.destinations.find((d) => !initialMsgKeys.has(d.msgKey));
+				const page = response.body.data.data;
+				addedDestination = page.destinations.find((d) => !initialMsgKeys.has(d.msgKey));
 				if (addedDestination) break;
-				assert.ok(data.hasNext, 'the added destination is not in the list');
-				assert.notEqual(data.lastSeq, query.lastSeq, 'lastSeq did not advance');
-				query.lastSeq = data.lastSeq;
+				assert.ok(page.hasNext, 'the added destination is not in the list');
+				assert.notEqual(page.lastSeq, query.lastSeq, 'lastSeq did not advance');
+				query.lastSeq = page.lastSeq;
 			}
 
 			const deleted = await deleteReservationDestination(resvKey, addedDestination.msgKey, opts);

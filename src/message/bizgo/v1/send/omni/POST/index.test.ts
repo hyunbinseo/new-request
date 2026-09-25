@@ -1,25 +1,28 @@
 import assert from 'node:assert/strict';
-import { env } from 'node:process';
+import { randomBytes } from 'node:crypto';
 import { describe, test } from 'node:test';
-import { parse } from 'valibot';
-import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
+import { sandbox } from '#bizgo/v1/testing/env.ts';
 import { sendMessage, type RequestBody } from './index.ts';
-
-const sandbox = parse(SandboxEnvSchema, env);
 
 void describe('message/bizgo/v1/send/omni/POST', () => {
 	void test('sends an alimtalk to the sandbox', async (t) => {
-		if (!sandbox?.destinationPhoneNumber || !sandbox.kakao) return t.skip();
-		const { opts, destinationPhoneNumber, kakao } = sandbox;
+		if (!sandbox) return t.skip();
 
 		const input: RequestBody = {
-			destinations: [{ to: destinationPhoneNumber }],
-			messageFlow: [{ alimtalk: { msgType: 'AT', ...kakao, text: '알림톡 발송 테스트입니다.' } }],
-			// Unique per run so repeated runs don't collide on ref uniqueness.
-			ref: `mt-${Date.now()}`,
+			destinations: [{ to: sandbox.destinationPhoneNumber }],
+			messageFlow: [
+				{
+					alimtalk: {
+						msgType: 'AT',
+						...sandbox.kakao,
+						text: '알림톡 발송 테스트입니다.',
+					},
+				},
+			],
+			ref: `mt-${Date.now()}-${randomBytes(4).toString('hex')}`,
 		};
 
-		const response = await sendMessage(input, opts);
+		const response = await sendMessage(input, sandbox.opts);
 
 		assert.ok(!(response instanceof Error));
 		assert.equal(response.ok, true, JSON.stringify(response.body));
