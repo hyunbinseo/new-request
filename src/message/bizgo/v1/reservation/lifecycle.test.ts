@@ -19,15 +19,12 @@ import { stopReservation } from './resvKey/stop/POST/index.ts';
 const KST_OFFSET = 9 * 60 * 60 * 1000;
 
 const getFutureResvSendTime = (ms: number) =>
-	new Date(Date.now() + KST_OFFSET + ms) //
-		.toISOString()
-		.slice(0, 19)
-		.replace('T', ' '); // yyyy-MM-dd HH:mm:ss
+	new Date(Date.now() + KST_OFFSET + ms).toISOString().slice(0, 19).replace('T', ' ');
 
 void describe('message/bizgo/v1/reservation', () => {
 	void test('creates, edits, and cancels a reservation in the sandbox', async (t) => {
 		if (!sandbox) return t.skip();
-		// Destructured so the narrowing carries into the subtest callbacks.
+
 		const { opts, destinationPhoneNumber, kakao } = sandbox;
 
 		const input: RequestBody = {
@@ -43,7 +40,7 @@ void describe('message/bizgo/v1/reservation', () => {
 		const created = await createReservation(input, opts);
 
 		assert.ok(!(created instanceof Error));
-		assert.equal(created.ok, true, JSON.stringify(created.body));
+		assert.equal(created.ok, true);
 
 		const { resvKey } = created.body.data;
 
@@ -52,20 +49,19 @@ void describe('message/bizgo/v1/reservation', () => {
 
 		const initialMsgKeys = new Set(created.body.data.data.destinations.map((d) => d.msgKey));
 
-		// Cancel even if a later step fails, so the reservation doesn't actually fire in the sandbox.
 		let cancelled = false;
 		t.after(async () => {
 			if (cancelled) return;
 			const response = await cancelReservation(resvKey, opts);
 			assert.ok(!(response instanceof Error));
-			assert.equal(response.ok, true, JSON.stringify(response.body));
+			assert.equal(response.ok, true);
 		});
 
 		await t.test('GET resvKey', async () => {
 			const response = await getReservation(resvKey, opts);
 
 			assert.ok(!(response instanceof Error));
-			assert.equal(response.ok, true, JSON.stringify(response.body));
+			assert.equal(response.ok, true);
 			assert.equal(response.body.data.data.resvKey, resvKey);
 		});
 
@@ -79,18 +75,17 @@ void describe('message/bizgo/v1/reservation', () => {
 			);
 
 			assert.ok(!(response instanceof Error));
-			assert.equal(response.ok, true, JSON.stringify(response.body));
+			assert.equal(response.ok, true);
 			assert.equal(response.body.data.data.resvName, '알림톡 예약 수정');
 		});
 
 		await t.test('GET list', async () => {
-			// Lists reservations at or after `resvSendTime`, so the updated one is on some page.
 			const query: Query = { resvSendTime, limit: 1000 };
 			for (;;) {
 				const response = await getReservations(query, opts);
 
 				assert.ok(!(response instanceof Error));
-				assert.equal(response.ok, true, JSON.stringify(response.body));
+				assert.equal(response.ok, true);
 
 				const page = response.body.data.data;
 				if (page.reservations.some((r) => r.resvKey === resvKey)) break;
@@ -108,7 +103,7 @@ void describe('message/bizgo/v1/reservation', () => {
 			);
 
 			assert.ok(!(added instanceof Error));
-			assert.equal(added.ok, true, JSON.stringify(added.body));
+			assert.equal(added.ok, true);
 			assert.equal(added.body.data.data.inserted, 1);
 
 			const query: DestinationsQuery = {};
@@ -117,7 +112,7 @@ void describe('message/bizgo/v1/reservation', () => {
 				const response = await getReservationDestinations(resvKey, query, opts);
 
 				assert.ok(!(response instanceof Error));
-				assert.equal(response.ok, true, JSON.stringify(response.body));
+				assert.equal(response.ok, true);
 
 				const page = response.body.data.data;
 				addedDestination = page.destinations.find((d) => !initialMsgKeys.has(d.msgKey));
@@ -130,26 +125,26 @@ void describe('message/bizgo/v1/reservation', () => {
 			const deleted = await deleteReservationDestination(resvKey, addedDestination.msgKey, opts);
 
 			assert.ok(!(deleted instanceof Error));
-			assert.equal(deleted.ok, true, JSON.stringify(deleted.body));
+			assert.equal(deleted.ok, true);
 		});
 
 		await t.test('POST stop and resume', async () => {
 			const stopped = await stopReservation(resvKey, opts);
 
 			assert.ok(!(stopped instanceof Error));
-			assert.equal(stopped.ok, true, JSON.stringify(stopped.body));
+			assert.equal(stopped.ok, true);
 
 			const resumed = await resumeReservation(resvKey, opts);
 
 			assert.ok(!(resumed instanceof Error));
-			assert.equal(resumed.ok, true, JSON.stringify(resumed.body));
+			assert.equal(resumed.ok, true);
 		});
 
 		await t.test('POST cancel', async () => {
 			const response = await cancelReservation(resvKey, opts);
 
 			assert.ok(!(response instanceof Error));
-			assert.equal(response.ok, true, JSON.stringify(response.body));
+			assert.equal(response.ok, true);
 
 			cancelled = true;
 		});

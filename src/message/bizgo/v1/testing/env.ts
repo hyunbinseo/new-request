@@ -69,5 +69,4 @@ const SandboxEnvSchema = pipe(
 	}),
 );
 
-/** Undefined unless every sandbox variable is set. */
 export const sandbox = parse(SandboxEnvSchema, env);

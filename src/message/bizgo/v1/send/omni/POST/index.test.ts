@@ -11,13 +11,7 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		const input: RequestBody = {
 			destinations: [{ to: sandbox.destinationPhoneNumber }],
 			messageFlow: [
-				{
-					alimtalk: {
-						msgType: 'AT',
-						...sandbox.kakao,
-						text: '알림톡 발송 테스트입니다.',
-					},
-				},
+				{ alimtalk: { msgType: 'AT', ...sandbox.kakao, text: '알림톡 발송 테스트입니다.' } },
 			],
 			ref: `mt-${Date.now()}-${randomBytes(4).toString('hex')}`,
 		};
@@ -25,6 +19,6 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		const response = await sendMessage(input, sandbox.opts);
 
 		assert.ok(!(response instanceof Error));
-		assert.equal(response.ok, true, JSON.stringify(response.body));
+		assert.equal(response.ok, true);
 	});
 });
