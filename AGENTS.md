@@ -19,6 +19,10 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 - Copied from the request URL, and may span multiple segments (e.g. `send/omni`).
 - Added only when multiple endpoints are implemented under that version.
 
+## Arguments
+
+- Not mutated. Defaults (e.g. `opts.from`) are applied to a copy.
+
 ## Testing
 
 ### Unit Tests

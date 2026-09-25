@@ -2,15 +2,13 @@ import type { Options, RequestBody, ResponseBody4xx, ResponseBody5xx } from './t
 export type { Options, RequestBody };
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
-	requestBody.from = requestBody.from || opts.from;
-
 	const request = new Request('https://api.sendgrid.com/v3/mail/send', {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${opts.apiKey}`,
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(requestBody),
+		body: JSON.stringify({ ...requestBody, from: requestBody.from || opts.from }),
 	});
 
 	try {
