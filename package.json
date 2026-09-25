@@ -19,11 +19,21 @@
 	"sideEffects": false,
 	"imports": {
 		"#lib/*": "./src/lib/*",
-		"#bizgo/channels/*": "./src/message/bizgo/v1/channels/*"
+		"#bizgo/v1/*": "./src/message/bizgo/v1/*"
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
 		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
+		"./message/bizgo/v1/reservation/list/GET": "./dist/message/bizgo/v1/reservation/list/GET/index.js",
+		"./message/bizgo/v1/reservation/POST": "./dist/message/bizgo/v1/reservation/POST/index.js",
+		"./message/bizgo/v1/reservation/resvKey/cancel/POST": "./dist/message/bizgo/v1/reservation/resvKey/cancel/POST/index.js",
+		"./message/bizgo/v1/reservation/resvKey/destinations/GET": "./dist/message/bizgo/v1/reservation/resvKey/destinations/GET/index.js",
+		"./message/bizgo/v1/reservation/resvKey/destinations/msgKey/DELETE": "./dist/message/bizgo/v1/reservation/resvKey/destinations/msgKey/DELETE/index.js",
+		"./message/bizgo/v1/reservation/resvKey/destinations/POST": "./dist/message/bizgo/v1/reservation/resvKey/destinations/POST/index.js",
+		"./message/bizgo/v1/reservation/resvKey/GET": "./dist/message/bizgo/v1/reservation/resvKey/GET/index.js",
+		"./message/bizgo/v1/reservation/resvKey/PUT": "./dist/message/bizgo/v1/reservation/resvKey/PUT/index.js",
+		"./message/bizgo/v1/reservation/resvKey/resume/POST": "./dist/message/bizgo/v1/reservation/resvKey/resume/POST/index.js",
+		"./message/bizgo/v1/reservation/resvKey/stop/POST": "./dist/message/bizgo/v1/reservation/resvKey/stop/POST/index.js",
 		"./message/bizgo/v1/send/omni/POST": "./dist/message/bizgo/v1/send/omni/POST/index.js",
 		"./message/dooray/POST": "./dist/message/dooray/POST/index.js",
 		"./message/pushover/1/POST": "./dist/message/pushover/1/POST/index.js",
@@ -37,7 +47,7 @@
 	},
 	"scripts": {
 		"prepack": "tsdown",
-		"test": "node --test --env-file-if-exists=.env",
+		"test": "node --test --env-file-if-exists=.env --test-global-setup=src/message/bizgo/v1/sandbox/setup.ts",
 		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"fmt": "oxfmt",
@@ -47,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.5",
-		"@types/node": "^20.19.43",
+		"@types/node": "^26.6.2",
 		"oxfmt": "^0.70.0",
 		"oxlint": "^1.85.0",
 		"oxlint-tsgolint": "^7.0.2002",
@@ -64,7 +74,7 @@
 		},
 		"runtime": {
 			"name": "node",
-			"version": "24.21.0",
+			"version": "26.10.0",
 			"onFail": "download"
 		}
 	},

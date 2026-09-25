@@ -4,12 +4,12 @@ import { tryFetch } from '#lib/fetch.ts';
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, RequestBody };
 
-export const sendMessage = (requestBody: RequestBody, opts: Options) =>
+export const createReservation = (requestBody: RequestBody, opts: Options) =>
 	tryFetch(
 		() =>
 			new Request(
 				new URL(
-					'/api/comm/v1/send/omni', //
+					'/api/comm/v1/reservation', //
 					opts.baseURL ?? PRODUCTION_BASE_URL,
 				),
 				{
