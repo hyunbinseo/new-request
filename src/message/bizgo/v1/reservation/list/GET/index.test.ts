@@ -1,17 +1,21 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { captureFetch } from '#lib/testing.ts';
-import { getReservations } from './index.ts';
+import { getReservations, type Query } from './index.ts';
 
 const opts = { apiKey: 'apiKey_stub', baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
 void describe('message/bizgo/v1/reservation/list/GET', () => {
 	void test('sets the optional query params when provided', async () => {
+		const input: Query = {
+			resvSendTime: '2026-05-01 10:00:00',
+			paymentCode: 'SMS07',
+			lastSeq: 100,
+			limit: 50,
+		};
+
 		const { fetch, requests } = captureFetch();
-		await getReservations(
-			{ resvSendTime: '2026-05-01 10:00:00', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
-			{ ...opts, fetch },
-		);
+		await getReservations(input, { ...opts, fetch });
 		const [request] = requests;
 
 		assert.ok(request);
@@ -22,8 +26,10 @@ void describe('message/bizgo/v1/reservation/list/GET', () => {
 	});
 
 	void test('omits the optional query params when undefined', async () => {
+		const input: Query = { resvSendTime: '2026-05-01 10:00:00' };
+
 		const { fetch, requests } = captureFetch();
-		await getReservations({ resvSendTime: '2026-05-01 10:00:00' }, { ...opts, fetch });
+		await getReservations(input, { ...opts, fetch });
 		const [request] = requests;
 
 		assert.ok(request);

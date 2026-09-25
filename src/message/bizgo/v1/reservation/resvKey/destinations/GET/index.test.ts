@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { captureFetch } from '#lib/testing.ts';
-import { getReservationDestinations } from './index.ts';
+import { getReservationDestinations, type Query } from './index.ts';
 
 const opts = { apiKey: 'apiKey_stub', baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
@@ -19,8 +19,10 @@ void describe('message/bizgo/v1/reservation/resvKey/destinations/GET', () => {
 	});
 
 	void test('sets the optional query params when provided', async () => {
+		const input: Query = { lastSeq: 100, limit: 50 };
+
 		const { fetch, requests } = captureFetch();
-		await getReservationDestinations('resvKey', { lastSeq: 100, limit: 50 }, { ...opts, fetch });
+		await getReservationDestinations('resvKey', input, { ...opts, fetch });
 		const [request] = requests;
 
 		assert.ok(request);
