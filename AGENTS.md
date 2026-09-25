@@ -21,6 +21,7 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 
 ## Arguments
 
+- Not validated. Requests are sent as-is and rejected by the API.
 - Not mutated. Defaults (e.g. `opts.from`) are applied to a copy.
 
 ## Errors

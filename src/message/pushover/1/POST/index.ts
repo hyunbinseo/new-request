@@ -4,9 +4,6 @@ export type { Options, RequestBody };
 
 export const pushMessage = async (requestBody: RequestBody, opts: Options) => {
 	try {
-		if (requestBody.attachment && requestBody.attachment.size > 5242880)
-			return new Error('Content Too Large');
-
 		const requestInit: RequestInit = !requestBody.attachment
 			? {
 					method: 'POST',

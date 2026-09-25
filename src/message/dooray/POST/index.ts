@@ -3,9 +3,6 @@ export type { Options, RequestBody };
 
 export const sendMessage = async (requestBody: RequestBody, opts: Options) => {
 	try {
-		if (!opts.url.startsWith('https://hook.dooray.com/services/'))
-			return new RangeError('Invalid URL');
-
 		const request = new Request(opts.url, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
