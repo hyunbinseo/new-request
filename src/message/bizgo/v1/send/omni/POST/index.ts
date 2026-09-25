@@ -1,4 +1,4 @@
-import { fetchBizgo } from '#bizgo/response';
+import { fetchBizgo } from '#bizgo/v1/response.ts';
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, RequestBody };
 

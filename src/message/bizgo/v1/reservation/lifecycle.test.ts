@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parse } from 'valibot';
-import type { BizgoResult } from '#bizgo/response';
-import { SandboxEnvSchema } from '#bizgo/testing/env.ts';
+import type { BizgoResult } from '#bizgo/v1/response.ts';
+import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
 import { getReservations, type Query } from './list/GET/index.ts';
 import { createReservation } from './POST/index.ts';
 import { cancelReservation } from './resvKey/cancel/POST/index.ts';

@@ -7,8 +7,8 @@ import type {
 	NaverTalkMessage,
 	RcsMessage,
 	SmsMessage,
-} from '#bizgo/channels/index.ts';
-import type { Common, Destination, ResponseBodyException } from '#bizgo/reservation';
+} from '#bizgo/v1/channels/index.ts';
+import type { Common, Destination, ResponseBodyException } from '#bizgo/v1/reservation/types.ts';
 
 export type {
 	AlimtalkMessage, //

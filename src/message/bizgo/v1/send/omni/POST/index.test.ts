@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parse } from 'valibot';
-import { SandboxEnvSchema } from '#bizgo/testing/env.ts';
+import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
 import { sendMessage } from './index.ts';
 
 const env = parse(SandboxEnvSchema, process.env);

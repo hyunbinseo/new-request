@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { stubOpts } from '#bizgo/testing/stub.ts';
+import { stubOpts } from '#bizgo/v1/testing/stub.ts';
 import { captureFetch } from '#lib/testing.ts';
 import { cancelReservation } from './index.ts';
 

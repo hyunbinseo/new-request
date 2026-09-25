@@ -5,7 +5,7 @@ import type {
 	Options,
 	ReservationDestination,
 	ResponseBodyException,
-} from '#bizgo/reservation';
+} from '#bizgo/v1/reservation/types.ts';
 
 export type { Options, ResponseBodyException };
 
