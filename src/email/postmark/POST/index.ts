@@ -2,8 +2,6 @@ import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './t
 export type { Options, RequestBody };
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
-	requestBody.From = requestBody.From || opts.from;
-
 	const request = new Request('https://api.postmarkapp.com/email', {
 		method: 'POST',
 		headers: {
@@ -11,7 +9,7 @@ export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
 			'Content-Type': 'application/json',
 			'X-Postmark-Server-Token': opts.serverToken,
 		},
-		body: JSON.stringify(requestBody),
+		body: JSON.stringify({ ...requestBody, From: requestBody.From || opts.from }),
 	});
 
 	try {
