@@ -23,4 +23,20 @@ void describe('email/send-grid/v3/POST', () => {
 		assert.deepEqual(await request.json(), expected);
 		assert.equal(input.from, undefined);
 	});
+
+	void test('prefers from in the request body over options', async () => {
+		const input: RequestBody = {
+			personalizations: [{ to: [{ email: 'to@example.com' }] }],
+			from: { email: 'body@example.com' },
+			subject: 'subject',
+			content: [{ type: 'text/plain', value: 'value' }],
+		};
+
+		const { fetch, requests } = captureFetch();
+		await sendEmail(input, { ...opts, fetch });
+		const [request] = requests;
+
+		assert.ok(request);
+		assert.deepEqual(await request.json(), input);
+	});
 });

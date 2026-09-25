@@ -21,4 +21,19 @@ void describe('message/dooray/POST', () => {
 		assert.deepEqual(await request.json(), expected);
 		assert.equal(input.botIconImage, undefined);
 	});
+
+	void test('prefers botIconImage in the request body over the default', async () => {
+		const input: RequestBody = {
+			botName: 'botName',
+			botIconImage: 'https://example.com/icon.png',
+			text: 'text',
+		};
+
+		const { fetch, requests } = captureFetch();
+		await sendMessage(input, { ...opts, fetch });
+		const [request] = requests;
+
+		assert.ok(request);
+		assert.deepEqual(await request.json(), input);
+	});
 });

@@ -18,4 +18,19 @@ void describe('email/postmark/POST', () => {
 		assert.deepEqual(await request.json(), expected);
 		assert.equal(input.From, undefined);
 	});
+
+	void test('prefers From in the request body over options', async () => {
+		const input: RequestBody = {
+			From: 'body@example.com',
+			To: 'to@example.com',
+			TextBody: 'text',
+		};
+
+		const { fetch, requests } = captureFetch();
+		await sendEmail(input, { ...opts, fetch });
+		const [request] = requests;
+
+		assert.ok(request);
+		assert.deepEqual(await request.json(), input);
+	});
 });
