@@ -5,15 +5,15 @@ import { sendSms, type RequestBody } from './index.ts';
 
 const opts = { appKey: 'appKey_stub', secretKey: 'secretKey_stub' };
 
+const input: RequestBody = {
+	type: 'auth/sms',
+	body: 'body',
+	sendNo: '01000000000',
+	recipientList: [],
+};
+
 void describe('sms/nhn/v3.0/POST', () => {
 	void test('builds the URL from appKey and type', async () => {
-		const input: RequestBody = {
-			type: 'auth/sms',
-			body: 'body',
-			sendNo: '01000000000',
-			recipientList: [],
-		};
-
 		const { fetch, requests } = captureFetch();
 		await sendSms(input, { ...opts, fetch });
 		const [request] = requests;
@@ -26,13 +26,6 @@ void describe('sms/nhn/v3.0/POST', () => {
 	});
 
 	void test('derives ok from the response body', async () => {
-		const input: RequestBody = {
-			type: 'sms',
-			body: 'body',
-			sendNo: '01000000000',
-			recipientList: [],
-		};
-
 		const { fetch } = captureFetch(() =>
 			Response.json({ header: { isSuccessful: false, resultCode: -1, resultMessage: '' } }),
 		);

@@ -21,7 +21,7 @@ void describe('tryFetch', () => {
 			{ fetch },
 		);
 
-		assert.ok(result instanceof Error);
+		assert.ok(result instanceof TypeError);
 		assert.equal(requests.length, 0);
 	});
 
@@ -51,7 +51,7 @@ void describe('tryFetch', () => {
 		assert.equal(request.signal.aborted, true);
 	});
 
-	void test('returns an error when the signal aborts', async () => {
+	void test('falls back to globalThis.fetch with the signal', async () => {
 		const result = await tryFetch(buildRequest, () => null, { signal: AbortSignal.abort() });
 
 		assert.ok(result instanceof Error);

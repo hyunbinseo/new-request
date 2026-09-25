@@ -11,7 +11,7 @@ void describe('message/pushover/1/POST', () => {
 			message: 'message',
 			title: undefined,
 			priority: 0,
-		} as never;
+		} as unknown as RequestBody;
 
 		const expected = {
 			token: 'token_stub',
@@ -32,10 +32,18 @@ void describe('message/pushover/1/POST', () => {
 		assert.deepEqual(Object.fromEntries(formData), expected);
 	});
 
-	void test('sends a multipart body with the attachment filename', async () => {
-		const input: RequestBody = {
+	void test('sends a multipart body with the attachment filename, omitting only undefined fields', async () => {
+		const input = {
 			message: 'message',
+			title: undefined,
 			attachment: new Blob(['image'], { type: 'image/png' }),
+			attachment_type: 'image/png',
+		} as unknown as RequestBody;
+
+		const expected = {
+			token: 'token_stub',
+			user: 'user_stub',
+			message: 'message',
 			attachment_type: 'image/png',
 		};
 
@@ -46,12 +54,9 @@ void describe('message/pushover/1/POST', () => {
 		assert.ok(request);
 
 		const formData = await request.formData();
-		const attachment = formData.get('attachment');
+		const { attachment, ...rest } = Object.fromEntries(formData);
 
-		assert.equal(formData.get('token'), 'token_stub');
-		assert.equal(formData.get('user'), 'user_stub');
-		assert.equal(formData.get('message'), 'message');
-		assert.equal(formData.get('attachment_type'), 'image/png');
+		assert.deepEqual(rest, expected);
 		assert.ok(attachment instanceof File);
 		assert.equal(attachment.name, 'image.png');
 	});
