@@ -33,6 +33,7 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 ### Unit Tests
 
 - Colocated as `<METHOD>/index.test.ts`, with `fetch` stubbed by `captureFetch`.
+- Grouped with `describe`, named after the module path (e.g. `sms/nhn/v3.0/POST`) or the helper (e.g. `tryFetch`).
 - Added only where the wrapper does its own work:
   - Building the URL from arguments (conditional query params, encoded path parameters).
   - Building the body from arguments (`URLSearchParams`, `FormData`) instead of sending it as-is.
