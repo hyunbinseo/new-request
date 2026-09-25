@@ -25,6 +25,15 @@ POST /v1/user/id/{id}/ban  →  v1/user/id/ban/POST
 GET  /v1/user/id/{id}      →  v1/user/id/GET
 ```
 
+## Arguments
+
+- Not validated. Requests are sent as-is and rejected by the API.
+- Not mutated. Defaults (e.g. `opts.from`) are applied to a copy.
+
+## Errors
+
+- Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
+
 ## Testing
 
 ### Unit Tests
@@ -32,7 +41,8 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
 - Colocated as `<METHOD>/index.test.ts`, with `fetch` stubbed by `captureFetch`.
 - Added only where the wrapper does its own work:
   - Building the URL from arguments (conditional query params, encoded path parameters).
-  - Interpreting the response (`{ ok, body }` parsing, returning an `Error` instead of throwing).
+  - Building the body from arguments (`URLSearchParams`, `FormData`) instead of sending it as-is.
+  - Deriving `ok` from the response body instead of the status code.
 - Not added for pass-through bodies or fixed methods, URLs, or headers.
 - Shared helpers are tested once, not per endpoint.
 
