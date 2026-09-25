@@ -8,8 +8,7 @@ import type {
 	RcsMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
-import type { Common, Destination, ResponseBodyException } from '#bizgo/v1/reservation/types.ts';
-import type { FetchOptions } from '#lib/fetch.ts';
+import type { Common, Destination, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
 
 export type {
 	AlimtalkMessage, //
@@ -17,16 +16,10 @@ export type {
 	InternationalMessage,
 	MmsMessage,
 	NaverTalkMessage,
+	Options,
 	RcsMessage,
 	ResponseBodyException,
 	SmsMessage,
-};
-
-export type Options = FetchOptions & {
-	apiKey: string;
-	baseURL?:
-		| 'https://mars.ibapi.kr' // Production
-		| 'https://sandbox-mars.ibapi.kr'; // Sandbox
 };
 
 export type RequestBody = {

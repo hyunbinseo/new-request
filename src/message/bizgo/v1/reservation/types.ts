@@ -1,30 +1,13 @@
-import type { FetchOptions } from '#lib/fetch.ts';
-
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
-export type Options = FetchOptions & {
-	apiKey: string;
-	baseURL: 'https://mars.ibapi.kr' | 'https://sandbox-mars.ibapi.kr'; // Production | Sandbox
-};
+import type { Common } from '#bizgo/v1/types.ts';
 
-export type Common = {
-	authCode: string;
-	authResult: string;
-	infobankTrId: string;
-};
-
-export type ResponseBodyException = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
-	};
-};
-
-export type Destination = {
-	to: string;
-	replaceWords?: Record<string, string>;
-	ref?: string;
+export type ResvSendTimeInput = {
+	/**
+	 * - `yyyy-MM-dd HH:mm:ss` in KST (e.g. `2026-05-01 10:00:00`)
+	 * - 10 minutes (`A316`/`A823`) to 1 year (`A331`) ahead
+	 */
+	resvSendTime: string;
 };
 
 export type Reservation = {
@@ -35,12 +18,8 @@ export type Reservation = {
 	productType: string;
 	status: string;
 	adYn: string;
-	/** Space-separated on write (KST), but returned as an ISO 8601 string with a +09:00 offset. */
+	/** `yyyy-MM-ddTHH:mm:ss+09:00` */
 	resvSendTime: string;
-	/**
-	 * A JSON-stringified copy of the original registration request body.
-	 * Undocumented; confirmed by live testing. May be absent on some responses.
-	 */
 	resvData?: string;
 	expectedCnt: number;
 	sentCnt: number;
@@ -58,4 +37,13 @@ export type ReservationDestination = {
 	status: string;
 	responseCode: string;
 	responseText: string;
+};
+
+export type ReservationResponseBody = {
+	common: Common;
+	data: {
+		code: string;
+		result: string;
+		data: Reservation;
+	};
 };

@@ -1,6 +1,6 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
-import type { Common, Options, ResponseBodyException } from '#bizgo/v1/reservation/types.ts';
+import type { Common, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
 
 export type { Options, ResponseBodyException };
 

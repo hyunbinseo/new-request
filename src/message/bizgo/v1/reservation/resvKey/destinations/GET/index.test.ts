@@ -1,56 +1,50 @@
 import assert from 'node:assert/strict';
-import { test } from 'node:test';
-import { stubOpts } from '#bizgo/v1/testing/stub.ts';
+import { describe, test } from 'node:test';
+import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import { captureFetch } from '#lib/testing.ts';
-import { getReservationDestinations } from './index.ts';
+import { getReservationDestinations, type Query } from './index.ts';
 
-void test('encodes special characters in resvKey', async () => {
-	const { fetch, requests } = captureFetch();
+const opts = { apiKey: 'apiKey_stub' };
 
-	await getReservationDestinations('key/with?special#chars', {}, { ...stubOpts, fetch });
+void describe('message/bizgo/v1/reservation/resvKey/destinations/GET', () => {
+	void test('builds the URL from the encoded resvKey', async () => {
+		const { fetch, requests } = captureFetch();
+		await getReservationDestinations('key/with?special#chars', {}, { ...opts, fetch });
+		const [request] = requests;
 
-	const [request] = requests;
-	assert.ok(request);
-	const url = new URL(request.url);
-	assert.equal(url.origin, stubOpts.baseURL);
-	assert.equal(
-		url.pathname,
-		'/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars/destinations',
-	);
-});
+		assert.ok(request);
+		assert.equal(
+			request.url,
+			`${PRODUCTION_BASE_URL}/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars/destinations`,
+		);
+	});
 
-void test('sets the optional query params when provided', async () => {
-	const { fetch, requests } = captureFetch();
+	void test('sets the query params when provided', async () => {
+		const input: Query = { lastSeq: 100, limit: 50 };
+		const expected = { lastSeq: '100', limit: '50' };
 
-	await getReservationDestinations(
-		'MO20260501100000abcdef',
-		{ lastSeq: 100, limit: 50 },
-		{ ...stubOpts, fetch },
-	);
+		const { fetch, requests } = captureFetch();
+		await getReservationDestinations('resvKey', input, { ...opts, fetch });
+		const [request] = requests;
 
-	const [request] = requests;
-	assert.ok(request);
-	const url = new URL(request.url);
-	assert.equal(url.origin, stubOpts.baseURL);
-	assert.equal(
-		url.pathname,
-		'/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations',
-	);
-	assert.deepEqual(Object.fromEntries(url.searchParams), { lastSeq: '100', limit: '50' });
-});
+		assert.ok(request);
 
-void test('omits the optional query params when undefined', async () => {
-	const { fetch, requests } = captureFetch();
+		const url = new URL(request.url);
 
-	await getReservationDestinations('MO20260501100000abcdef', {}, { ...stubOpts, fetch });
+		assert.deepEqual(Object.fromEntries(url.searchParams), expected);
+	});
 
-	const [request] = requests;
-	assert.ok(request);
-	const url = new URL(request.url);
-	assert.equal(url.origin, stubOpts.baseURL);
-	assert.equal(
-		url.pathname,
-		'/api/comm/v1/reservation/resvKey/MO20260501100000abcdef/destinations',
-	);
-	assert.deepEqual(Object.fromEntries(url.searchParams), {});
+	void test('omits the optional query params when undefined', async () => {
+		const input: Query = {};
+
+		const { fetch, requests } = captureFetch();
+		await getReservationDestinations('resvKey', input, { ...opts, fetch });
+		const [request] = requests;
+
+		assert.ok(request);
+
+		const url = new URL(request.url);
+
+		assert.deepEqual(Object.fromEntries(url.searchParams), {});
+	});
 });

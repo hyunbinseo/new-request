@@ -1,29 +1,42 @@
 import assert from 'node:assert/strict';
-import { test } from 'node:test';
-import { parse } from 'valibot';
-import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
-import { expectOk } from '#bizgo/v1/testing/expect.ts';
-import { sendMessage } from './index.ts';
+import { randomBytes } from 'node:crypto';
+import { env } from 'node:process';
+import { describe, test } from 'node:test';
+import {
+	DESTINATION_PHONE_NUMBER,
+	KAKAO_SENDER_KEY,
+	KAKAO_TEMPLATE_CODE,
+} from '#bizgo/v1/sandbox/constants.ts';
+import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
+import { sendMessage, type RequestBody } from './index.ts';
 
-const env = parse(SandboxEnvSchema, process.env);
+void describe('message/bizgo/v1/send/omni/POST', () => {
+	void test('sends an alimtalk to the sandbox', async (t) => {
+		const { BIZGO_API_KEY } = env;
+		if (!BIZGO_API_KEY) return t.skip();
 
-void test('sends an alimtalk', async (t) => {
-	if (!env) return t.skip();
+		const opts = { ...sandboxOpts, apiKey: BIZGO_API_KEY };
 
-	const { opts, destinationPhoneNumber, kakao } = env;
-	if (!destinationPhoneNumber || !kakao) return t.skip();
+		const input: RequestBody = {
+			destinations: [{ to: DESTINATION_PHONE_NUMBER }],
+			messageFlow: [
+				{
+					alimtalk: {
+						msgType: 'AT',
+						senderKey: KAKAO_SENDER_KEY,
+						templateCode: KAKAO_TEMPLATE_CODE,
+						text: '알림톡 발송 테스트입니다.',
+					},
+				},
+			],
+			ref: `mt-${Date.now()}-${randomBytes(4).toString('hex')}`,
+		};
 
-	const body = expectOk(
-		await sendMessage(
-			{
-				destinations: [{ to: destinationPhoneNumber }],
-				messageFlow: [{ alimtalk: { msgType: 'AT', ...kakao, text: '알림톡 발송 테스트입니다.' } }],
-				// Unique per run so repeated runs don't collide on ref uniqueness.
-				ref: `mt-${Date.now()}`,
-			},
-			opts,
-		),
-	);
+		const response = await sendMessage(input, opts);
 
-	assert.equal(body.data.data.destinations[0]?.to, destinationPhoneNumber);
+		assert.ok(!(response instanceof Error));
+		assert.equal(response.ok, true);
+		assert.ok('data' in response.body.data);
+		assert.equal(response.body.data.data.destinations[0]?.to, DESTINATION_PHONE_NUMBER);
+	});
 });

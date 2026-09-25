@@ -1,14 +1,17 @@
-import { fetchBizgo } from '#bizgo/v1/response.ts';
+import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
+import { parseResponse } from '#bizgo/v1/response.ts';
+import { tryFetch } from '#lib/fetch.ts';
 import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
+/** A reservation that hasn't started sending is rejected with `A824`. */
 export const resumeReservation = (resvKey: string, opts: Options) =>
-	fetchBizgo<ResponseBody, ResponseBodyException>(
+	tryFetch(
 		() =>
 			new Request(
 				new URL(
 					`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/resume`,
-					opts.baseURL,
+					opts.baseURL ?? PRODUCTION_BASE_URL,
 				),
 				{
 					method: 'POST',
@@ -18,5 +21,6 @@ export const resumeReservation = (resvKey: string, opts: Options) =>
 					},
 				},
 			),
+		parseResponse<ResponseBody, ResponseBodyException>,
 		opts,
 	);

@@ -1,24 +1,25 @@
 import assert from 'node:assert/strict';
-import { test } from 'node:test';
-import { stubOpts } from '#bizgo/v1/testing/stub.ts';
+import { describe, test } from 'node:test';
+import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import { captureFetch } from '#lib/testing.ts';
 import { addReservationDestinations } from './index.ts';
 
-void test('encodes special characters in resvKey', async () => {
-	const { fetch, requests } = captureFetch();
+const opts = { apiKey: 'apiKey_stub' };
 
-	await addReservationDestinations(
-		'key/with?special#chars',
-		{ destinations: [{ to: '01000000000' }] },
-		{ ...stubOpts, fetch },
-	);
+void describe('message/bizgo/v1/reservation/resvKey/destinations/POST', () => {
+	void test('builds the URL from the encoded resvKey', async () => {
+		const { fetch, requests } = captureFetch();
+		await addReservationDestinations(
+			'key/with?special#chars',
+			{ destinations: [{ to: '01000000000' }] },
+			{ ...opts, fetch },
+		);
+		const [request] = requests;
 
-	const [request] = requests;
-	assert.ok(request);
-	const url = new URL(request.url);
-	assert.equal(url.origin, stubOpts.baseURL);
-	assert.equal(
-		url.pathname,
-		'/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars/destinations',
-	);
+		assert.ok(request);
+		assert.equal(
+			request.url,
+			`${PRODUCTION_BASE_URL}/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars/destinations`,
+		);
+	});
 });
