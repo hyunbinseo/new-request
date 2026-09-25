@@ -23,6 +23,10 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 
 - Not mutated. Defaults (e.g. `opts.from`) are applied to a copy.
 
+## Errors
+
+- Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
+
 ## Testing
 
 ### Unit Tests

@@ -2,17 +2,17 @@ import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './t
 export type { Options, RequestBody };
 
 export const sendEmail = async (requestBody: RequestBody, opts: Options) => {
-	const request = new Request('https://api.postmarkapp.com/email', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-			'X-Postmark-Server-Token': opts.serverToken,
-		},
-		body: JSON.stringify({ ...requestBody, From: requestBody.From || opts.from }),
-	});
-
 	try {
+		const request = new Request('https://api.postmarkapp.com/email', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'X-Postmark-Server-Token': opts.serverToken,
+			},
+			body: JSON.stringify({ ...requestBody, From: requestBody.From || opts.from }),
+		});
+
 		const response = await (opts.fetch || fetch)(request);
 		return response.ok
 			? {
