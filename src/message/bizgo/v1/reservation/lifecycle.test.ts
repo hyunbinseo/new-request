@@ -16,21 +16,13 @@ import { stopReservation } from './resvKey/stop/POST/index.ts';
 
 const env = parse(SandboxEnvSchema, process.env);
 
-// FIXME: Use the Temporal API instead.
-const kstFormatter = new Intl.DateTimeFormat('sv-SE', {
-	timeZone: 'Asia/Seoul',
-	year: 'numeric',
-	month: '2-digit',
-	day: '2-digit',
-	hour: '2-digit',
-	minute: '2-digit',
-	second: '2-digit',
-	hourCycle: 'h23',
-});
+const KST_OFFSET = 9 * 60 * 60 * 1000;
 
-// Must be at least 10 minutes from now; the margin covers the requests themselves.
-const minutesFromNow = (minutes: number) =>
-	kstFormatter.format(new Date(Date.now() + minutes * 60 * 1000));
+const getFutureResvSendTime = (ms: number) =>
+	new Date(Date.now() + KST_OFFSET + ms) //
+		.toISOString()
+		.slice(0, 19)
+		.replace('T', ' '); // yyyy-MM-dd HH:mm:ss
 
 /** Unwraps a result, failing with the response body unless the API accepted the request. */
 const expectOk = <Ok, Fail>(result: BizgoResult<Ok, Fail> | Error) => {
@@ -52,7 +44,7 @@ void test('creates, edits, and cancels a reservation', async (t) => {
 				messageFlow: [
 					{ alimtalk: { msgType: 'AT', ...kakao, text: '예약 알림톡 발송 테스트입니다.' } },
 				],
-				resvSendTime: minutesFromNow(30),
+				resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
 				resvName: '알림톡 예약 발송',
 				// Unique per run so repeated runs don't collide on ref uniqueness.
 				ref: `mt-resv-${Date.now()}`,
@@ -74,7 +66,7 @@ void test('creates, edits, and cancels a reservation', async (t) => {
 		assert.equal(data.data.resvKey, resvKey);
 	});
 
-	const resvSendTime = minutesFromNow(40);
+	const resvSendTime = getFutureResvSendTime(40 * 60 * 1000);
 
 	await t.test('PUT resvKey', async () => {
 		const { data } = expectOk(
