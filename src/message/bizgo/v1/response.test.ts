@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { fetchBizgo, parseBizgoResponse } from './response.ts';
 
-// `fetch` is stubbed, so these run without credentials or the network.
+// Responses are constructed and `fetch` is stubbed, so these run without the network.
 
 void test('parses a 2xx JSON body as ok: true', async () => {
 	const result = await parseBizgoResponse(Response.json({ data: { code: 'A000' } }));
@@ -52,4 +52,13 @@ void test('returns an Error instead of throwing when fetch rejects', async () =>
 		fetch: () => Promise.reject(new TypeError('fetch failed')),
 	});
 	assert.ok(result instanceof TypeError);
+});
+
+void test('wraps a non-Error rejection in an Error', async () => {
+	const result = await fetchBizgo(() => new Request('https://sandbox-mars.ibapi.kr'), {
+		fetch: () => Promise.reject('fetch failed'),
+	});
+	assert.ok(result instanceof Error);
+	assert.equal(result.message, 'fetch failed');
+	assert.equal(result.cause, 'fetch failed');
 });

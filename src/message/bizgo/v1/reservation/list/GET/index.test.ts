@@ -8,16 +8,26 @@ void test('sets the optional query params when provided', async () => {
 	const { fetch, requests } = captureFetch();
 
 	await getReservations(
-		{ resvSendTime: '2026-05-01 10:00:00', paymentCode: 'SMS07', lastSeq: 100, limit: 50 },
+		{
+			resvSendTime: '2026-05-01 10:00:00',
+			paymentCode: 'SMS07',
+			lastSeq: 100,
+			limit: 50,
+		},
 		{ ...stubOpts, fetch },
 	);
 
 	const [request] = requests;
 	assert.ok(request);
-	assert.equal(
-		request.url,
-		`${stubOpts.baseURL}/api/comm/v1/reservation/list?resvSendTime=2026-05-01+10%3A00%3A00&paymentCode=SMS07&lastSeq=100&limit=50`,
-	);
+	const url = new URL(request.url);
+	assert.equal(url.origin, stubOpts.baseURL);
+	assert.equal(url.pathname, '/api/comm/v1/reservation/list');
+	assert.deepEqual(Object.fromEntries(url.searchParams), {
+		resvSendTime: '2026-05-01 10:00:00',
+		paymentCode: 'SMS07',
+		lastSeq: '100',
+		limit: '50',
+	});
 });
 
 void test('omits the optional query params when undefined', async () => {
@@ -27,8 +37,8 @@ void test('omits the optional query params when undefined', async () => {
 
 	const [request] = requests;
 	assert.ok(request);
-	assert.equal(
-		request.url,
-		`${stubOpts.baseURL}/api/comm/v1/reservation/list?resvSendTime=2026-05-01+10%3A00%3A00`,
-	);
+	const url = new URL(request.url);
+	assert.equal(url.origin, stubOpts.baseURL);
+	assert.equal(url.pathname, '/api/comm/v1/reservation/list');
+	assert.deepEqual(Object.fromEntries(url.searchParams), { resvSendTime: '2026-05-01 10:00:00' });
 });

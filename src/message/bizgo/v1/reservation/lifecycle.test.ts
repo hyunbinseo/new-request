@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parse } from 'valibot';
-import type { BizgoResult } from '#bizgo/v1/response.ts';
 import { SandboxEnvSchema } from '#bizgo/v1/testing/env.ts';
+import { expectOk } from '#bizgo/v1/testing/expect.ts';
 import { getReservations, type Query } from './list/GET/index.ts';
 import { createReservation } from './POST/index.ts';
 import { cancelReservation } from './resvKey/cancel/POST/index.ts';
-import { getReservationDestinations } from './resvKey/destinations/GET/index.ts';
+import {
+	getReservationDestinations,
+	type Query as DestinationsQuery,
+} from './resvKey/destinations/GET/index.ts';
 import { deleteReservationDestination } from './resvKey/destinations/msgKey/DELETE/index.ts';
 import { addReservationDestinations } from './resvKey/destinations/POST/index.ts';
 import { getReservation } from './resvKey/GET/index.ts';
@@ -23,13 +26,6 @@ const getFutureResvSendTime = (ms: number) =>
 		.toISOString()
 		.slice(0, 19)
 		.replace('T', ' '); // yyyy-MM-dd HH:mm:ss
-
-/** Unwraps a result, failing with the response body unless the API accepted the request. */
-const expectOk = <Ok, Fail>(result: BizgoResult<Ok, Fail> | Error) => {
-	if (result instanceof Error) throw result;
-	assert.ok(result.ok, JSON.stringify(result.body));
-	return result.body;
-};
 
 void test('creates, edits, and cancels a reservation', async (t) => {
 	if (!env) return t.skip();
@@ -54,6 +50,8 @@ void test('creates, edits, and cancels a reservation', async (t) => {
 	);
 	const { resvKey } = created.data;
 	assert.ok(resvKey);
+	assert.ok(created.data.data);
+	const initialMsgKeys = new Set(created.data.data.destinations.map((d) => d.msgKey));
 
 	// Cancel even if a later step fails, so the reservation doesn't actually fire in the sandbox.
 	let cancelled = false;
@@ -97,13 +95,16 @@ void test('creates, edits, and cancels a reservation', async (t) => {
 		);
 		assert.equal(added.data.data.inserted, 1);
 
-		const { data } = expectOk(await getReservationDestinations(resvKey, {}, opts));
-		const { destinations } = data.data;
-
-		assert.ok(created.data.data);
-		const initialMsgKeys = new Set(created.data.data.destinations.map((d) => d.msgKey));
-		const addedDestination = destinations.find((d) => !initialMsgKeys.has(d.msgKey));
-		assert.ok(addedDestination);
+		const query: DestinationsQuery = {};
+		let addedDestination;
+		for (;;) {
+			const { data } = expectOk(await getReservationDestinations(resvKey, query, opts));
+			addedDestination = data.data.destinations.find((d) => !initialMsgKeys.has(d.msgKey));
+			if (addedDestination) break;
+			assert.ok(data.data.hasNext, 'the added destination is not in the list');
+			assert.notEqual(data.data.lastSeq, query.lastSeq, 'lastSeq did not advance');
+			query.lastSeq = data.data.lastSeq;
+		}
 
 		expectOk(await deleteReservationDestination(resvKey, addedDestination.msgKey, opts));
 	});

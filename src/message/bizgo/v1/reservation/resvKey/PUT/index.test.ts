@@ -15,8 +15,7 @@ void test('encodes special characters in resvKey', async () => {
 
 	const [request] = requests;
 	assert.ok(request);
-	assert.equal(
-		request.url,
-		`${stubOpts.baseURL}/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars`,
-	);
+	const url = new URL(request.url);
+	assert.equal(url.origin, stubOpts.baseURL);
+	assert.equal(url.pathname, '/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars');
 });

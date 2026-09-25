@@ -7,12 +7,17 @@ import { deleteReservationDestination } from './index.ts';
 void test('encodes special characters in resvKey and msgKey', async () => {
 	const { fetch, requests } = captureFetch();
 
-	await deleteReservationDestination('resv/key?#', 'msg/key?#', { ...stubOpts, fetch });
+	await deleteReservationDestination('resv/with?special#chars', 'msg/with?special#chars', {
+		...stubOpts,
+		fetch,
+	});
 
 	const [request] = requests;
 	assert.ok(request);
+	const url = new URL(request.url);
+	assert.equal(url.origin, stubOpts.baseURL);
 	assert.equal(
-		request.url,
-		`${stubOpts.baseURL}/api/comm/v1/reservation/resvKey/resv%2Fkey%3F%23/destinations/msgKey/msg%2Fkey%3F%23`,
+		url.pathname,
+		'/api/comm/v1/reservation/resvKey/resv%2Fwith%3Fspecial%23chars/destinations/msgKey/msg%2Fwith%3Fspecial%23chars',
 	);
 });
