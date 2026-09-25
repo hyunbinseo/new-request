@@ -18,6 +18,12 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 
 - Copied from the request URL, and may span multiple segments (e.g. `send/omni`).
 - Added only when multiple endpoints are implemented under that version.
+- Path parameter values are dropped, but their literal segments are kept.
+
+```plaintext
+POST /v1/user/id/{id}/ban  →  v1/user/id/ban/POST
+GET  /v1/user/id/{id}      →  v1/user/id/GET
+```
 
 ## Arguments
 

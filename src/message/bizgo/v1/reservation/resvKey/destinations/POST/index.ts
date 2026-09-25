@@ -2,13 +2,17 @@ import { fetchBizgo } from '#bizgo/v1/response.ts';
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options, RequestBody };
 
-export const sendMessage = (requestBody: RequestBody, opts: Options) =>
+export const addReservationDestinations = (
+	resvKey: string,
+	requestBody: RequestBody,
+	opts: Options,
+) =>
 	fetchBizgo<ResponseBody, ResponseBodyException>(
 		() =>
 			new Request(
 				new URL(
-					'/api/comm/v1/send/omni', //
-					opts.baseURL ?? 'https://mars.ibapi.kr',
+					`/api/comm/v1/reservation/resvKey/${encodeURIComponent(resvKey)}/destinations`,
+					opts.baseURL,
 				),
 				{
 					method: 'POST',
