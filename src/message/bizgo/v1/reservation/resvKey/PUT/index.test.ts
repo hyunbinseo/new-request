@@ -1,21 +1,24 @@
 import assert from 'node:assert/strict';
-import { test } from 'node:test';
-import { stubOpts } from '#bizgo/v1/testing/stub.ts';
+import { describe, test } from 'node:test';
 import { captureFetch } from '#lib/testing.ts';
 import { updateReservation } from './index.ts';
 
-void test('encodes special characters in resvKey', async () => {
-	const { fetch, requests } = captureFetch();
+const opts = { apiKey: 'apiKey_stub', baseURL: 'https://sandbox-mars.ibapi.kr' as const };
 
-	await updateReservation(
-		'key/with?special#chars',
-		{ resvSendTime: '2026-05-01 10:00:00' },
-		{ ...stubOpts, fetch },
-	);
+void describe('message/bizgo/v1/reservation/resvKey/PUT', () => {
+	void test('builds the URL from an encoded resvKey', async () => {
+		const { fetch, requests } = captureFetch();
+		await updateReservation(
+			'resvKey/?#',
+			{ resvSendTime: '2026-05-01 10:00:00' },
+			{ ...opts, fetch },
+		);
+		const [request] = requests;
 
-	const [request] = requests;
-	assert.ok(request);
-	const url = new URL(request.url);
-	assert.equal(url.origin, stubOpts.baseURL);
-	assert.equal(url.pathname, '/api/comm/v1/reservation/resvKey/key%2Fwith%3Fspecial%23chars');
+		assert.ok(request);
+		assert.equal(
+			request.url,
+			'https://sandbox-mars.ibapi.kr/api/comm/v1/reservation/resvKey/resvKey%2F%3F%23',
+		);
+	});
 });
