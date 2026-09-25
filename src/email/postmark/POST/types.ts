@@ -1,9 +1,10 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 // See https://postmarkapp.com/developer/api/email-api
 
-export type Options = {
+export type Options = FetchOptions & {
 	serverToken: string;
 	from: string;
-	fetch?: typeof fetch;
 };
 
 type Body =

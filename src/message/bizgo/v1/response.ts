@@ -1,3 +1,5 @@
+import { tryFetch, type FetchOptions } from '#lib/fetch.ts';
+
 export type BizgoResult<Ok, Fail> = { ok: true; body: Ok } | { ok: false; body: Fail };
 
 /**
@@ -20,19 +22,5 @@ export const parseBizgoResponse = async <Ok, Fail>(
 	}
 };
 
-/**
- * Sends the request built by `createRequest` and parses the response. Anything that throws,
- * from building the request (e.g. an invalid header) to a network failure, is returned as an
- * Error instead, so callers only ever handle a result or an Error.
- */
-export const fetchBizgo = async <Ok, Fail>(
-	createRequest: () => Request,
-	opts: { fetch?: typeof fetch },
-): Promise<BizgoResult<Ok, Fail> | Error> => {
-	try {
-		const response = await (opts.fetch || fetch)(createRequest());
-		return await parseBizgoResponse<Ok, Fail>(response);
-	} catch (error) {
-		return error instanceof Error ? error : new Error(String(error), { cause: error });
-	}
-};
+export const fetchBizgo = <Ok, Fail>(buildRequest: () => Request, opts: FetchOptions) =>
+	tryFetch(buildRequest, (response) => parseBizgoResponse<Ok, Fail>(response), opts);

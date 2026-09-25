@@ -1,12 +1,13 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 type Email = {
 	email: string;
 	name?: string;
 };
 
-export type Options = {
+export type Options = FetchOptions & {
 	apiKey: string;
 	from: Email;
-	fetch?: typeof fetch;
 };
 
 // See https://docs.sendgrid.com/for-developers/sending-email/personalizations

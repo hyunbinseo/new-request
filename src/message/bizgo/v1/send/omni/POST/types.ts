@@ -9,6 +9,7 @@ import type {
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
 import type { Common, Destination, ResponseBodyException } from '#bizgo/v1/reservation/types.ts';
+import type { FetchOptions } from '#lib/fetch.ts';
 
 export type {
 	AlimtalkMessage, //
@@ -21,12 +22,11 @@ export type {
 	SmsMessage,
 };
 
-export type Options = {
+export type Options = FetchOptions & {
 	apiKey: string;
 	baseURL?:
 		| 'https://mars.ibapi.kr' // Production
 		| 'https://sandbox-mars.ibapi.kr'; // Sandbox
-	fetch?: typeof fetch;
 };
 
 export type RequestBody = {
