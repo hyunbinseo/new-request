@@ -8,7 +8,6 @@ const buildRequest = () => new Request('https://example.com');
 void describe('tryFetch', () => {
 	void test('returns the parsed response', async () => {
 		const { fetch } = captureFetch();
-
 		const result = await tryFetch(buildRequest, (response) => response.status, { fetch });
 
 		assert.equal(result, 200);
@@ -16,7 +15,6 @@ void describe('tryFetch', () => {
 
 	void test('returns an error when building the request throws', async () => {
 		const { fetch, requests } = captureFetch();
-
 		const result = await tryFetch(
 			() => new Request('invalid'),
 			() => null,
@@ -29,7 +27,6 @@ void describe('tryFetch', () => {
 
 	void test('returns an error when fetch rejects', async () => {
 		const { fetch } = captureFetch(() => Promise.reject(new TypeError('fetch failed')));
-
 		const result = await tryFetch(buildRequest, () => null, { fetch });
 
 		assert.ok(result instanceof TypeError);
@@ -37,20 +34,19 @@ void describe('tryFetch', () => {
 
 	void test('returns an error when parsing the response rejects', async () => {
 		const { fetch } = captureFetch(() => new Response('not json'));
-
 		const result = await tryFetch(buildRequest, (response) => response.json(), { fetch });
 
 		assert.ok(result instanceof SyntaxError);
 	});
 
 	void test('forwards the signal to fetch', async () => {
-		const { fetch, requests } = captureFetch();
 		const controller = new AbortController();
 		controller.abort();
 
+		const { fetch, requests } = captureFetch();
 		await tryFetch(buildRequest, () => null, { fetch, signal: controller.signal });
-
 		const [request] = requests;
+
 		assert.ok(request);
 		assert.equal(request.signal.aborted, true);
 	});
@@ -64,7 +60,6 @@ void describe('tryFetch', () => {
 
 	void test('wraps non-error throws with the original value as cause', async () => {
 		const { fetch } = captureFetch(() => Promise.reject('reason'));
-
 		const result = await tryFetch(buildRequest, () => null, { fetch });
 
 		assert.ok(result instanceof Error);

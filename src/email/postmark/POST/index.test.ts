@@ -7,14 +7,15 @@ const opts = { serverToken: 'serverToken_stub', from: 'from@example.com' };
 
 void describe('email/postmark/POST', () => {
 	void test('falls back to opts.from without mutating the request body', async () => {
+		const input: RequestBody = { To: 'to@example.com', TextBody: 'text' };
+		const expected = { ...input, From: 'from@example.com' };
+
 		const { fetch, requests } = captureFetch();
-		const requestBody: RequestBody = { To: 'to@example.com', TextBody: 'text' };
-
-		await sendEmail(requestBody, { ...opts, fetch });
-
+		await sendEmail(input, { ...opts, fetch });
 		const [request] = requests;
+
 		assert.ok(request);
-		assert.equal(((await request.json()) as RequestBody).From, 'from@example.com');
-		assert.equal(requestBody.From, undefined);
+		assert.deepEqual(await request.json(), expected);
+		assert.equal(input.From, undefined);
 	});
 });

@@ -7,18 +7,20 @@ const opts = { apiKey: 'apiKey_stub', from: { email: 'from@example.com' } };
 
 void describe('email/send-grid/v3/POST', () => {
 	void test('falls back to opts.from without mutating the request body', async () => {
-		const { fetch, requests } = captureFetch();
-		const requestBody: RequestBody = {
+		const input: RequestBody = {
 			personalizations: [{ to: [{ email: 'to@example.com' }] }],
 			subject: 'subject',
 			content: [{ type: 'text/plain', value: 'value' }],
 		};
 
-		await sendEmail(requestBody, { ...opts, fetch });
+		const expected = { ...input, from: { email: 'from@example.com' } };
 
+		const { fetch, requests } = captureFetch();
+		await sendEmail(input, { ...opts, fetch });
 		const [request] = requests;
+
 		assert.ok(request);
-		assert.deepEqual(((await request.json()) as RequestBody).from, { email: 'from@example.com' });
-		assert.equal(requestBody.from, undefined);
+		assert.deepEqual(await request.json(), expected);
+		assert.equal(input.from, undefined);
 	});
 });
