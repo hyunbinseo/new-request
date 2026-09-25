@@ -20,7 +20,7 @@ await fetch('https://api.sendgrid.com/v3/mail/send', {
 });
 
 // after - fully typed request and response
-await sendEmail(body, { apiKey: 'secret' });
+await sendEmail(body, { apiKey: 'secret', from: { email: 'sender@example.com' } });
 ```
 
 ## Features
@@ -45,8 +45,8 @@ All modules follow a consistent pattern:
 const response = await moduleName(requestBody, options);
 
 // Response types are automatically narrowed
-if (response.ok) response.body; // success type
-if (!response.ok) response.body; // error type
+if (response.ok) response; // success type
+if (!response.ok) response; // error type
 ```
 
 ## Example
