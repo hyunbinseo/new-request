@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { env } from 'node:process';
 import { describe, test } from 'node:test';
 import { captureFetch } from '#lib/testing.ts';
 import { sendSms, type RequestBody } from './index.ts';
@@ -45,5 +46,22 @@ void describe('sms/twilio/2010-04-01/POST', () => {
 		const formData = await request.formData();
 
 		assert.deepEqual(Object.fromEntries(formData), expected);
+	});
+
+	void test('sends an SMS to the sandbox', async (t) => {
+		const { TWILIO_TEST_ACCOUNT_SID, TWILIO_TEST_AUTH_TOKEN } = env;
+		if (!TWILIO_TEST_ACCOUNT_SID || !TWILIO_TEST_AUTH_TOKEN) return t.skip();
+
+		// See https://www.twilio.com/docs/iam/test-credentials
+		const input: RequestBody = { body: 'body', to: '+14108675310' };
+
+		const response = await sendSms(input, {
+			...opts,
+			accountSid: TWILIO_TEST_ACCOUNT_SID,
+			authToken: TWILIO_TEST_AUTH_TOKEN,
+		});
+
+		assert.ok(!(response instanceof Error));
+		assert.equal(response.ok, true);
 	});
 });
