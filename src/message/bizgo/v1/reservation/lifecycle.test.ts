@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { env } from 'node:process';
 import { describe, test } from 'node:test';
-import type { BizgoResult } from '#bizgo/v1/response.ts';
 import { getReservations, type Query } from './list/GET/index.ts';
 import { createReservation } from './POST/index.ts';
 import { cancelReservation } from './resvKey/cancel/POST/index.ts';
@@ -25,10 +24,10 @@ const getFutureResvSendTime = (ms: number) =>
 		.replace('T', ' '); // yyyy-MM-dd HH:mm:ss
 
 /** Unwraps a result, failing with the response body unless the API accepted the request. */
-const expectOk = <Ok, Fail>(response: BizgoResult<Ok, Fail> | Error) => {
+const expectOk = <T extends { ok: boolean; body: unknown }>(response: T | Error) => {
 	assert.ok(!(response instanceof Error));
 	assert.ok(response.ok, JSON.stringify(response.body));
-	return response.body;
+	return response.body as Extract<T, { ok: true }>['body'];
 };
 
 void describe('message/bizgo/v1/reservation', () => {

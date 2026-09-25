@@ -1,9 +1,9 @@
-import { fetchBizgo } from '#bizgo/v1/response.ts';
+import { tryFetch } from '#lib/fetch.ts';
 import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
 export const cancelReservation = (resvKey: string, opts: Options) =>
-	fetchBizgo<ResponseBody, ResponseBodyException>(
+	tryFetch(
 		() =>
 			new Request(
 				new URL(
@@ -18,5 +18,11 @@ export const cancelReservation = (resvKey: string, opts: Options) =>
 					},
 				},
 			),
+		async (response) => {
+			const body = await response.json();
+			return response.ok
+				? { ok: response.ok, body: body as ResponseBody }
+				: { ok: response.ok, body: body as ResponseBodyException };
+		},
 		opts,
 	);

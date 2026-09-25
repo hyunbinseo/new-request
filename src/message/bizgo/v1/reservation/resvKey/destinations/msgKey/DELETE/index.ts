@@ -1,9 +1,9 @@
-import { fetchBizgo } from '#bizgo/v1/response.ts';
+import { tryFetch } from '#lib/fetch.ts';
 import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
 export const deleteReservationDestination = (resvKey: string, msgKey: string, opts: Options) =>
-	fetchBizgo<ResponseBody, ResponseBodyException>(
+	tryFetch(
 		() =>
 			new Request(
 				new URL(
@@ -15,5 +15,11 @@ export const deleteReservationDestination = (resvKey: string, msgKey: string, op
 					headers: { Authorization: opts.apiKey },
 				},
 			),
+		async (response) => {
+			const body = await response.json();
+			return response.ok
+				? { ok: response.ok, body: body as ResponseBody }
+				: { ok: response.ok, body: body as ResponseBodyException };
+		},
 		opts,
 	);
