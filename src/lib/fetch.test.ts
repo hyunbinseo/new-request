@@ -42,6 +42,25 @@ void test('returns an error when parsing the response rejects', async () => {
 	assert.ok(result instanceof SyntaxError);
 });
 
+void test('forwards the signal to fetch', async () => {
+	const { fetch, requests } = captureFetch();
+	const controller = new AbortController();
+	controller.abort();
+
+	await tryFetch(buildRequest, () => null, { fetch, signal: controller.signal });
+
+	const [request] = requests;
+	assert.ok(request);
+	assert.equal(request.signal.aborted, true);
+});
+
+void test('returns an error when the signal aborts', async () => {
+	const result = await tryFetch(buildRequest, () => null, { signal: AbortSignal.abort() });
+
+	assert.ok(result instanceof Error);
+	assert.equal(result.name, 'AbortError');
+});
+
 void test('wraps non-error throws with the original value as cause', async () => {
 	const { fetch } = captureFetch(() => Promise.reject('reason'));
 

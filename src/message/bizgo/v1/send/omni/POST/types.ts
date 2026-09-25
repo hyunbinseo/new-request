@@ -4,6 +4,7 @@ import type { MmsMessage } from '#bizgo/channels/mms.ts';
 import type { NaverTalkMessage } from '#bizgo/channels/navertalk.ts';
 import type { RcsMessage } from '#bizgo/channels/rcs.ts';
 import type { SmsMessage } from '#bizgo/channels/sms.ts';
+import type { FetchOptions } from '#lib/fetch.ts';
 
 export type {
 	AlimtalkMessage, //
@@ -28,12 +29,11 @@ type Destination = {
 	ref?: string;
 };
 
-export type Options = {
+export type Options = FetchOptions & {
 	apiKey: string;
 	baseURL?:
 		| 'https://mars.ibapi.kr' // Production
 		| 'https://sandbox-mars.ibapi.kr'; // Sandbox
-	fetch?: typeof fetch;
 };
 
 export type RequestBody = {

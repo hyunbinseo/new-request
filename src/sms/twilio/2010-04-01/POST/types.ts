@@ -1,10 +1,11 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 // See https://www.twilio.com/docs/usage/api
 
-export type Options = {
+export type Options = FetchOptions & {
 	accountSid: string;
 	authToken: string;
 	from: string;
-	fetch?: typeof fetch;
 };
 
 // See https://www.twilio.com/docs/usage/requests-to-twilio

@@ -1,9 +1,10 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 // See https://docs.nhncloud.com/ko/Notification/SMS/ko/api-guide/
 
-export type Options = {
+export type Options = FetchOptions & {
 	appKey: string;
 	secretKey: string;
-	fetch?: typeof fetch;
 };
 
 type Shared = {

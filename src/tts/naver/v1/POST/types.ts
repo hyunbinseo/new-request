@@ -1,9 +1,10 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 // See https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium
 
-export type Options = {
+export type Options = FetchOptions & {
 	clientId: string;
 	clientSecret: string;
-	fetch?: typeof fetch;
 };
 
 type IntegerValue = -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5;

@@ -1,10 +1,11 @@
+import type { FetchOptions } from '#lib/fetch.ts';
+
 // See https://pushover.net/api
 
-export type Options = {
+export type Options = FetchOptions & {
 	token: string;
 	user: string;
 	filename?: string;
-	fetch?: typeof fetch;
 };
 
 type Sound =
