@@ -11,7 +11,7 @@ export type Options = FetchOptions & {
 export type ResponseBody200 = {
 	access_token: string;
 	token_type: 'bearer';
-	expires_in: number; // 3599
+	expires_in: number; // 3599 or 3600
 	scope: string; // space-separated
 	// See https://developers.zoom.us/docs/api/using-zoom-apis/
 	api_url: string; // 'https://api.zoom.us' | 'https://api-us.zoom.us' | ...
