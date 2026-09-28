@@ -16,8 +16,8 @@ export type Reservation = {
 	paymentCode?: string;
 	resvName?: string;
 	productType: string;
-	status: string;
-	adYn: string;
+	status: 'PENDING' | 'PROCESSING' | 'STOPPED' | 'CANCELLED' | 'COMPLETED';
+	adYn: 'Y' | 'N';
 	/** `yyyy-MM-ddTHH:mm:ss+09:00` */
 	resvSendTime: string;
 	resvData?: string;

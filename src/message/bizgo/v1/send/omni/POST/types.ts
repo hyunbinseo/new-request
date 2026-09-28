@@ -8,7 +8,13 @@ import type {
 	RcsMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
-import type { Common, Destination, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
+import type {
+	Common,
+	Destination,
+	DestinationResult,
+	Options,
+	ResponseBodyException,
+} from '#bizgo/v1/types.ts';
 
 export type {
 	AlimtalkMessage, //
@@ -32,13 +38,7 @@ export type RequestBody = {
 	ref?: string;
 };
 
-type DestinationResult = {
-	to: string;
-	msgKey: string;
-	code: string;
-	result: string;
-	ref?: string;
-};
+type OmniDestinationResult = DestinationResult & { ref?: string };
 
 export type ResponseBody = {
 	common: Common;
@@ -46,7 +46,7 @@ export type ResponseBody = {
 		code: string;
 		result: string;
 		data: {
-			destinations: DestinationResult[];
+			destinations: OmniDestinationResult[];
 		};
 		ref?: string;
 	};

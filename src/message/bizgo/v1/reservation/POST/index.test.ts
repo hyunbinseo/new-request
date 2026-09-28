@@ -1,11 +1,7 @@
 import assert from 'node:assert/strict';
 import { env } from 'node:process';
 import { describe, test } from 'node:test';
-import {
-	국내_수신번호,
-	카카오톡_발신_프로필_키,
-	카카오톡_알림톡_템플릿_코드,
-} from '#bizgo/v1/sandbox/constants.ts';
+import { 국내_수신번호, 카카오톡_알림톡_메시지 } from '#bizgo/v1/sandbox/constants.ts';
 import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
 import { getFutureResvSendTime, KST_OFFSET } from '#bizgo/v1/sandbox/time.ts';
 import { cancelReservation } from '../resvKey/cancel/POST/index.ts';
@@ -29,16 +25,7 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 				const response = await createReservation(
 					{
 						destinations: [{ to: 국내_수신번호 }],
-						messageFlow: [
-							{
-								alimtalk: {
-									msgType: 'AT',
-									senderKey: 카카오톡_발신_프로필_키,
-									templateCode: 카카오톡_알림톡_템플릿_코드,
-									text: '예약 알림톡 발송 테스트입니다.',
-								},
-							},
-						],
+						messageFlow: [카카오톡_알림톡_메시지],
 						resvSendTime: getFutureResvSendTime(ms),
 					},
 					opts,
@@ -65,16 +52,7 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 		const response = await createReservation(
 			{
 				destinations: [{ to: 국내_수신번호 }, { to: '123' }],
-				messageFlow: [
-					{
-						alimtalk: {
-							msgType: 'AT',
-							senderKey: 카카오톡_발신_프로필_키,
-							templateCode: 카카오톡_알림톡_템플릿_코드,
-							text: '예약 알림톡 발송 테스트입니다.',
-						},
-					},
-				],
+				messageFlow: [카카오톡_알림톡_메시지],
 				resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
 			},
 			opts,
@@ -101,16 +79,7 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 		const created = await createReservation(
 			{
 				destinations: [{ to: 국내_수신번호 }],
-				messageFlow: [
-					{
-						alimtalk: {
-							msgType: 'AT',
-							senderKey: 카카오톡_발신_프로필_키,
-							templateCode: 카카오톡_알림톡_템플릿_코드,
-							text: '예약 알림톡 발송 테스트입니다.',
-						},
-					},
-				],
+				messageFlow: [카카오톡_알림톡_메시지],
 				resvSendTime: utc,
 			},
 			opts,
@@ -129,12 +98,9 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 		assert.equal(response.ok, true);
 		assert.ok('data' in response.body.data);
 
-		// Accepts both `yyyy-MM-ddTHH:mm:ss+09:00` and `yyyy-MM-dd HH:mm:ss` (KST).
-		const registered = response.body.data.data.resvSendTime.replace(' ', 'T');
-		const registeredAt = Date.parse(
-			/[+-]\d{2}:\d{2}$/.test(registered) ? registered : `${registered}+09:00`,
+		assert.equal(
+			Date.parse(response.body.data.data.resvSendTime),
+			Math.floor(intended / 1000) * 1000 - KST_OFFSET,
 		);
-
-		assert.equal(registeredAt, Math.floor(intended / 1000) * 1000 - KST_OFFSET);
 	});
 });

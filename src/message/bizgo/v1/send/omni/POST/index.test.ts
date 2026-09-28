@@ -6,8 +6,7 @@ import {
 	국내_수신번호,
 	국제_수신번호,
 	발신번호,
-	카카오톡_발신_프로필_키,
-	카카오톡_알림톡_템플릿_코드,
+	카카오톡_알림톡_메시지,
 } from '#bizgo/v1/sandbox/constants.ts';
 import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
 import { sendMessage, type RequestBody } from './index.ts';
@@ -21,16 +20,7 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 
 		const input: RequestBody = {
 			destinations: [{ to: 국내_수신번호 }],
-			messageFlow: [
-				{
-					alimtalk: {
-						msgType: 'AT',
-						senderKey: 카카오톡_발신_프로필_키,
-						templateCode: 카카오톡_알림톡_템플릿_코드,
-						text: '알림톡 발송 테스트입니다.',
-					},
-				},
-			],
+			messageFlow: [카카오톡_알림톡_메시지],
 			ref: `mt-${Date.now()}-${randomBytes(4).toString('hex')}`,
 		};
 
@@ -50,7 +40,7 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		const opts = { ...sandboxOpts, apiKey: BIZGO_API_KEY };
 
 		for (const to of [국제_수신번호, `+${국제_수신번호}`]) {
-			await t.test(to, async () => {
+			await t.test(to, async (t) => {
 				const response = await sendMessage(
 					{
 						destinations: [{ to }],
@@ -67,6 +57,10 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 				);
 
 				assert.ok(!(response instanceof Error));
+
+				// International sending must be requested for the API key.
+				if (response.body.data.code === 'A325') return t.skip('A325: no international permission');
+
 				assert.equal(response.ok, true);
 			});
 		}

@@ -1,6 +1,12 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
-import type { Common, Destination, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
+import type {
+	Common,
+	Destination,
+	DestinationResult,
+	Options,
+	ResponseBodyException,
+} from '#bizgo/v1/types.ts';
 
 export type { Destination, Options, ResponseBodyException };
 
@@ -15,12 +21,7 @@ export type ResponseBody = {
 		result: string;
 		data: {
 			/** Registration results, not delivery results. */
-			destinations: {
-				to: string;
-				msgKey: string;
-				code: string;
-				result: string;
-			}[];
+			destinations: DestinationResult[];
 		};
 	};
 };

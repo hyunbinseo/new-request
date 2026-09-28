@@ -2,11 +2,7 @@ import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { env } from 'node:process';
 import { describe, test } from 'node:test';
-import {
-	국내_수신번호,
-	카카오톡_발신_프로필_키,
-	카카오톡_알림톡_템플릿_코드,
-} from '#bizgo/v1/sandbox/constants.ts';
+import { 국내_수신번호, 카카오톡_알림톡_메시지 } from '#bizgo/v1/sandbox/constants.ts';
 import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
 import { getFutureResvSendTime } from '#bizgo/v1/sandbox/time.ts';
 import { getReservations, type Query } from './list/GET/index.ts';
@@ -33,16 +29,7 @@ void describe('message/bizgo/v1/reservation', () => {
 		const created = await createReservation(
 			{
 				destinations: [{ to: 국내_수신번호 }],
-				messageFlow: [
-					{
-						alimtalk: {
-							msgType: 'AT',
-							senderKey: 카카오톡_발신_프로필_키,
-							templateCode: 카카오톡_알림톡_템플릿_코드,
-							text: '예약 알림톡 발송 테스트입니다.',
-						},
-					},
-				],
+				messageFlow: [카카오톡_알림톡_메시지],
 				resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
 				resvName: '알림톡 예약 발송',
 				ref: `mt-resv-${Date.now()}-${randomBytes(4).toString('hex')}`,
@@ -73,7 +60,13 @@ void describe('message/bizgo/v1/reservation', () => {
 			assert.ok(!(response instanceof Error));
 			assert.equal(response.ok, true);
 			assert.ok('data' in response.body.data);
-			assert.equal(response.body.data.data.resvKey, resvKey);
+
+			const { data } = response.body.data;
+
+			assert.equal(data.resvKey, resvKey);
+
+			for (const value of [data.resvSendTime, data.updateDate, data.regDate])
+				assert.match(value, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+09:00$/);
 		});
 
 		const now = new Date();

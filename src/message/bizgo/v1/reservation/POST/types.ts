@@ -11,7 +11,13 @@ import type {
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
 import type { ResvSendTimeInput } from '#bizgo/v1/reservation/types.ts';
-import type { Common, Destination, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
+import type {
+	Common,
+	Destination,
+	DestinationResult,
+	Options,
+	ResponseBodyException,
+} from '#bizgo/v1/types.ts';
 
 export type {
 	AlimtalkMessage, //
@@ -43,12 +49,7 @@ export type ResponseBody = {
 		ref?: string;
 		data: {
 			/** Registration results, not delivery results. */
-			destinations: {
-				to: string;
-				msgKey: string;
-				code: string;
-				result: string;
-			}[];
+			destinations: DestinationResult[];
 		};
 	};
 };

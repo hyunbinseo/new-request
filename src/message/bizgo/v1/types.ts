@@ -20,6 +20,13 @@ export type ResponseBodyException = {
 	};
 };
 
+export type DestinationResult = {
+	to: string;
+	msgKey: string;
+	code: string;
+	result: string;
+};
+
 export type Destination = {
 	/** E.164 for `international` */
 	to: string;
