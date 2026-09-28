@@ -21,6 +21,7 @@ export type ResponseBodyException = {
 };
 
 export type Destination = {
+	/** E.164 for `international` */
 	to: string;
 	replaceWords?: Record<string, string>;
 	ref?: string;

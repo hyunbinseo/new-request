@@ -57,6 +57,7 @@ void describe('message/bizgo/v1/reservation/list/GET', () => {
 		const opts = { ...sandboxOpts, apiKey: BIZGO_API_KEY };
 		const resvSendTime = getFutureResvSendTime(0);
 
+		// See https://github.com/hyunbinseo/new-request/issues/9
 		await t.test('rejects a month or day alone', async () => {
 			for (const resvSendTime of ['2026-05', '2026-05-01']) {
 				const response = await getReservations({ resvSendTime }, opts);
