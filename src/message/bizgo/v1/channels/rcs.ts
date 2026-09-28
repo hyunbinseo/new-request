@@ -5,11 +5,10 @@ type RcsButtonAction = {
 	dialerAction?: { dialPhoneNumber: { phoneNumber: string } };
 	mapAction?: {
 		showLocation: {
-			location: { latitude: number; longitude: number; label?: number };
-			query: string;
+			location: { latitude: number; longitude: number; label?: number; query: string };
 			fallbackUrl?: string;
-			requestLocationPush?: Record<string, unknown>;
 		};
+		requestLocationPush?: Record<string, unknown>;
 	};
 	calendarAction?: {
 		createCalendarEvent: {
@@ -25,9 +24,9 @@ type RcsButtonAction = {
 	};
 };
 
-type RcsButton = {
+type RcsSuggestion = {
 	displayText: string;
-	action: RcsButtonAction;
+	action?: RcsButtonAction;
 };
 
 export type RcsMessage = {
@@ -36,9 +35,8 @@ export type RcsMessage = {
 		title?: string;
 		description?: string;
 		media?: string;
-		buttons?: RcsButton[];
-		suggestions?: RcsButton[];
 	};
+	buttons?: { suggestions?: RcsSuggestion[] }[];
 	formatId: string;
 	brandKey: string;
 	brandId?: string;

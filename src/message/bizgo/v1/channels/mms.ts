@@ -4,6 +4,7 @@ export type MmsMessage = {
 	from: string;
 	title?: string;
 	text: string;
+	/** Up to 3 */
 	fileKey?: string[];
 	ttl?: string;
 	originCID?: string;

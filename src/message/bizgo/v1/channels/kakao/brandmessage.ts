@@ -23,6 +23,9 @@ export type BrandMessage = {
 	header?: string;
 	additionalContent?: string;
 	pushAlarm?: string;
+	groupTagKey?: string;
+	adult?: 'Y' | 'N';
+	adFlag?: 'Y' | 'N';
 	originCID?: string;
 	unsubscribePhoneNumber?: string;
 	unsubscribeAuthNumber?: string;
@@ -68,46 +71,46 @@ export type BrandMessage = {
 			discountFixed?: number;
 		};
 		video?: { videoUrl: string; thumbnailUrl?: string };
-		carousel?: {
-			head?: {
-				header?: string;
-				content?: string;
-				imageUrl?: string;
-				urlMobile?: string;
-				urlPc?: string;
-				schemeAndroid?: string;
-				schemeIos?: string;
-			};
-			list?: {
-				header?: string;
-				message?: string;
-				additionalContent?: string;
-				attachment?: {
-					button?: BrandMessageButton[];
-					image?: { imgUrl: string; imgLink?: string };
-					coupon?: {
-						title: string;
-						description: string;
-						urlPc?: string;
-						urlMobile?: string;
-						schemeAndroid?: string;
-						schemeIos?: string;
-					};
-					commerce?: {
-						title: string;
-						regularPrice: number;
-						discountPrice?: number;
-						discountRate?: number;
-						discountFixed?: number;
-					};
+	};
+	carousel?: {
+		head?: {
+			header?: string;
+			content?: string;
+			imageUrl?: string;
+			urlMobile?: string;
+			urlPc?: string;
+			schemeAndroid?: string;
+			schemeIos?: string;
+		};
+		list?: {
+			header?: string;
+			message?: string;
+			additionalContent?: string;
+			attachment?: {
+				button?: BrandMessageButton[];
+				image?: { imgUrl: string; imgLink?: string };
+				coupon?: {
+					title: string;
+					description: string;
+					urlPc?: string;
+					urlMobile?: string;
+					schemeAndroid?: string;
+					schemeIos?: string;
 				};
-			}[];
-			tail?: {
-				urlMobile: string;
-				urlPc?: string;
-				schemeIos?: string;
-				schemeAndroid?: string;
+				commerce?: {
+					title: string;
+					regularPrice: number;
+					discountPrice?: number;
+					discountRate?: number;
+					discountFixed?: number;
+				};
 			};
+		}[];
+		tail?: {
+			urlMobile: string;
+			urlPc?: string;
+			schemeIos?: string;
+			schemeAndroid?: string;
 		};
 	};
 };
