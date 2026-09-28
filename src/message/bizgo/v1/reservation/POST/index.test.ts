@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { env } from 'node:process';
 import { describe, test } from 'node:test';
 import {
-	DESTINATION_PHONE_NUMBER,
-	KAKAO_SENDER_KEY,
-	KAKAO_TEMPLATE_CODE,
+	국내_수신번호,
+	카카오톡_발신_프로필_키,
+	카카오톡_알림톡_템플릿_코드,
 } from '#bizgo/v1/sandbox/constants.ts';
 import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
 import { getFutureResvSendTime, KST_OFFSET } from '#bizgo/v1/sandbox/time.ts';
@@ -28,13 +28,13 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 			await t.test(name, async () => {
 				const response = await createReservation(
 					{
-						destinations: [{ to: DESTINATION_PHONE_NUMBER }],
+						destinations: [{ to: 국내_수신번호 }],
 						messageFlow: [
 							{
 								alimtalk: {
 									msgType: 'AT',
-									senderKey: KAKAO_SENDER_KEY,
-									templateCode: KAKAO_TEMPLATE_CODE,
+									senderKey: 카카오톡_발신_프로필_키,
+									templateCode: 카카오톡_알림톡_템플릿_코드,
 									text: '예약 알림톡 발송 테스트입니다.',
 								},
 							},
@@ -64,13 +64,13 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 
 		const response = await createReservation(
 			{
-				destinations: [{ to: DESTINATION_PHONE_NUMBER }, { to: '123' }],
+				destinations: [{ to: 국내_수신번호 }, { to: '123' }],
 				messageFlow: [
 					{
 						alimtalk: {
 							msgType: 'AT',
-							senderKey: KAKAO_SENDER_KEY,
-							templateCode: KAKAO_TEMPLATE_CODE,
+							senderKey: 카카오톡_발신_프로필_키,
+							templateCode: 카카오톡_알림톡_템플릿_코드,
 							text: '예약 알림톡 발송 테스트입니다.',
 						},
 					},
@@ -100,13 +100,13 @@ void describe('message/bizgo/v1/reservation/POST', () => {
 
 		const created = await createReservation(
 			{
-				destinations: [{ to: DESTINATION_PHONE_NUMBER }],
+				destinations: [{ to: 국내_수신번호 }],
 				messageFlow: [
 					{
 						alimtalk: {
 							msgType: 'AT',
-							senderKey: KAKAO_SENDER_KEY,
-							templateCode: KAKAO_TEMPLATE_CODE,
+							senderKey: 카카오톡_발신_프로필_키,
+							templateCode: 카카오톡_알림톡_템플릿_코드,
 							text: '예약 알림톡 발송 테스트입니다.',
 						},
 					},

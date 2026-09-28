@@ -3,9 +3,9 @@ import { env } from 'node:process';
 import { describe, test } from 'node:test';
 import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import {
-	DESTINATION_PHONE_NUMBER,
-	KAKAO_SENDER_KEY,
-	KAKAO_TEMPLATE_CODE,
+	국내_수신번호,
+	카카오톡_발신_프로필_키,
+	카카오톡_알림톡_템플릿_코드,
 } from '#bizgo/v1/sandbox/constants.ts';
 import { sandboxOpts } from '#bizgo/v1/sandbox/fetch.ts';
 import { getFutureResvSendTime } from '#bizgo/v1/sandbox/time.ts';
@@ -41,13 +41,13 @@ void describe('message/bizgo/v1/reservation/resvKey/PUT', () => {
 
 		const created = await createReservation(
 			{
-				destinations: [{ to: DESTINATION_PHONE_NUMBER }],
+				destinations: [{ to: 국내_수신번호 }],
 				messageFlow: [
 					{
 						alimtalk: {
 							msgType: 'AT',
-							senderKey: KAKAO_SENDER_KEY,
-							templateCode: KAKAO_TEMPLATE_CODE,
+							senderKey: 카카오톡_발신_프로필_키,
+							templateCode: 카카오톡_알림톡_템플릿_코드,
 							text: '예약 알림톡 발송 테스트입니다.',
 						},
 					},
