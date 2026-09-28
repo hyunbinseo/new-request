@@ -1,4 +1,5 @@
 import { tryFetch } from '#lib/fetch.ts';
+import type { Status4xx } from '#lib/types.ts';
 import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './types.ts';
 export type { Options, RequestBody };
 
@@ -28,7 +29,7 @@ export const getAccessToken = (requestBody: RequestBody, opts: Options) =>
 					}
 				: {
 						ok: response.ok,
-						status: response.status as 400 | 401,
+						status: response.status as Status4xx,
 						body: (await response.json()) as ResponseBody4xx,
 					},
 		opts,

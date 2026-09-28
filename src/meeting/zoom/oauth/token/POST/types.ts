@@ -14,13 +14,20 @@ export type RequestBody = {
 export type ResponseBody200 = {
 	access_token: string;
 	token_type: 'bearer';
-	expires_in: number; // 3599
-	scope: string; // space-separated
-	api_url: string; // 'https://api.zoom.us'
+	/** In seconds (e.g. `3599`) */
+	expires_in: number;
+	/** Space-separated */
+	scope: string;
+	/** Regional (e.g. `https://api-us.zoom.us`), not always `https://api.zoom.us` */
+	api_url: string;
 };
 
 // See https://developers.zoom.us/docs/integrations/oauth/#error-responses
+/**
+ * - Invalid `clientId` or `clientSecret` is rejected with 400 `invalid_client`, not 401
+ * - Invalid `account_id` is rejected with 400 `invalid_request`
+ */
 export type ResponseBody4xx = {
-	error: string; // 'invalid_client'
-	reason: string; // 'Invalid client_id or client_secret'
+	error: string; // 'invalid_client' | 'invalid_request'
+	reason: string; // 'Invalid client_id or client_secret' | 'Bad Request'
 };
