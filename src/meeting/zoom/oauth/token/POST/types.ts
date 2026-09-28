@@ -14,17 +14,15 @@ export type RequestBody = {
 export type ResponseBody200 = {
 	access_token: string;
 	token_type: 'bearer';
-	/** In seconds (e.g. `3599`) */
-	expires_in: number;
-	/** Space-separated */
-	scope: string;
-	/** Regional (e.g. `https://api-us.zoom.us`), not always `https://api.zoom.us` */
-	api_url: string;
+	expires_in: number; // 3599
+	scope: string; // space-separated
+	// See https://developers.zoom.us/docs/api/using-zoom-apis/
+	api_url: string; // 'https://api.zoom.us' | 'https://api-us.zoom.us' | ...
 };
 
-// See https://developers.zoom.us/docs/integrations/oauth/#error-responses
 /**
- * - Invalid `clientId` or `clientSecret` is rejected with 400 `invalid_client`, not 401
+ * Undocumented. Confirmed by integration tests:
+ * - Invalid `clientId` or `clientSecret` is rejected with 400 `invalid_client`
  * - Invalid `account_id` is rejected with 400 `invalid_request`
  */
 export type ResponseBody4xx = {
