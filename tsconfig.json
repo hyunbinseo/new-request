@@ -3,7 +3,12 @@
 		// Environment Settings
 		"module": "nodenext",
 		"target": "esnext",
-		"lib": ["es2023"],
+		"lib": [
+			"esnext",
+			// cross-runtime web APIs (e.g. fetch, URL)
+			// also adds worker-only globals (e.g. self)
+			"webworker"
+		],
 		"types": ["node"],
 
 		// Other Outputs
