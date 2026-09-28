@@ -3,12 +3,9 @@ import type { FetchOptions } from '#lib/fetch.ts';
 // See https://developers.zoom.us/docs/internal-apps/s2s-oauth/
 
 export type Options = FetchOptions & {
+	accountId: string;
 	clientId: string;
 	clientSecret: string;
-};
-
-export type RequestBody = {
-	account_id: string;
 };
 
 export type ResponseBody200 = {
@@ -23,7 +20,7 @@ export type ResponseBody200 = {
 /**
  * Undocumented. Confirmed by integration tests:
  * - Invalid `clientId` or `clientSecret` is rejected with 400 `invalid_client`
- * - Invalid `account_id` is rejected with 400 `invalid_request`
+ * - Invalid `accountId` is rejected with 400 `invalid_request`
  */
 export type ResponseBody4xx = {
 	error: string; // 'invalid_client' | 'invalid_request'

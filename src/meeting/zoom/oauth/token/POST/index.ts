@@ -1,9 +1,9 @@
 import { tryFetch } from '#lib/fetch.ts';
 import type { Status4xx } from '#lib/types.ts';
-import type { Options, RequestBody, ResponseBody200, ResponseBody4xx } from './types.ts';
-export type { Options, RequestBody };
+import type { Options, ResponseBody200, ResponseBody4xx } from './types.ts';
+export type { Options };
 
-export const getAccessToken = (requestBody: RequestBody, opts: Options) =>
+export const getAccessToken = (opts: Options) =>
 	tryFetch(
 		() => {
 			const authorization = `Basic ${btoa(`${opts.clientId}:${opts.clientSecret}`)}`;
@@ -16,7 +16,7 @@ export const getAccessToken = (requestBody: RequestBody, opts: Options) =>
 				},
 				body: new URLSearchParams({
 					grant_type: 'account_credentials',
-					account_id: requestBody.account_id,
+					account_id: opts.accountId,
 				}),
 			});
 		},
