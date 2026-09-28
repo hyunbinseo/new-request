@@ -1,3 +1,10 @@
+## Scope
+
+- Added when the vendor has no official OpenAPI spec, or its types are too loose to be useful.
+  - e.g. Twilio: conditional fields untyped, response fields all nullable, no error responses.
+- Otherwise, left to generated clients (e.g. `openapi-fetch`).
+  - e.g. SendGrid: request and responses (including errors) fully typed.
+
 ## Module Paths
 
 ```plaintext
