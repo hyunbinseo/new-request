@@ -28,7 +28,7 @@ void describe('message/bizgo/v1/reservation', () => {
 
 		const created = await createReservation(
 			{
-				destinations: [{ to: 국내_수신번호 }],
+				destinations: [{ to: 국내_수신번호, ref: 'dest-ref' }],
 				messageFlow: [카카오톡_알림톡_메시지],
 				resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
 				resvName: '알림톡 예약 발송',
@@ -40,6 +40,7 @@ void describe('message/bizgo/v1/reservation', () => {
 		assert.ok(!(created instanceof Error));
 		assert.equal(created.ok, true);
 		assert.ok('resvKey' in created.body.data);
+		assert.equal(created.body.data.data.destinations[0]?.ref, 'dest-ref');
 
 		const { resvKey } = created.body.data;
 
@@ -114,7 +115,7 @@ void describe('message/bizgo/v1/reservation', () => {
 		await t.test('POST, GET, and DELETE destinations', async () => {
 			const added = await addReservationDestinations(
 				resvKey,
-				{ destinations: [{ to: 국내_수신번호 }] },
+				{ destinations: [{ to: 국내_수신번호, ref: 'added-ref' }] },
 				opts,
 			);
 
@@ -136,7 +137,12 @@ void describe('message/bizgo/v1/reservation', () => {
 				assert.ok('data' in response.body.data);
 
 				const { data } = response.body.data;
-				if (data.destinations.some((d) => d.msgKey === msgKey)) break;
+				const destination = data.destinations.find((d) => d.msgKey === msgKey);
+
+				if (destination) {
+					assert.deepEqual(destination.destData, { to: 국내_수신번호, ref: 'added-ref' });
+					break;
+				}
 
 				assert.ok(data.hasNext, 'the added destination is not in the list');
 				assert.notEqual(data.lastSeq, query.lastSeq, 'lastSeq did not advance');

@@ -33,7 +33,8 @@ export type {
 
 export type RequestBody = ResvSendTimeInput & {
 	/**
-	 * - 1–200
+	 * - 1–1000, not 1–200 as in the docs
+	 * - Over 1000 is rejected with `A318`
 	 * - One invalid `to` fails the whole request with `A306`
 	 */
 	destinations: Destination[];
@@ -44,6 +45,8 @@ export type RequestBody = ResvSendTimeInput & {
 	ref?: string;
 };
 
+type ReservationDestinationResult = DestinationResult & { ref?: string };
+
 export type ResponseBody = {
 	common: Common;
 	data: {
@@ -52,7 +55,7 @@ export type ResponseBody = {
 		resvKey: string;
 		ref?: string;
 		data: {
-			destinations: DestinationResult[];
+			destinations: ReservationDestinationResult[];
 		};
 	};
 };

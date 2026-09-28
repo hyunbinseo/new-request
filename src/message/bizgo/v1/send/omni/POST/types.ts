@@ -29,7 +29,10 @@ export type {
 };
 
 export type RequestBody = {
-	/** 1–200 */
+	/**
+	 * - 1–1000, not 1–200 as in the docs
+	 * - Over 1000 is rejected with `A318`
+	 */
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
 	paymentCode?: string;

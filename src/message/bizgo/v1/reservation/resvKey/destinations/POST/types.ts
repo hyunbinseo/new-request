@@ -11,7 +11,10 @@ import type {
 export type { Destination, Options, ResponseBodyException };
 
 export type RequestBody = {
-	/** 1–1000 */
+	/**
+	 * - 1–1000
+	 * - Over 1000 is rejected with `A318`
+	 */
 	destinations: Destination[];
 };
 

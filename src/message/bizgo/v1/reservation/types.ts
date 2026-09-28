@@ -1,10 +1,11 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
-import type { Common } from '#bizgo/v1/types.ts';
+import type { Common, Destination } from '#bizgo/v1/types.ts';
 
 export type ResvSendTimeInput = {
 	/**
 	 * - `yyyy-MM-dd HH:mm:ss` in KST (e.g. `2026-05-01 10:00:00`)
+	 * - `yyyy-MM-ddTHH:mm:ss` is rejected with `A315` on create
 	 * - 10 minutes to 1 year ahead
 	 * - Sooner is rejected with `A316` on create and `A823` on update, and later with `A331`
 	 */
@@ -36,10 +37,10 @@ export type ReservationDestination = {
 	msgKey: string;
 	destSeq: number;
 	to: string;
-	destData?: string;
-	status: string;
-	responseCode: string;
-	responseText: string;
+	destData?: Destination;
+	status?: string;
+	responseCode?: string;
+	responseText?: string;
 };
 
 export type ReservationResponseBody = {

@@ -32,6 +32,26 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		assert.equal(response.body.data.data.destinations[0]?.to, 국내_수신번호);
 	});
 
+	// See https://github.com/hyunbinseo/new-request/issues/17
+	void test('rejects over 1000 destinations', async (t) => {
+		const { BIZGO_API_KEY } = env;
+		if (!BIZGO_API_KEY) return t.skip();
+
+		const opts = { ...sandboxOpts, apiKey: BIZGO_API_KEY };
+
+		const response = await sendMessage(
+			{
+				destinations: Array.from({ length: 1001 }, () => ({ to: 국내_수신번호 })),
+				messageFlow: [카카오톡_알림톡_메시지],
+			},
+			opts,
+		);
+
+		assert.ok(!(response instanceof Error));
+		assert.equal(response.ok, false);
+		assert.equal(response.body.data.code, 'A318');
+	});
+
 	// See https://github.com/hyunbinseo/new-request/issues/15
 	void test('accepts an international number with or without +', async (t) => {
 		const { BIZGO_API_KEY } = env;

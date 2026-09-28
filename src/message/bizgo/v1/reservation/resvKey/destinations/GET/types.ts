@@ -7,7 +7,11 @@ export type { Options, ReservationDestination, ResponseBodyException };
 
 export type Query = {
 	lastSeq?: number;
-	/** 1–1000 */
+	/**
+	 * - Up to 1000
+	 * - `0` returns an empty page with `hasNext: true`
+	 * - Over 1000 is rejected with `A213`, and negative values with `A010`
+	 */
 	limit?: number;
 };
 
