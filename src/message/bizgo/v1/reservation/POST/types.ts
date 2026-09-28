@@ -32,9 +32,13 @@ export type {
 };
 
 export type RequestBody = ResvSendTimeInput & {
-	/** One invalid `to` fails the whole request with `A306`. */
+	/**
+	 * - 1–200
+	 * - One invalid `to` fails the whole request with `A306`
+	 */
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
+	/** Max length 100 */
 	resvName?: string;
 	paymentCode?: string;
 	ref?: string;
@@ -48,7 +52,6 @@ export type ResponseBody = {
 		resvKey: string;
 		ref?: string;
 		data: {
-			/** Registration results, not delivery results. */
 			destinations: DestinationResult[];
 		};
 	};

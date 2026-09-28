@@ -6,6 +6,7 @@ import type { Common, Options, ResponseBodyException } from '#bizgo/v1/types.ts'
 export type { Options, ResponseBodyException };
 
 export type RequestBody = ResvSendTimeInput & {
+	/** Max length 100 */
 	resvName?: string;
 };
 

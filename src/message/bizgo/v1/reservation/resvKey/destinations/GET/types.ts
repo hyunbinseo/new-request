@@ -7,6 +7,7 @@ export type { Options, ReservationDestination, ResponseBodyException };
 
 export type Query = {
 	lastSeq?: number;
+	/** 1–1000 */
 	limit?: number;
 };
 

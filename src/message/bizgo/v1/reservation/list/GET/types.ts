@@ -15,7 +15,7 @@ export type Query = {
 	paymentCode?: string;
 	lastSeq?: number;
 	/**
-	 * - 1–1000, defaults to 100
+	 * - Up to 1000, defaults to 100
 	 * - `0` returns an empty page
 	 * - Over 1000 is rejected with `A213`, and negative values with `A010`
 	 */

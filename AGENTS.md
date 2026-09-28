@@ -40,6 +40,9 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
   - Value constraints (e.g. format, time zone, range).
   - Behavior confirmed by integration tests that differs from, or is missing in, the vendor docs.
 - Not added for field descriptions, or for links to `docs/`.
+- Written as fragments without trailing periods: `/** … */` for one fact, a `-` list for more.
+- Ranges written as `1–1000`, or `Up to 1000` when the lower bound is `0`.
+- Error codes written as `rejected with <CODE>` (e.g. ``Over 1000 is rejected with `A213` ``).
 
 ## Testing
 

@@ -29,6 +29,7 @@ export type {
 };
 
 export type RequestBody = {
+	/** 1–200 */
 	destinations: Destination[];
 	messageFlow: MessageFlowItem[];
 	paymentCode?: string;

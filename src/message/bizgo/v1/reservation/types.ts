@@ -5,7 +5,8 @@ import type { Common } from '#bizgo/v1/types.ts';
 export type ResvSendTimeInput = {
 	/**
 	 * - `yyyy-MM-dd HH:mm:ss` in KST (e.g. `2026-05-01 10:00:00`)
-	 * - 10 minutes (`A316`/`A823`) to 1 year (`A331`) ahead
+	 * - 10 minutes to 1 year ahead
+	 * - Sooner is rejected with `A316` on create and `A823` on update, and later with `A331`
 	 */
 	resvSendTime: string;
 };
@@ -25,7 +26,9 @@ export type Reservation = {
 	sentCnt: number;
 	successCnt: number;
 	failCnt: number;
+	/** `yyyy-MM-ddTHH:mm:ss+09:00` */
 	updateDate: string;
+	/** `yyyy-MM-ddTHH:mm:ss+09:00` */
 	regDate: string;
 };
 

@@ -4,7 +4,7 @@ import { tryFetch } from '#lib/fetch.ts';
 import type { Options, ResponseBody, ResponseBodyException } from './types.ts';
 export type { Options };
 
-/** A reservation that hasn't started sending is rejected with `A824`. */
+/** A reservation that hasn't started sending is rejected with `A824` */
 export const stopReservation = (resvKey: string, opts: Options) =>
 	tryFetch(
 		() =>

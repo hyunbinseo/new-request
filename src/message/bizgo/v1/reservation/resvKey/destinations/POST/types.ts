@@ -11,6 +11,7 @@ import type {
 export type { Destination, Options, ResponseBodyException };
 
 export type RequestBody = {
+	/** 1–1000 */
 	destinations: Destination[];
 };
 
@@ -20,7 +21,6 @@ export type ResponseBody = {
 		code: string;
 		result: string;
 		data: {
-			/** Registration results, not delivery results. */
 			destinations: DestinationResult[];
 		};
 	};
