@@ -1,3 +1,10 @@
+## Scope
+
+- Added when the vendor has no official OpenAPI spec, or its types are too loose to be useful.
+  - e.g. Twilio: conditional fields untyped, response fields all nullable, no error responses.
+- Otherwise, left to generated clients (e.g. `openapi-fetch`).
+  - e.g. SendGrid: request and responses (including errors) fully typed.
+
 ## Module Paths
 
 ```plaintext
@@ -58,7 +65,7 @@ GET  /v1/user/id/{id}      →  v1/user/id/GET
 - Shared helpers are tested once, not per endpoint.
 - Follow `src/sms/twilio/2010-04-01/POST/index.test.ts` for layout and naming.
 - Order (e.g. body fields) is asserted only when the API depends on it.
-- `expected` spreads `input` when the body is passed through (see `src/email/send-grid/v3/POST/index.test.ts`), and uses literals when values are transformed.
+- `expected` spreads `input` when the body is passed through (see `src/email/postmark/POST/index.test.ts`), and uses literals when values are transformed.
 
 ### Integration Tests
 

@@ -1,0 +1,12 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["src"],
+	"exclude": ["src/**/*.test.*", "src/**/sandbox"],
+	"compilerOptions": {
+		"lib": [
+			"es2023", // sync with tsdown.config.ts's target
+			"webworker" // sync with tsconfig.json's lib
+		],
+		"types": []
+	}
+}

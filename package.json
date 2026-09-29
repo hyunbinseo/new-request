@@ -23,7 +23,6 @@
 	},
 	"exports": {
 		"./email/postmark/POST": "./dist/email/postmark/POST/index.js",
-		"./email/send-grid/v3/POST": "./dist/email/send-grid/v3/POST/index.js",
 		"./message/bizgo/v1/reservation/list/GET": "./dist/message/bizgo/v1/reservation/list/GET/index.js",
 		"./message/bizgo/v1/reservation/POST": "./dist/message/bizgo/v1/reservation/POST/index.js",
 		"./message/bizgo/v1/reservation/resvKey/cancel/POST": "./dist/message/bizgo/v1/reservation/resvKey/cancel/POST/index.js",
@@ -46,10 +45,11 @@
 		"access": "public"
 	},
 	"scripts": {
-		"prepack": "tsdown",
-		"test": "node --test --env-file-if-exists=.env --test-global-setup=src/message/bizgo/v1/sandbox/setup.ts",
-		"version": "tsdown && git add package.json",
+		"check": "tsc && tsc -p tsconfig.lib.json",
+		"prepack": "node --run check && tsdown",
+		"version": "node --run check && tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
+		"test": "node --test --env-file-if-exists=.env --test-global-setup=src/message/bizgo/v1/sandbox/setup.ts",
 		"fmt": "oxfmt",
 		"fmt:check": "oxfmt --check",
 		"lint": "oxlint",

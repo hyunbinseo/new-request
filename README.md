@@ -2,25 +2,25 @@
 
 Type-safe wrappers for third-party REST APIs.
 
-Supports [Twilio], [SendGrid], [Postmark], and more. [Show all](#services)
+Supports [Twilio], [Postmark], and more. [Show all](#services)
 
 [Twilio]: https://www.twilio.com/
-[SendGrid]: https://sendgrid.com/
 [Postmark]: https://postmarkapp.com/
 
 ```ts
 // before - nothing is typed
-await fetch('https://api.sendgrid.com/v3/mail/send', {
+await fetch('https://api.postmarkapp.com/email', {
 	method: 'POST',
 	headers: {
-		'Authorization': `Bearer secret`,
+		'Accept': 'application/json',
 		'Content-Type': 'application/json',
+		'X-Postmark-Server-Token': 'secret',
 	},
 	body: JSON.stringify(body),
 });
 
 // after - fully typed request and response
-await sendEmail(body, { apiKey: 'secret', from: { email: 'sender@example.com' } });
+await sendEmail(body, { serverToken: 'secret', from: 'sender@example.com' });
 ```
 
 ## Features
@@ -54,25 +54,25 @@ if (!response.ok) response; // error type
 
 ## Example
 
-Sending an email with the [SendGrid API](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send):
+Sending an email with the [Postmark API](https://postmarkapp.com/developer/api/email-api):
 
 ```ts
-import { sendEmail, type Options } from 'new-request/email/send-grid/v3/POST';
+import { sendEmail, type Options } from 'new-request/email/postmark/POST';
 
 // Options can be modularized and exported
 const options: Options = {
-	apiKey: 'SG.your_api_key_here',
-	from: { email: 'sender@example.com' },
+	serverToken: 'your_server_token_here',
+	from: 'sender@example.com',
 };
 
 const response = await sendEmail(
 	{
-		// Request body matches the SendGrid API for easy migration
-		// https://www.twilio.com/docs/sendgrid/api-reference/mail-send
-		personalizations: [{ to: [{ email: 'recipient@example.com' }] }],
-		subject: 'Hello World',
-		content: [{ type: 'text/plain', value: 'Email body' }],
-		from: { email: 'sender@example.com' }, // optional override
+		// Request body matches the Postmark API for easy migration
+		// https://postmarkapp.com/developer/api/email-api
+		To: 'recipient@example.com',
+		Subject: 'Hello World',
+		TextBody: 'Email body',
+		From: 'sender@example.com', // optional override
 	},
 	options,
 );
@@ -84,13 +84,12 @@ if (response instanceof Error) {
 }
 
 if (!response.ok) {
-	response.status; // 400 | 401 | 403 | 404 | 413 | 500
-	if (response.status !== 500) response.body; // 4xx error details
-	if (response.status === 500) response.body; // 5xx error details
+	response.status; // 401 | 404 | 413 | 415 | 422 | 429 | 500 | 503
+	response.body.ErrorCode; // Postmark error code
 	return;
 }
 
-response.status; // 202 Accepted
+response.body.MessageID; // 200 OK
 ```
 
 ## Services
@@ -100,14 +99,12 @@ response.status; // 202 Accepted
 
 ### Email
 
-- [SendGrid](https://sendgrid.com/)
 - [Postmark](https://postmarkapp.com/)
 
 <!-- Resend's official Node.js SDK uses the Fetch API. -->
 
 ```ts
 import { sendEmail } from 'new-request/email/postmark/POST';
-import { sendEmail } from 'new-request/email/send-grid/v3/POST';
 ```
 
 ### Message (Web Hook, Push, etc.)

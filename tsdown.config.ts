@@ -4,7 +4,7 @@ export default defineConfig({
 	entry: 'src/**/{GET,POST,PUT,DELETE}/index.ts',
 	dts: true,
 	format: ['esm'],
-	target: 'node20',
+	target: ['es2023'], // sync with tsconfig.lib.json's lib
 	platform: 'neutral',
 	exports: true,
 	publint: true,
