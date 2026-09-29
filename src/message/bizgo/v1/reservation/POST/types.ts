@@ -33,7 +33,7 @@ export type {
 
 export type RequestBody = ResvSendTimeInput & {
 	/**
-	 * - 1–1000, not 1–200 as in the docs
+	 * - 1–1000 (docs recommend 200)
 	 * - Over 1000 is rejected with `A318`
 	 * - One invalid `to` fails the whole request with `A306`
 	 */
