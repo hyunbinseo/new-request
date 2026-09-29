@@ -8,6 +8,7 @@ Types follow <https://developers.bizgo.io>.
 ### Web Docs
 
 - The web page is large (~4 MB) and server-rendered. Save the raw HTML (e.g. `curl`) and query it. Don't use Chrome DevTools.
+- The English web page (`/en/...`) matches `llms-full.txt` wording, so field descriptions can be diffed directly.
 - The web page's example JSON is minimal. Don't rely on it for field coverage.
 - The web page's field tables are flat rows, and the copied text loses nesting.
   - `p[data-spec-name]` in each row holds the full path (e.g. `messageFlow[].sms.from`).
