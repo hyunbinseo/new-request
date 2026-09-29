@@ -61,4 +61,36 @@ void describe('message/bizgo/v1/reservation/resvKey/destinations/POST', () => {
 		assert.equal(response.ok, false);
 		assert.equal(response.body.data.code, 'A318');
 	});
+	void test('rejects the whole request for one invalid number', async (t) => {
+		const { BIZGO_API_KEY } = env;
+		if (!BIZGO_API_KEY) return t.skip();
+
+		const opts = { ...sandboxOpts, apiKey: BIZGO_API_KEY };
+
+		const created = await createReservation(
+			{
+				destinations: [{ to: 국내_수신번호 }],
+				messageFlow: [카카오톡_알림톡_메시지],
+				resvSendTime: getFutureResvSendTime(30 * 60 * 1000),
+			},
+			opts,
+		);
+
+		assert.ok(!(created instanceof Error));
+		assert.equal(created.ok, true);
+		assert.ok('resvKey' in created.body.data);
+
+		const { resvKey } = created.body.data;
+		t.after(() => cancelReservation(resvKey, opts));
+
+		const response = await addReservationDestinations(
+			resvKey,
+			{ destinations: [{ to: 국내_수신번호 }, { to: '123' }] },
+			opts,
+		);
+
+		assert.ok(!(response instanceof Error));
+		assert.equal(response.ok, false);
+		assert.equal(response.body.data.code, 'A306');
+	});
 });
