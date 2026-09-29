@@ -32,7 +32,7 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		assert.equal(response.body.data.data.destinations[0]?.to, 국내_수신번호);
 	});
 
-	void test('rejects the whole request for one invalid number', async (t) => {
+	void test('rejects only the invalid number', async (t) => {
 		const { BIZGO_API_KEY } = env;
 		if (!BIZGO_API_KEY) return t.skip();
 
@@ -47,8 +47,12 @@ void describe('message/bizgo/v1/send/omni/POST', () => {
 		);
 
 		assert.ok(!(response instanceof Error));
-		assert.equal(response.ok, false);
-		assert.equal(response.body.data.code, 'A306');
+		assert.equal(response.ok, true);
+		assert.ok('data' in response.body.data);
+		assert.deepEqual(
+			response.body.data.data.destinations.map((d) => d.code),
+			['A000', 'A306'],
+		);
 	});
 
 	// See https://github.com/hyunbinseo/new-request/issues/17
