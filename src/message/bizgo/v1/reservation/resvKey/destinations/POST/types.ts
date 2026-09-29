@@ -1,5 +1,6 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
+import type { DestinationsInput } from '#bizgo/v1/reservation/types.ts';
 import type {
 	Common,
 	Destination,
@@ -10,13 +11,7 @@ import type {
 
 export type { Destination, Options, ResponseBodyException };
 
-export type RequestBody = {
-	/**
-	 * - 1–1000
-	 * - Over 1000 is rejected with `A318`
-	 */
-	destinations: Destination[];
-};
+export type RequestBody = DestinationsInput;
 
 export type ResponseBody = {
 	common: Common;

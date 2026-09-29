@@ -2,6 +2,15 @@
 
 import type { Common, Destination } from '#bizgo/v1/types.ts';
 
+export type DestinationsInput = {
+	/**
+	 * - 1–1000 (docs recommend 200)
+	 * - Over 1000 is rejected with `A318`
+	 * - One invalid `to` fails the whole request with `A306`
+	 */
+	destinations: Destination[];
+};
+
 export type ResvSendTimeInput = {
 	/**
 	 * - `yyyy-MM-dd HH:mm:ss` in KST (e.g. `2026-05-01 10:00:00`)

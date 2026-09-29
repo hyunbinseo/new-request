@@ -10,10 +10,9 @@ import type {
 	RcsMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
-import type { ResvSendTimeInput } from '#bizgo/v1/reservation/types.ts';
+import type { DestinationsInput, ResvSendTimeInput } from '#bizgo/v1/reservation/types.ts';
 import type {
 	Common,
-	Destination,
 	DestinationResult,
 	Options,
 	ResponseBodyException,
@@ -31,13 +30,7 @@ export type {
 	SmsMessage,
 };
 
-export type RequestBody = ResvSendTimeInput & {
-	/**
-	 * - 1–1000 (docs recommend 200)
-	 * - Over 1000 is rejected with `A318`
-	 * - One invalid `to` fails the whole request with `A306`
-	 */
-	destinations: Destination[];
+export type RequestBody = DestinationsInput & ResvSendTimeInput & {
 	messageFlow: MessageFlowItem[];
 	/** Max length 100 */
 	resvName?: string;
