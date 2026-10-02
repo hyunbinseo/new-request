@@ -22,7 +22,7 @@ type AlimtalkButton = {
 	oneclickId?: string;
 	productId?: string;
 	bizFormKey?: string;
-	bizFormId?: number;
+	bizFormId?: string;
 	telNumber?: string;
 };
 
@@ -46,21 +46,21 @@ type AlimtalkMessageRegular = AlimtalkMessageBase & {
 		item?: {
 			list?: { title: string; description: string }[];
 			summary?: { title: string; description: string };
-			itemHighlight?: { title: string; description: string };
 		};
-		supplement?: {
-			quickReply?: {
-				type: string;
-				name: string;
-				urlPc?: string;
-				urlMobile?: string;
-				schemeIos?: string;
-				schemeAndroid?: string;
-				chatExtra?: string;
-				chatEvent?: string;
-				bizFormId?: number;
-			}[];
-		};
+		itemHighlight?: { title: string; description: string };
+	};
+	supplement?: {
+		quickReply?: {
+			type: string;
+			name: string;
+			urlPc?: string;
+			urlMobile?: string;
+			schemeIos?: string;
+			schemeAndroid?: string;
+			chatExtra?: string;
+			chatEvent?: string;
+			bizFormId?: string;
+		}[];
 	};
 	sendType?: never;
 };

@@ -25,6 +25,12 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 
 - Copied from the request URL, and may span multiple segments (e.g. `send/omni`).
 - Added only when multiple endpoints are implemented under that version.
+- Path parameter values are dropped, but their literal segments are kept.
+
+```plaintext
+POST /v1/user/id/{id}/ban  →  v1/user/id/ban/POST
+GET  /v1/user/id/{id}      →  v1/user/id/GET
+```
 
 ## Arguments
 
@@ -34,6 +40,16 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 ## Errors
 
 - Not thrown. Returned as an `Error` (e.g. `fetch` rejection, unparsable body).
+
+## JSDoc
+
+- Added only for what the type can't express:
+  - Value constraints (e.g. format, time zone, range).
+  - Behavior confirmed by integration tests that differs from, or is missing in, the vendor docs.
+- Not added for field descriptions, or for links to `docs/`.
+- Written as fragments without trailing periods: `/** … */` for one fact, a `-` list for more.
+- Ranges written as `1–1000`, or `Up to 1000` when the lower bound is `0`.
+- Error codes written as `rejected with <CODE>` (e.g. ``Over 1000 is rejected with `A213` ``).
 
 ## Testing
 
@@ -56,3 +72,5 @@ src/message/bizgo/v1/send/omni/POST/index.ts  # multiple endpoints under v1
 - Added for every implemented endpoint when the vendor has a sandbox.
 - Run against the sandbox with real credentials, listed in `.env.example`.
 - Grouped into one lifecycle test when endpoints depend on each other.
+- Placed in the endpoint's `index.test.ts`, except lifecycle tests, which go in `<version>/<resource>/lifecycle.test.ts`.
+- Sandbox helpers go in `<vendor>/<version>/sandbox/`.

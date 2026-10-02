@@ -21,8 +21,13 @@ export type BrandMessage = {
 	text?: string;
 	targeting?: string;
 	header?: string;
+	/** `msgType: 'FG'` only */
+	headerDescription?: string;
 	additionalContent?: string;
 	pushAlarm?: string;
+	groupTagKey?: string;
+	adult?: 'Y' | 'N';
+	adFlag?: 'Y' | 'N';
 	originCID?: string;
 	unsubscribePhoneNumber?: string;
 	unsubscribeAuthNumber?: string;
@@ -38,6 +43,12 @@ export type BrandMessage = {
 		couponVariable?: Record<string, unknown>;
 		imageVariable?: Record<string, unknown>;
 		commerceVariable?: Record<string, unknown>;
+	}[];
+	/** `msgType: 'FG'` only */
+	catalogVariable?: {
+		messageVariable?: Record<string, unknown>;
+		commerceVariable?: Record<string, unknown>;
+		imageVariable?: Record<string, unknown>;
 	}[];
 	attachment?: {
 		button?: BrandMessageButton[];
@@ -66,48 +77,76 @@ export type BrandMessage = {
 			discountPrice?: number;
 			discountRate?: number;
 			discountFixed?: number;
+			regularPriceName?: string;
+			discountPriceName?: string;
+			discountRateName?: string;
+			discountFixedName?: string;
 		};
 		video?: { videoUrl: string; thumbnailUrl?: string };
-		carousel?: {
-			head?: {
-				header?: string;
-				content?: string;
-				imageUrl?: string;
-				urlMobile?: string;
-				urlPc?: string;
-				schemeAndroid?: string;
-				schemeIos?: string;
-			};
+		/** `msgType: 'FG'` only */
+		catalog?: {
 			list?: {
-				header?: string;
-				message?: string;
-				additionalContent?: string;
-				attachment?: {
-					button?: BrandMessageButton[];
-					image?: { imgUrl: string; imgLink?: string };
-					coupon?: {
-						title: string;
-						description: string;
-						urlPc?: string;
-						urlMobile?: string;
-						schemeAndroid?: string;
-						schemeIos?: string;
-					};
-					commerce?: {
-						title: string;
-						regularPrice: number;
-						discountPrice?: number;
-						discountRate?: number;
-						discountFixed?: number;
-					};
-				};
+				type: string;
+				imgUrl?: string;
+				imgLink?: string;
+				title?: string;
+				description?: string;
+				regularPrice?: number;
+				discountPrice?: number;
+				discountRate?: number;
+				discountFixed?: number;
+				regularPriceName?: string;
+				discountPriceName?: string;
+				regularPriceVariableName?: string;
+				discountPriceVariableName?: string;
+				discountRateVariableName?: string;
+				discountFixedVariableName?: string;
 			}[];
-			tail?: {
-				urlMobile: string;
-				urlPc?: string;
-				schemeIos?: string;
-				schemeAndroid?: string;
+		};
+	};
+	carousel?: {
+		head?: {
+			header?: string;
+			content?: string;
+			imageUrl?: string;
+			urlMobile?: string;
+			urlPc?: string;
+			schemeAndroid?: string;
+			schemeIos?: string;
+		};
+		list?: {
+			header?: string;
+			message?: string;
+			additionalContent?: string;
+			attachment?: {
+				button?: BrandMessageButton[];
+				image?: { imgUrl: string; imgLink?: string };
+				coupon?: {
+					title: string;
+					description: string;
+					urlPc?: string;
+					urlMobile?: string;
+					schemeAndroid?: string;
+					schemeIos?: string;
+				};
+				commerce?: {
+					title: string;
+					regularPrice: number;
+					discountPrice?: number;
+					discountRate?: number;
+					discountFixed?: number;
+					regularPriceName?: string;
+					discountPriceName?: string;
+					discountRateName?: string;
+					discountFixedName?: string;
+				};
 			};
+		}[];
+		tail?: {
+			urlMobile: string;
+			urlPc?: string;
+			schemeIos?: string;
+			schemeAndroid?: string;
 		};
 	};
 };
