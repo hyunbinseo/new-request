@@ -1,0 +1,738 @@
+page	section	group	path	type	required	min	max	length	default	format
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	destinations	Object Array	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	destinations[].to	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	destinations[].replaceWords	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	destinations[].ref	String	No		200			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow	Object Array	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk	Object	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.msgType	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.senderKey	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.templateCode	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.responseMethod	String	No				push	
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.timeout	String	No	10	86400		180	
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.text	String	Yes		1300			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.title	String	No		50			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.header	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.link	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.link.urlPc	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.link.urlMobile	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.link.schemeAndroid	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.link.schemeIos	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button	Object Array	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].type	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].name	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].urlPc	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].urlMobile	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].schemeIos	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].schemeAndroid	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].target	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].chatExtra	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].chatEvent	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].pluginId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].relayId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].oneclickId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].productId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].bizFormKey	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].bizFormId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.button[].telNumber	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.list	Object Array	No	2	10			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.list[].title	String	Yes		6			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.list[].description	String	Yes		23			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.summary	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.summary.title	String	Yes		6			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.item.summary.description	String	Yes		14			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.itemHighlight	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.itemHighlight.title	String	Yes		21; 30			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.attachment.itemHighlight.description	String	Yes		13; 19			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply	Object Array	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].type	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].name	String	Yes					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].urlPc	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].urlMobile	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].schemeIos	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].schemeAndroid	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].chatExtra	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].chatEvent	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.supplement.quickReply[].bizFormId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.price	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.currencyType	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	messageFlow[].alimtalk.pushAlarm	String	No				Y	Y or N
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	groupKey	String	No		64			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	idempotencyKey	String	No		200			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/kakao-alimtalk	Send an Alimtalk	Body Parameters	ref	String	No		200			
+comm/kakao-alimtalk	Send an Alimtalk	Returns	common	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	common.authCode	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	common.authResult	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	common.infobankTrId	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.code	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.result	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data	Object	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data.destinations	Object Array	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data.destinations[].to	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data.destinations[].msgKey	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data.destinations[].code	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.data.destinations[].result	String	No					
+comm/kakao-alimtalk	Send an Alimtalk	Returns	data.ref	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	destinations	Object Array	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	destinations[].to	String	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	destinations[].replaceWords	Object	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	destinations[].ref	String	No		200			
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow	Object Array	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk	Object	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.senderKey	String	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.templateCode	String	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.sendType	String	Yes					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.responseMethod	String	No				push	
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.timeout	String	No	10	86400		180	
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.price	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	messageFlow[].alimtalk.currencyType	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	groupKey	String	No		64			
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	idempotencyKey	String	No		200			
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/kakao-alimtalk	Send with automatic template substitution	Body Parameters	ref	String	No		200			
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	common	Object	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	common.authCode	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	common.authResult	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	common.infobankTrId	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data	Object	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.code	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.result	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data	Object	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations	Object Array	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations[].to	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations[].msgKey	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations[].code	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations[].result	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.data.destinations[].ref	String	No					
+comm/kakao-alimtalk	Send with automatic template substitution	Returns	data.ref	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	destinations	Object Array	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	destinations[].to	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	destinations[].replaceWords	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	destinations[].ref	String	No		200			
+comm/kakao-brand	Send a basic message	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow	Object Array	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage	Object	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.sendType	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.msgType	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.senderKey	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.templateCode	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.targeting	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.text	String	No		1300 characters (FT), 400 (FI), 76 (FW/FP)			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.header	String	No		20			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.headerDescription	String	No		36			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.additionalContent	String	No		34			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.pushAlarm	String	No				Y	Y or N
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.messageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.buttonVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.couponVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.imageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.videoVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.commerceVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable	Object Array	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable[].messageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable[].buttonVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable[].couponVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable[].imageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carouselVariable[].commerceVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.catalogVariable	Object Array	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.catalogVariable[].messageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.catalogVariable[].commerceVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.catalogVariable[].imageVariable	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.originCID	String	No		9			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.unsubscribePhoneNumber	String	No		13			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.unsubscribeAuthNumber	String	No		10			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button	Object Array	No		4 (FT/FI + coupon), 5 (otherwise)			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].type	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].name	String	No		28			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].urlPc	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].urlMobile	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].schemeIos	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].schemeAndroid	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].chatExtra	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].chatEvent	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.button[].bizFormKey	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.image	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.image.imgUrl	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.image.imgLink	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list	Object Array	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].title	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].imgUrl	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].urlMobile	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].urlPc	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].schemeIos	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.title	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.description	String	Yes		18 characters (WIDE/WIDE_ITEM_LIST/PREMIUM_VIDEO); 12 characters (otherwise)			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.urlPc	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.urlMobile	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.schemeAndroid	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.schemeIos	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.title	String	Yes		30			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.regularPrice	Integer	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountPrice	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountRate	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountFixed	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.regularPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountRateName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountFixedName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.video	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.video.videoUrl	String	Yes		500			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.video.thumbnailUrl	String	No		500			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list	Object Array	No	3	7			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].type	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].imgUrl	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].imgLink	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].title	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].description	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPrice	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPrice	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountRate	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountFixed	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPriceVariableName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPriceVariableName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountRateVariableName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountFixedVariableName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.header	String	No		20			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.content	String	No		50			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.imageUrl	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.urlMobile	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.urlPc	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.head.schemeIos	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list	Object Array	No	2	10			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].header	String	No		20			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].message	String	No		180			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].additionalContent	String	No		34			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button	Object Array	No		4 (FC/FA + coupon), 5 (otherwise)			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].type	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].name	String	No		28			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].urlPc	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].urlMobile	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].schemeIos	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].schemeAndroid	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].chatExtra	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].chatEvent	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].bizFormKey	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image.imgUrl	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image.imgLink	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.title	String	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.description	String	Yes		12 characters			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.urlPc	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.urlMobile	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.schemeAndroid	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.schemeIos	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.title	String	Yes		30			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.regularPrice	Integer	Yes					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountPrice	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountRate	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountFixed	Integer	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.regularPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountPriceName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountRateName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountFixedName	String	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.tail	Object	No					
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.tail.urlMobile	String	Yes		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.tail.urlPc	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.tail.schemeIos	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	messageFlow[].brandmessage.carousel.tail.schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a basic message	Body Parameters	groupKey	String	No		64			
+comm/kakao-brand	Send a basic message	Body Parameters	idempotencyKey	String	No		200			
+comm/kakao-brand	Send a basic message	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/kakao-brand	Send a basic message	Body Parameters	ref	String	No		200			
+comm/kakao-brand	Send a basic message	Returns	common	Object	No					
+comm/kakao-brand	Send a basic message	Returns	common.authCode	String	No					
+comm/kakao-brand	Send a basic message	Returns	common.authResult	String	No					
+comm/kakao-brand	Send a basic message	Returns	common.infobankTrId	String	No					
+comm/kakao-brand	Send a basic message	Returns	data	Object	No					
+comm/kakao-brand	Send a basic message	Returns	data.code	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.result	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.data	Object	No					
+comm/kakao-brand	Send a basic message	Returns	data.data.destinations	Object Array	No					
+comm/kakao-brand	Send a basic message	Returns	data.data.destinations[].to	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.data.destinations[].msgKey	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.data.destinations[].code	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.data.destinations[].result	String	No					
+comm/kakao-brand	Send a basic message	Returns	data.ref	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	destinations	Object Array	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	destinations[].to	String	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	destinations[].replaceWords	Object	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow	Object Array	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage	Object	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.senderKey	String	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.templateCode	String	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.sendType	String	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.targeting	String	Yes					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.pushAlarm	String	No				Y	Y or N
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.originCID	String	No		9			
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.unsubscribePhoneNumber	String	No		13			
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.unsubscribeAuthNumber	String	No		10			
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	groupKey	String	No		64			
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	idempotencyKey	String	No		200			
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	idempotencyTtl	Integer	No					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	ref	String	No		200			
+comm/kakao-brand	Basic send with automatic template substitution	Returns	common	Object	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	common.authCode	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	common.authResult	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	common.infobankTrId	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data	Object	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.code	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.result	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data	Object	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data.destinations	Object Array	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data.destinations[].to	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data.destinations[].msgKey	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data.destinations[].code	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.data.destinations[].result	String	No					
+comm/kakao-brand	Basic send with automatic template substitution	Returns	data.ref	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	destinations	Object Array	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	destinations[].to	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	destinations[].replaceWords	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	destinations[].ref	String	No		200			
+comm/kakao-brand	Send a free-form message	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow	Object Array	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage	Object	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.sendType	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.msgType	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.senderKey	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.text	String	No		1300 characters (FT), 400 (FI), 76 (FW/FP)			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.targeting	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.header	String	No		20			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.headerDescription	String	No		36			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.additionalContent	String	No		34			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.groupTagKey	String	No		40			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.adult	String	No				N	
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.pushAlarm	String	No				Y	Y or N
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.adFlag	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.originCID	String	No		9			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.unsubscribePhoneNumber	String	No		13			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.unsubscribeAuthNumber	String	No		10			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button	Object Array	No		4 (FT/FI + coupon), 5 (otherwise)			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].type	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].name	String	No		28			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].urlPc	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].urlMobile	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].schemeIos	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].schemeAndroid	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].chatExtra	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].chatEvent	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.button[].bizFormKey	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.image	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.image.imgUrl	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.image.imgLink	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list	Object Array	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].title	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].imgUrl	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].urlMobile	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].urlPc	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].schemeIos	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.item.list[].schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.title	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.description	String	Yes		18 characters (WIDE/WIDE_ITEM_LIST/PREMIUM_VIDEO); 12 characters (otherwise)			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.urlPc	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.urlMobile	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.schemeAndroid	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.coupon.schemeIos	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.title	String	Yes		30			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.regularPrice	Integer	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountPrice	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountRate	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountFixed	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.regularPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountRateName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.commerce.discountFixedName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.video	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.video.videoUrl	String	Yes		500			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.video.thumbnailUrl	String	No		500			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list	Object Array	No	3	7			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].type	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].imgUrl	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].imgLink	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].title	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].description	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPrice	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPrice	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountRate	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountFixed	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].regularPriceVariableName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountPriceVariableName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountRateVariableName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.attachment.catalog.list[].discountFixedVariableName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.header	String	No		20			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.content	String	No		50			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.imageUrl	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.urlMobile	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.urlPc	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.head.schemeIos	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list	Object Array	No	2	10			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].header	String	No		20			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].message	String	No		180			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].additionalContent	String	No		34			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button	Object Array	No		4 (FC/FA + coupon), 5 (otherwise)			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].type	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].name	String	No		28			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].urlPc	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].urlMobile	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].schemeIos	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].schemeAndroid	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].chatExtra	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].chatEvent	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.button[].bizFormKey	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image.imgUrl	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.image.imgLink	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.title	String	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.description	String	Yes		12 characters			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.urlPc	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.urlMobile	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.schemeAndroid	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.coupon.schemeIos	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.title	String	Yes		30			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.regularPrice	Integer	Yes					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountPrice	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountRate	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountFixed	Integer	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.regularPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountPriceName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountRateName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.list[].attachment.commerce.discountFixedName	String	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.tail	Object	No					
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.tail.urlMobile	String	Yes		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.tail.urlPc	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.tail.schemeIos	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.carousel.tail.schemeAndroid	String	No		1000			
+comm/kakao-brand	Send a free-form message	Body Parameters	groupKey	String	No		64			
+comm/kakao-brand	Send a free-form message	Body Parameters	idempotencyKey	String	No		200			
+comm/kakao-brand	Send a free-form message	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/kakao-brand	Send a free-form message	Body Parameters	ref	String	No		200			
+comm/kakao-brand	Send a free-form message	Returns	common	Object	No					
+comm/kakao-brand	Send a free-form message	Returns	common.authCode	String	No					
+comm/kakao-brand	Send a free-form message	Returns	common.authResult	String	No					
+comm/kakao-brand	Send a free-form message	Returns	common.infobankTrId	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data	Object	No					
+comm/kakao-brand	Send a free-form message	Returns	data.code	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.result	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data	Object	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data.destinations	Object Array	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data.destinations[].to	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data.destinations[].msgKey	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data.destinations[].code	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.data.destinations[].result	String	No					
+comm/kakao-brand	Send a free-form message	Returns	data.ref	String	No					
+comm/mt	Send an SMS (short message)	Body Parameters	destinations	Object Array	Yes					
+comm/mt	Send an SMS (short message)	Body Parameters	destinations[].to	String	Yes					
+comm/mt	Send an SMS (short message)	Body Parameters	destinations[].replaceWords	Object	No					
+comm/mt	Send an SMS (short message)	Body Parameters	destinations[].ref	String	No		200			
+comm/mt	Send an SMS (short message)	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow	Object Array	Yes					
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow[].sms	Object	Yes					
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow[].sms.from	String	Yes					
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow[].sms.text	String	Yes		90byte			
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow[].sms.ttl	String	No				86400 (1day)	
+comm/mt	Send an SMS (short message)	Body Parameters	messageFlow[].sms.originCID	String	No			9		
+comm/mt	Send an SMS (short message)	Body Parameters	groupKey	String	No		64			
+comm/mt	Send an SMS (short message)	Body Parameters	idempotencyKey	String	No		200			
+comm/mt	Send an SMS (short message)	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/mt	Send an SMS (short message)	Body Parameters	ref	String	No		200			
+comm/mt	Send an SMS (short message)	Returns	common	Object	No					
+comm/mt	Send an SMS (short message)	Returns	common.authCode	String	No					
+comm/mt	Send an SMS (short message)	Returns	common.authResult	String	No					
+comm/mt	Send an SMS (short message)	Returns	common.infobankTrId	String	No					
+comm/mt	Send an SMS (short message)	Returns	data	Object	No					
+comm/mt	Send an SMS (short message)	Returns	data.code	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.result	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.data	Object	No					
+comm/mt	Send an SMS (short message)	Returns	data.data.destinations	Object Array	No					
+comm/mt	Send an SMS (short message)	Returns	data.data.destinations[].to	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.data.destinations[].msgKey	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.data.destinations[].code	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.data.destinations[].result	String	No					
+comm/mt	Send an SMS (short message)	Returns	data.ref	String	No					
+comm/mt	Send an LMS (long message)	Body Parameters	destinations	Object Array	Yes					
+comm/mt	Send an LMS (long message)	Body Parameters	destinations[].to	String	Yes					
+comm/mt	Send an LMS (long message)	Body Parameters	destinations[].replaceWords	Object	No					
+comm/mt	Send an LMS (long message)	Body Parameters	destinations[].ref	String	No		200			
+comm/mt	Send an LMS (long message)	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow	Object Array	Yes					
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms	Object	Yes					
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms.from	String	Yes					
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms.title	String	No		40byte			
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms.text	String	Yes		2000byte			
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms.ttl	String	No				86400 (1day)	
+comm/mt	Send an LMS (long message)	Body Parameters	messageFlow[].mms.originCID	String	No			9		
+comm/mt	Send an LMS (long message)	Body Parameters	groupKey	String	No		64			
+comm/mt	Send an LMS (long message)	Body Parameters	idempotencyKey	String	No		200			
+comm/mt	Send an LMS (long message)	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/mt	Send an LMS (long message)	Body Parameters	ref	String	No		200			
+comm/mt	Send an LMS (long message)	Returns	common	Object	No					
+comm/mt	Send an LMS (long message)	Returns	common.authCode	String	No					
+comm/mt	Send an LMS (long message)	Returns	common.authResult	String	No					
+comm/mt	Send an LMS (long message)	Returns	common.infobankTrId	String	No					
+comm/mt	Send an LMS (long message)	Returns	data	Object	No					
+comm/mt	Send an LMS (long message)	Returns	data.code	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.result	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.data	Object	No					
+comm/mt	Send an LMS (long message)	Returns	data.data.destinations	Object Array	No					
+comm/mt	Send an LMS (long message)	Returns	data.data.destinations[].to	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.data.destinations[].msgKey	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.data.destinations[].code	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.data.destinations[].result	String	No					
+comm/mt	Send an LMS (long message)	Returns	data.ref	String	No					
+comm/mt	Send an MMS (image + long message)	Body Parameters	destinations	Object Array	Yes					
+comm/mt	Send an MMS (image + long message)	Body Parameters	destinations[].to	String	Yes					
+comm/mt	Send an MMS (image + long message)	Body Parameters	destinations[].replaceWords	Object	No					
+comm/mt	Send an MMS (image + long message)	Body Parameters	destinations[].ref	String	No		200			
+comm/mt	Send an MMS (image + long message)	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow	Object Array	Yes					
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms	Object	Yes					
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.from	String	Yes					
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.title	String	No		40byte			
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.text	String	Yes		2000byte			
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.fileKey	String Array	Yes		3			
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.ttl	String	No				86400 (1day)	
+comm/mt	Send an MMS (image + long message)	Body Parameters	messageFlow[].mms.originCID	String	No			9		
+comm/mt	Send an MMS (image + long message)	Body Parameters	groupKey	String	No		64			
+comm/mt	Send an MMS (image + long message)	Body Parameters	idempotencyKey	String	No		200			
+comm/mt	Send an MMS (image + long message)	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/mt	Send an MMS (image + long message)	Body Parameters	ref	String	No		200			
+comm/mt	Send an MMS (image + long message)	Returns	common	Object	No					
+comm/mt	Send an MMS (image + long message)	Returns	common.authCode	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	common.authResult	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	common.infobankTrId	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data	Object	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.code	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.result	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data	Object	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data.destinations	Object Array	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data.destinations[].to	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data.destinations[].msgKey	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data.destinations[].code	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.data.destinations[].result	String	No					
+comm/mt	Send an MMS (image + long message)	Returns	data.ref	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	destinations	Object Array	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	destinations[].to	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	destinations[].replaceWords	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	destinations[].ref	String	No		200			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow	Object Array	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk	Object	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.partnerKey	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.templateCode	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.productCode	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.userName	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.text	String	No		2048 chars			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.templateParams	Object	No		150 chars			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.imageUrl	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.imageHashId	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons	Object Array	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons[].buttonCode	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons[].mobileUrl	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons[].pcUrl	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons[].aOsAppScheme	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.buttons[].iOsAppScheme	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.code	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.imageUrl	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.endDate	String	Yes					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.name	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.publisher	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.couponDescription	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.label	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.attachments.gift.value	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	messageFlow[].navertalk.groupKey	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	groupKey	String	No		64			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	idempotencyKey	String	No		200			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/naver-talktalk	Send a Naver Smart Notification	Body Parameters	ref	String	No		200			
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	common	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	common.authCode	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	common.authResult	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	common.infobankTrId	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.code	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.result	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data	Object	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data.destinations	Object Array	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data.destinations[].to	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data.destinations[].msgKey	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data.destinations[].code	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.data.destinations[].result	String	No					
+comm/naver-talktalk	Send a Naver Smart Notification	Returns	data.ref	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	destinations	Object Array	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	destinations[].to	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	destinations[].replaceWords	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	destinations[].ref	String	No		200			
+comm/rcs	Send a unified RCS message	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow	Object Array	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.from	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.formatId	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.brandKey	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.body	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.body.description	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.body.title	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.body.media	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons	Object Array	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions	Object Array	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction.openUrl	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction.openUrl.url	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction.dialPhoneNumber	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction.dialPhoneNumber.phoneNumber	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.latitude	Number	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.longitude	Number	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	Number	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.query	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.fallbackUrl	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.requestLocationPush	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.startTime	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.endTime	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.title	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.description	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage	Object	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage.phoneNumber	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage.text	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage	Object	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage.phoneNumber	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage.type	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].displayText	String	Yes					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.brandId	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.groupId	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.expiryOption	String	No				1	
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.agencyId	String	No				infobank	
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.agencyKey	String	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.ttl	String	No				86400	
+comm/rcs	Send a unified RCS message	Body Parameters	groupKey	String	No		64			
+comm/rcs	Send a unified RCS message	Body Parameters	idempotencyKey	String	No		200			
+comm/rcs	Send a unified RCS message	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/rcs	Send a unified RCS message	Body Parameters	ref	String	No		200			
+comm/rcs	Send a unified RCS message	Returns	common	Object	No					
+comm/rcs	Send a unified RCS message	Returns	common.authCode	String	No					
+comm/rcs	Send a unified RCS message	Returns	common.authResult	String	No					
+comm/rcs	Send a unified RCS message	Returns	common.infobankTrId	String	No					
+comm/rcs	Send a unified RCS message	Returns	data	Object	No					
+comm/rcs	Send a unified RCS message	Returns	data.code	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.result	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.data	Object	No					
+comm/rcs	Send a unified RCS message	Returns	data.data.destinations	Object Array	No					
+comm/rcs	Send a unified RCS message	Returns	data.data.destinations[].to	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.data.destinations[].msgKey	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.data.destinations[].code	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.data.destinations[].result	String	No					
+comm/rcs	Send a unified RCS message	Returns	data.ref	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	destinations	Object Array	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	destinations[].to	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	destinations[].replaceWords	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	destinations[].ref	String	No		200			
+comm/rcs	Send an Android RCS message	Body Parameters	destinations[].fallbackFlag	String	No				Y	Y or N
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow	Object Array	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.from	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.formatId	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.brandKey	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.body	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.body.description	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.body.title	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.body.media	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons	Object Array	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions	Object Array	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction.openUrl	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.urlAction.openUrl.url	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction.dialPhoneNumber	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.dialerAction.dialPhoneNumber.phoneNumber	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.latitude	Number	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.longitude	Number	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	Number	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.query	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.fallbackUrl	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.requestLocationPush	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.startTime	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.endTime	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.title	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.calendarAction.createCalendarEvent.description	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage	Object	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage.phoneNumber	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeTextMessage.text	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage	Object	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage.phoneNumber	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.composeAction.composeRecordingMessage.type	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].displayText	String	Yes					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.brandId	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.groupId	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.expiryOption	String	No				1	
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.copyAllowed	String	No				0	
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.header	String	No				0	
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.footer	String	No		100			
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.agencyId	String	No				infobank	
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.agencyKey	String	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.ttl	String	No				86400	
+comm/rcs	Send an Android RCS message	Body Parameters	groupKey	String	No		64			
+comm/rcs	Send an Android RCS message	Body Parameters	idempotencyKey	String	No		200			
+comm/rcs	Send an Android RCS message	Body Parameters	idempotencyTtl	Integer	No	1	86400			
+comm/rcs	Send an Android RCS message	Body Parameters	ref	String	No		200			
+comm/rcs	Send an Android RCS message	Returns	common	Object	No					
+comm/rcs	Send an Android RCS message	Returns	common.authCode	String	No					
+comm/rcs	Send an Android RCS message	Returns	common.authResult	String	No					
+comm/rcs	Send an Android RCS message	Returns	common.infobankTrId	String	No					
+comm/rcs	Send an Android RCS message	Returns	data	Object	No					
+comm/rcs	Send an Android RCS message	Returns	data.code	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.result	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.data	Object	No					
+comm/rcs	Send an Android RCS message	Returns	data.data.destinations	Object Array	No					
+comm/rcs	Send an Android RCS message	Returns	data.data.destinations[].to	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.data.destinations[].msgKey	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.data.destinations[].code	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.data.destinations[].result	String	No					
+comm/rcs	Send an Android RCS message	Returns	data.ref	String	No					
