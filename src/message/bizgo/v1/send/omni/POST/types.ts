@@ -1,3 +1,6 @@
+// Documented on each channel's page (see #bizgo/v1/channels)
+// e.g. https://developers.bizgo.io/api-sdk/api-reference/comm/mt
+
 import type {
 	AlimtalkMessage,
 	AlimtalkMessageRegular,
