@@ -1,5 +1,5 @@
 // Checks that Bizgo's web API reference and llms-full.txt describe the same fields
-// for the wrapped endpoint, and snapshots them (no prose) to track upstream changes.
+// for the wrapped endpoints, and snapshots them (no prose) to track upstream changes.
 // https://github.com/hyunbinseo/new-request/issues/18
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -11,14 +11,29 @@ const ORIGIN = 'https://developers.bizgo.io';
 const LANGS = { ko: '', en: '/en' };
 
 // scope
-const ENDPOINT = 'POST /api/comm/v1/send/omni';
-// linked from src/message/bizgo/v1/channels
+// src/message/bizgo/v1/<endpoint>/<METHOD>
+const ENDPOINTS = new Set([
+	'POST /api/comm/v1/send/omni',
+	'POST /api/comm/v1/reservation',
+	'GET /api/comm/v1/reservation/list',
+	'GET /api/comm/v1/reservation/resvKey/{resvKey}',
+	'PUT /api/comm/v1/reservation/resvKey/{resvKey}',
+	'POST /api/comm/v1/reservation/resvKey/{resvKey}/cancel',
+	'POST /api/comm/v1/reservation/resvKey/{resvKey}/stop',
+	'POST /api/comm/v1/reservation/resvKey/{resvKey}/resume',
+	'POST /api/comm/v1/reservation/resvKey/{resvKey}/destinations',
+	'GET /api/comm/v1/reservation/resvKey/{resvKey}/destinations',
+	'DELETE /api/comm/v1/reservation/resvKey/{resvKey}/destinations/msgKey/{msgKey}',
+]);
+// channels in src/message/bizgo/v1/channels, and the reservation management endpoints
 const PAGES = [
+	'comm/international',
 	'comm/kakao-alimtalk',
 	'comm/kakao-brand',
 	'comm/mt',
 	'comm/naver-talktalk',
 	'comm/rcs',
+	'comm/reservation',
 ];
 
 // parsing
@@ -52,22 +67,32 @@ const parseConstraints = (description: string) => {
 };
 
 // output
-const HEADER = ['page', 'section', 'group', 'path', 'type', 'required', ...CONSTRAINTS].join('\t');
+const HEADER = [
+	'page',
+	'endpoint',
+	'section',
+	'group',
+	'path',
+	'type',
+	'required',
+	...CONSTRAINTS,
+].join('\t');
 const SNAPSHOT_PATH = join(import.meta.dirname, 'docs.tsv');
+const ASSERTIONS_PATH = join(import.meta.dirname, 'assertions.ts'); // uses checker.ts
 
 type Row = string; // tab-separated HEADER columns, without CONSTRAINTS
 
-// Collects a page's fields for ENDPOINT. A page can document it more than once
-// (e.g. per message type), so each occurrence is numbered (e.g. "POST /api/... #2")
+// Collects a page's fields for ENDPOINTS. A page can document one more than once
+// (e.g. per message type), so each occurrence is numbered (e.g. "#2")
 // and its heading is kept in `titles` (e.g. "Send an SMS (short message)").
 const createPage = (name: string) => {
 	const rows = new Set<Row>();
 	const duplicates: Row[] = []; // listed more than once in the same occurrence
 	const constraints = new Map<Row, string>(); // tab-separated CONSTRAINTS columns
-	const titles: string[] = [];
+	const titles: { method: string; title: string }[] = [];
 	let title: string | undefined; // e.g. "Send an SMS (short message)"
 	let method: string | undefined; // e.g. "POST /api/comm/v1/send/omni"
-	let endpoint: string | undefined; // e.g. "POST /api/comm/v1/send/omni #2"
+	let occurrence: string | undefined; // e.g. "#2"
 	let group: string | undefined; // e.g. "Body Parameters"
 	let count = 0;
 
@@ -78,7 +103,7 @@ const createPage = (name: string) => {
 		titles,
 		heading: (text: string) => {
 			title = text;
-			method = endpoint = group = undefined;
+			method = occurrence = group = undefined;
 		},
 		method: (verb: string, url: string) => {
 			method = `${verb} ${url}`;
@@ -87,12 +112,12 @@ const createPage = (name: string) => {
 			group = label;
 		},
 		field: (path: string, type: string, required: boolean, description?: string) => {
-			if (!group || method !== ENDPOINT) return;
-			if (!endpoint) {
-				endpoint = `${ENDPOINT} #${++count}`;
-				titles.push(title ?? '');
+			if (!group || !method || !ENDPOINTS.has(method)) return;
+			if (!occurrence) {
+				occurrence = `#${++count}`;
+				titles.push({ method, title: title ?? '' });
 			}
-			const row = [name, endpoint, group, path, type, required ? 'Yes' : 'No'].join('\t');
+			const row = [name, method, occurrence, group, path, type, required ? 'Yes' : 'No'].join('\t');
 			if (rows.has(row)) duplicates.push(row);
 			rows.add(row);
 			if (description !== undefined) constraints.set(row, parseConstraints(description));
@@ -232,29 +257,69 @@ const drift = [
 
 // The snapshot labels each occurrence by its llms-en heading instead of its number,
 // so adding or removing a section doesn't renumber the rows after it.
-// A heading repeated on the same page keeps the number, so its occurrences stay distinct.
+// A heading repeated for the same endpoint on a page keeps the number, so its occurrences stay distinct.
 const titles = new Map(
 	(parsed.get('llms-en') ?? []).flatMap((page, i) =>
-		page.titles.map((title, n) => {
-			const unique = page.titles.indexOf(title) === page.titles.lastIndexOf(title);
-			return [`${PAGES[i]}\t${ENDPOINT} #${n + 1}` as string, unique ? title : ''] as const;
+		page.titles.map(({ method, title }, n) => {
+			const same = page.titles.filter((t) => t.method === method && t.title === title);
+			return [`${PAGES[i]}\t#${n + 1}` as string, same.length === 1 ? title : ''] as const;
 		}),
 	),
 );
 // Constraints also come from llms-en, matching the titles. Differences are reported as drift.
 const label = (row: Row) => {
-	const [page, endpoint, ...rest] = row.split('\t');
+	const [page, method, occurrence, ...rest] = row.split('\t');
 	const values = (constraints.find(([source, map]) => source === 'llms-en' && map.has(row)) ??
 		constraints.find(([, map]) => map.has(row)))?.[1].get(row);
 	const empty = CONSTRAINTS.map(() => '').join('\t');
-	return [page, titles.get(`${page}\t${endpoint}`) || endpoint, ...rest, values ?? empty].join(
-		'\t',
-	);
+	const section = titles.get(`${page}\t${occurrence}`) || occurrence;
+	return [page, method, section, ...rest, values ?? empty].join('\t');
 };
 
 const next = [HEADER, ...rows.map(label)].join('\n') + '\n';
 const previous = await readFile(SNAPSHOT_PATH, 'utf8').catch(() => '');
 await writeFile(SNAPSHOT_PATH, next);
+
+// Documented paths per endpoint and group, to find fields the types have but the docs don't.
+const documented = [
+	...new Set(
+		rows.map((row) => {
+			const [, endpoint, , group, path] = label(row).split('\t');
+			return `${endpoint} | ${group} | ${path}`;
+		}),
+	),
+];
+
+// One assertion per row, so `tsc` reports where the hand-written types differ from the snapshot.
+const literal = (value = '') => `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
+const assertions = rows.map((row) => {
+	const [page, endpoint, section, group, path, type, required] = label(row).split('\t');
+	const args = [page, endpoint, section, group, path, type?.replace(/\(\d+\)$/, ''), required];
+	return `\tAssertTrue<Check<${args.map(literal).join(', ')}>>,`;
+});
+await writeFile(
+	ASSERTIONS_PATH,
+	[
+		'// Generated by docs.ts. Do not edit.',
+		`import type { AssertNever, AssertTrue, Check, Extra } from './checker.ts';`,
+		'',
+		'export type Checks = [',
+		...assertions,
+		'];',
+		'',
+		'type Documented =',
+		...documented.map((key) => `\t| ${literal(key)}`),
+		';',
+		'',
+		'export type Extras = [',
+		...[...new Set(documented.map((key) => key.split(' | ').slice(0, 2).join(' | ')))]
+			.filter((key) => !key.endsWith(' | Path Parameters'))
+			.map(
+				(key) => `\tAssertNever<Extra<${key.split(' | ').map(literal).join(', ')}, Documented>>,`,
+			),
+		'];',
+	].join('\n') + '\n',
+);
 
 console.log(`${rows.length} fields from ${[...sources.keys()].join(', ')}`);
 if (drift.length) {
