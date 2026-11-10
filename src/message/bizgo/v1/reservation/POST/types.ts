@@ -11,11 +11,11 @@ import type {
 } from '#bizgo/v1/channels/index.ts';
 import type { DestinationsInput, ResvSendTimeInput } from '#bizgo/v1/reservation/types.ts';
 import type {
-	Common,
 	DestinationResult,
 	MessageFlowDestination,
 	Options,
 	ResponseBodyException,
+	ResultBody,
 } from '#bizgo/v1/types.ts';
 
 export type {
@@ -47,20 +47,12 @@ export type RequestBody = DestinationsInput<MessageFlowDestination> &
 		ref?: string;
 	};
 
-type ReservationDestinationResult = DestinationResult & {
-	/** Echoes `destinations[].ref`, missing in the docs */
-	ref?: string;
-};
-
-export type ResponseBody = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
-		resvKey: string;
-		ref?: string;
-		data: {
-			destinations: ReservationDestinationResult[];
-		};
-	};
-};
+export type ResponseBody = ResultBody<
+	{
+		destinations: (DestinationResult & {
+			/** Echoes `destinations[].ref`, missing in the docs */
+			ref?: string;
+		})[];
+	},
+	{ resvKey: string; ref?: string }
+>;

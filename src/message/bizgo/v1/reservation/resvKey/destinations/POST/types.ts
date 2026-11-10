@@ -2,24 +2,15 @@
 
 import type { DestinationsInput } from '#bizgo/v1/reservation/types.ts';
 import type {
-	Common,
 	Destination,
 	DestinationResult,
 	Options,
 	ResponseBodyException,
+	ResultBody,
 } from '#bizgo/v1/types.ts';
 
 export type { Destination, Options, ResponseBodyException };
 
 export type RequestBody = DestinationsInput<Destination>;
 
-export type ResponseBody = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
-		data: {
-			destinations: DestinationResult[];
-		};
-	};
-};
+export type ResponseBody = ResultBody<{ destinations: DestinationResult[] }>;

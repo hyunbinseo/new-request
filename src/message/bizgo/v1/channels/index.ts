@@ -16,20 +16,20 @@ import type { RcsMessage, RcsReservationMessage } from './rcs.ts';
 import type { SmsMessage } from './sms.ts';
 
 export type {
-	AlimtalkMessage, //
+	AlimtalkMessage,
 	AlimtalkMessageRegular,
 	AlimtalkMessageTemplate,
+	BrandMessage,
 	BrandMessageBasic,
 	BrandMessageFree,
 	BrandMessageTemplate,
-	MmsMessageImage,
-	MmsMessageLong,
-	RcsReservationMessage,
-	BrandMessage,
 	InternationalMessage,
 	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
 	NaverTalkMessage,
 	RcsMessage,
+	RcsReservationMessage,
 	SmsMessage,
 };
 

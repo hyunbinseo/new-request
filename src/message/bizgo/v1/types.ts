@@ -12,12 +12,20 @@ export type Common = {
 	infobankTrId: string;
 };
 
+type ResultStatus = {
+	code: string;
+	result: string;
+};
+
 export type ResponseBodyException = {
 	common: Common;
-	data: {
-		code: string;
-		result: string;
-	};
+	data: ResultStatus;
+};
+
+// Successful responses nest the payload in `data.data`, with extra fields (e.g. `resvKey`) beside it.
+export type ResultBody<Data, Extra = {}> = {
+	common: Common;
+	data: ResultStatus & Extra & { data: Data };
 };
 
 export type DestinationResult = {

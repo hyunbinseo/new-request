@@ -26,6 +26,8 @@ type AlimtalkButton = {
 	telNumber?: string;
 };
 
+type AlimtalkItem = { title: string; description: string };
+
 type AlimtalkMessageBase = {
 	senderKey: string;
 	templateCode: string;
@@ -45,10 +47,10 @@ export type AlimtalkMessageRegular = AlimtalkMessageBase & {
 	attachment?: {
 		button?: AlimtalkButton[];
 		item?: {
-			list?: { title: string; description: string }[];
-			summary?: { title: string; description: string };
+			list?: AlimtalkItem[];
+			summary?: AlimtalkItem;
 		};
-		itemHighlight?: { title: string; description: string };
+		itemHighlight?: AlimtalkItem;
 	};
 	supplement?: {
 		quickReply?: {

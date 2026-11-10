@@ -12,8 +12,32 @@ type BrandMessageButton = {
 	bizFormKey?: string;
 };
 
-type BrandMessageBase<SendType extends 'basic' | 'template' | 'free'> = {
-	sendType: SendType;
+type BrandMessageImage = { imgUrl: string; imgLink?: string };
+
+type BrandMessageCoupon = {
+	title: string;
+	description: string;
+	urlPc?: string;
+	urlMobile?: string;
+	schemeAndroid?: string;
+	schemeIos?: string;
+};
+
+type BrandMessageCommerce = {
+	title: string;
+	regularPrice: number;
+	discountPrice?: number;
+	discountRate?: number;
+	discountFixed?: number;
+	regularPriceName?: string;
+	discountPriceName?: string;
+	discountRateName?: string;
+	discountFixedName?: string;
+};
+
+type Variables = Record<string, unknown>;
+
+type BrandMessageBase = {
 	senderKey: string;
 	pushAlarm?: 'Y' | 'N';
 	originCID?: string;
@@ -21,7 +45,7 @@ type BrandMessageBase<SendType extends 'basic' | 'template' | 'free'> = {
 	unsubscribeAuthNumber?: string;
 };
 
-type BrandMessageContent<SendType extends 'basic' | 'free'> = BrandMessageBase<SendType> & {
+type BrandMessageContent = {
 	msgType: string;
 	text?: string;
 	header?: string;
@@ -30,7 +54,7 @@ type BrandMessageContent<SendType extends 'basic' | 'free'> = BrandMessageBase<S
 	additionalContent?: string;
 	attachment?: {
 		button?: BrandMessageButton[];
-		image?: { imgUrl: string; imgLink?: string };
+		image?: BrandMessageImage;
 		item?: {
 			list?: {
 				title?: string;
@@ -41,25 +65,8 @@ type BrandMessageContent<SendType extends 'basic' | 'free'> = BrandMessageBase<S
 				schemeAndroid?: string;
 			}[];
 		};
-		coupon?: {
-			title: string;
-			description: string;
-			urlPc?: string;
-			urlMobile?: string;
-			schemeAndroid?: string;
-			schemeIos?: string;
-		};
-		commerce?: {
-			title: string;
-			regularPrice: number;
-			discountPrice?: number;
-			discountRate?: number;
-			discountFixed?: number;
-			regularPriceName?: string;
-			discountPriceName?: string;
-			discountRateName?: string;
-			discountFixedName?: string;
-		};
+		coupon?: BrandMessageCoupon;
+		commerce?: BrandMessageCommerce;
 		video?: { videoUrl: string; thumbnailUrl?: string };
 		/** `msgType: 'FG'` only */
 		catalog?: {
@@ -98,26 +105,9 @@ type BrandMessageContent<SendType extends 'basic' | 'free'> = BrandMessageBase<S
 			additionalContent?: string;
 			attachment?: {
 				button?: BrandMessageButton[];
-				image?: { imgUrl: string; imgLink?: string };
-				coupon?: {
-					title: string;
-					description: string;
-					urlPc?: string;
-					urlMobile?: string;
-					schemeAndroid?: string;
-					schemeIos?: string;
-				};
-				commerce?: {
-					title: string;
-					regularPrice: number;
-					discountPrice?: number;
-					discountRate?: number;
-					discountFixed?: number;
-					regularPriceName?: string;
-					discountPriceName?: string;
-					discountRateName?: string;
-					discountFixedName?: string;
-				};
+				image?: BrandMessageImage;
+				coupon?: BrandMessageCoupon;
+				commerce?: BrandMessageCommerce;
 			};
 		}[];
 		tail?: {
@@ -129,41 +119,46 @@ type BrandMessageContent<SendType extends 'basic' | 'free'> = BrandMessageBase<S
 	};
 };
 
-export type BrandMessageBasic = BrandMessageContent<'basic'> & {
+export type BrandMessageBasic = BrandMessageBase &
+	BrandMessageContent & {
+		sendType: 'basic';
+		templateCode: string;
+		targeting: string;
+		messageVariable?: Variables;
+		buttonVariable?: Variables;
+		couponVariable?: Variables;
+		imageVariable?: Variables;
+		videoVariable?: Variables;
+		commerceVariable?: Variables;
+		carouselVariable?: {
+			messageVariable?: Variables;
+			buttonVariable?: Variables;
+			couponVariable?: Variables;
+			imageVariable?: Variables;
+			commerceVariable?: Variables;
+		}[];
+		/** `msgType: 'FG'` only */
+		catalogVariable?: {
+			messageVariable?: Variables;
+			commerceVariable?: Variables;
+			imageVariable?: Variables;
+		}[];
+	};
+
+export type BrandMessageTemplate = BrandMessageBase & {
+	sendType: 'template';
 	templateCode: string;
 	targeting: string;
-	messageVariable?: Record<string, unknown>;
-	buttonVariable?: Record<string, unknown>;
-	couponVariable?: Record<string, unknown>;
-	imageVariable?: Record<string, unknown>;
-	videoVariable?: Record<string, unknown>;
-	commerceVariable?: Record<string, unknown>;
-	carouselVariable?: {
-		messageVariable?: Record<string, unknown>;
-		buttonVariable?: Record<string, unknown>;
-		couponVariable?: Record<string, unknown>;
-		imageVariable?: Record<string, unknown>;
-		commerceVariable?: Record<string, unknown>;
-	}[];
-	/** `msgType: 'FG'` only */
-	catalogVariable?: {
-		messageVariable?: Record<string, unknown>;
-		commerceVariable?: Record<string, unknown>;
-		imageVariable?: Record<string, unknown>;
-	}[];
 };
 
-export type BrandMessageTemplate = BrandMessageBase<'template'> & {
-	templateCode: string;
-	targeting: string;
-};
-
-export type BrandMessageFree = BrandMessageContent<'free'> & {
-	targeting?: string;
-	groupTagKey?: string;
-	adult?: 'Y' | 'N';
-	adFlag?: 'Y' | 'N';
-};
+export type BrandMessageFree = BrandMessageBase &
+	BrandMessageContent & {
+		sendType: 'free';
+		targeting?: string;
+		groupTagKey?: string;
+		adult?: 'Y' | 'N';
+		adFlag?: 'Y' | 'N';
+	};
 
 export type BrandMessage =
 	| BrandMessageBasic //

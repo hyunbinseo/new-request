@@ -1,7 +1,7 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/reservation
 
 import type { Reservation } from '#bizgo/v1/reservation/types.ts';
-import type { Common, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
+import type { Options, ResponseBodyException, ResultBody } from '#bizgo/v1/types.ts';
 
 export type { Options, ResponseBodyException };
 
@@ -22,15 +22,8 @@ export type Query = {
 	limit?: number;
 };
 
-export type ResponseBody = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
-		data: {
-			lastSeq: number;
-			hasNext: boolean;
-			reservations: Reservation[];
-		};
-	};
-};
+export type ResponseBody = ResultBody<{
+	reservations: Reservation[];
+	lastSeq: number;
+	hasNext: boolean;
+}>;

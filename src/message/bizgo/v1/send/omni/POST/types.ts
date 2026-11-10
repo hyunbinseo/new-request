@@ -3,18 +3,18 @@ import type {
 	BrandMessage,
 	InternationalMessage,
 	MessageFlowItem,
-	NonTemplateMessageFlowItem,
 	MmsMessage,
 	NaverTalkMessage,
+	NonTemplateMessageFlowItem,
 	RcsMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
 import type {
-	Common,
 	DestinationResult,
 	MessageFlowDestination,
 	Options,
 	ResponseBodyException,
+	ResultBody,
 } from '#bizgo/v1/types.ts';
 
 export type {
@@ -52,16 +52,7 @@ export type TemplateRequestBody = RequestBodyBase<
 
 export type RequestBody = NonTemplateRequestBody | TemplateRequestBody;
 
-type OmniDestinationResult = DestinationResult & { ref?: string };
-
-export type ResponseBody = {
-	common: Common;
-	data: {
-		code: string;
-		result: string;
-		data: {
-			destinations: OmniDestinationResult[];
-		};
-		ref?: string;
-	};
-};
+export type ResponseBody = ResultBody<
+	{ destinations: (DestinationResult & { ref?: string })[] },
+	{ ref?: string }
+>;
