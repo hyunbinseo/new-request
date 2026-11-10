@@ -36,8 +36,10 @@
 	},
 	"scripts": {
 		"check": "tsc && tsc -p tsconfig.lib.json",
+		"check:upstream": "node cli/bizgo/docs.ts",
 		"prepack": "node --run check && tsdown",
-		"version": "node --run check && tsdown && git add package.json",
+		"preversion": "node --run check",
+		"version": "tsdown && git add package.json",
 		"postversion": "git push && git push --tags && node cli/postversion.ts",
 		"test": "node --test --env-file-if-exists=.env",
 		"fmt": "oxfmt",
@@ -48,6 +50,7 @@
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.5",
 		"@types/node": "^24.19.0",
+		"linkedom": "^0.18.15",
 		"oxfmt": "^0.70.0",
 		"oxlint": "^1.85.0",
 		"oxlint-tsgolint": "^7.0.2002",
