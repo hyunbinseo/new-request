@@ -3,6 +3,7 @@ import type {
 	BrandMessage,
 	InternationalMessage,
 	MessageFlowItem,
+	NonTemplateMessageFlowItem,
 	MmsMessage,
 	NaverTalkMessage,
 	RcsMessage,
@@ -10,8 +11,8 @@ import type {
 } from '#bizgo/v1/channels/index.ts';
 import type {
 	Common,
-	Destination,
 	DestinationResult,
+	MessageFlowDestination,
 	Options,
 	ResponseBodyException,
 } from '#bizgo/v1/types.ts';
@@ -28,19 +29,28 @@ export type {
 	SmsMessage,
 };
 
-export type RequestBody = {
+type RequestBodyBase<Recipient, Item> = {
 	/**
 	 * - 1–1000 (docs recommend 200)
 	 * - Over 1000 is rejected with `A318`
 	 */
-	destinations: Destination[];
-	messageFlow: MessageFlowItem[];
-	paymentCode?: string;
+	destinations: Recipient[];
+	messageFlow: Item[];
 	groupKey?: string;
 	idempotencyKey?: string;
 	idempotencyTtl?: number;
 	ref?: string;
 };
+
+type NonTemplateRequestBody = RequestBodyBase<MessageFlowDestination, NonTemplateMessageFlowItem>;
+
+// Template substitution fills each destination's `replaceWords`, so they're required.
+export type TemplateRequestBody = RequestBodyBase<
+	MessageFlowDestination & { replaceWords: Record<string, string> },
+	MessageFlowItem
+>;
+
+export type RequestBody = NonTemplateRequestBody | TemplateRequestBody;
 
 type OmniDestinationResult = DestinationResult & { ref?: string };
 

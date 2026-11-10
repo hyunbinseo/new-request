@@ -6,11 +6,11 @@ export const 발신번호 = '0212345678';
 export const 카카오톡_발신_프로필_키 = 'SENDER_KEY';
 export const 카카오톡_알림톡_템플릿_코드 = 'TEMPLATE_CODE';
 
-export const 카카오톡_알림톡_메시지: MessageFlowItem = {
+export const 카카오톡_알림톡_메시지 = {
 	alimtalk: {
 		msgType: 'AT',
 		senderKey: 카카오톡_발신_프로필_키,
 		templateCode: 카카오톡_알림톡_템플릿_코드,
 		text: '알림톡 발송 테스트입니다.',
 	},
-};
+} satisfies MessageFlowItem;

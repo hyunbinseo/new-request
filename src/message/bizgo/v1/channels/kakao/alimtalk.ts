@@ -35,12 +35,13 @@ type AlimtalkMessageBase = {
 	currencyType?: string;
 };
 
-type AlimtalkMessageRegular = AlimtalkMessageBase & {
+export type AlimtalkMessageRegular = AlimtalkMessageBase & {
 	msgType: 'AT' | 'AI';
 	text: string;
 	title?: string;
 	header?: string;
 	link?: KakaoLink;
+	pushAlarm?: 'Y' | 'N';
 	attachment?: {
 		button?: AlimtalkButton[];
 		item?: {
@@ -65,6 +66,6 @@ type AlimtalkMessageRegular = AlimtalkMessageBase & {
 	sendType?: never;
 };
 
-type AlimtalkMessageTemplate = AlimtalkMessageBase & { sendType: 'template' };
+export type AlimtalkMessageTemplate = AlimtalkMessageBase & { sendType: 'template' };
 
 export type AlimtalkMessage = AlimtalkMessageRegular | AlimtalkMessageTemplate;

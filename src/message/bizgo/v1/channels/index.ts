@@ -1,13 +1,30 @@
 import type { InternationalMessage } from './international.ts';
-import type { AlimtalkMessage } from './kakao/alimtalk.ts';
-import type { BrandMessage } from './kakao/brandmessage.ts';
-import type { MmsMessage } from './mms.ts';
+import type {
+	AlimtalkMessage,
+	AlimtalkMessageRegular,
+	AlimtalkMessageTemplate,
+} from './kakao/alimtalk.ts';
+import type {
+	BrandMessage,
+	BrandMessageBasic,
+	BrandMessageFree,
+	BrandMessageTemplate,
+} from './kakao/brandmessage.ts';
+import type { MmsMessage, MmsMessageImage, MmsMessageLong } from './mms.ts';
 import type { NaverTalkMessage } from './navertalk.ts';
-import type { RcsMessage } from './rcs.ts';
+import type { RcsMessage, RcsReservationMessage } from './rcs.ts';
 import type { SmsMessage } from './sms.ts';
 
 export type {
 	AlimtalkMessage, //
+	AlimtalkMessageRegular,
+	AlimtalkMessageTemplate,
+	BrandMessageBasic,
+	BrandMessageFree,
+	BrandMessageTemplate,
+	MmsMessageImage,
+	MmsMessageLong,
+	RcsReservationMessage,
 	BrandMessage,
 	InternationalMessage,
 	MmsMessage,
@@ -16,11 +33,19 @@ export type {
 	SmsMessage,
 };
 
-export type MessageFlowItem =
+export type NonTemplateMessageFlowItem =
 	| { sms: SmsMessage }
 	| { mms: MmsMessage }
 	| { rcs: RcsMessage }
-	| { alimtalk: AlimtalkMessage }
-	| { brandmessage: BrandMessage }
+	| { alimtalk: AlimtalkMessageRegular }
+	| { brandmessage: BrandMessageBasic | BrandMessageFree }
 	| { navertalk: NaverTalkMessage }
 	| { international: InternationalMessage };
+
+// `sendType: 'template'` fills the registered template with each destination's `replaceWords`.
+// Other items may also have a `templateCode`, but their content is sent in the request.
+export type TemplateMessageFlowItem =
+	| { alimtalk: AlimtalkMessageTemplate }
+	| { brandmessage: BrandMessageTemplate };
+
+export type MessageFlowItem = NonTemplateMessageFlowItem | TemplateMessageFlowItem;

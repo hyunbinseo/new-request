@@ -11,7 +11,7 @@ import type {
 
 export type { Destination, Options, ResponseBodyException };
 
-export type RequestBody = DestinationsInput;
+export type RequestBody = DestinationsInput<Destination>;
 
 export type ResponseBody = {
 	common: Common;

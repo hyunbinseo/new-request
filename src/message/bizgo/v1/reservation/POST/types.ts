@@ -1,40 +1,56 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/mt
 
 import type {
-	AlimtalkMessage,
-	BrandMessage,
+	AlimtalkMessageRegular,
+	BrandMessageBasic,
+	BrandMessageFree,
 	InternationalMessage,
-	MessageFlowItem,
 	MmsMessage,
-	NaverTalkMessage,
-	RcsMessage,
+	RcsReservationMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
 import type { DestinationsInput, ResvSendTimeInput } from '#bizgo/v1/reservation/types.ts';
-import type { Common, DestinationResult, Options, ResponseBodyException } from '#bizgo/v1/types.ts';
+import type {
+	Common,
+	DestinationResult,
+	MessageFlowDestination,
+	Options,
+	ResponseBodyException,
+} from '#bizgo/v1/types.ts';
 
 export type {
-	AlimtalkMessage, //
-	BrandMessage,
+	AlimtalkMessageRegular, //
+	BrandMessageBasic,
+	BrandMessageFree,
 	InternationalMessage,
 	MmsMessage,
-	NaverTalkMessage,
 	Options,
-	RcsMessage,
+	RcsReservationMessage,
 	ResponseBodyException,
 	SmsMessage,
 };
 
-export type RequestBody = DestinationsInput &
+// The reservation docs list fewer channels and fields than the send docs.
+type ReservationMessageFlowItem =
+	| { sms: SmsMessage }
+	| { mms: MmsMessage }
+	| { rcs: RcsReservationMessage }
+	| { alimtalk: AlimtalkMessageRegular }
+	| { brandmessage: BrandMessageBasic | BrandMessageFree }
+	| { international: InternationalMessage };
+
+export type RequestBody = DestinationsInput<MessageFlowDestination> &
 	ResvSendTimeInput & {
-		messageFlow: MessageFlowItem[];
+		messageFlow: ReservationMessageFlowItem[];
 		/** Max length 100 */
 		resvName?: string;
-		paymentCode?: string;
 		ref?: string;
 	};
 
-type ReservationDestinationResult = DestinationResult & { ref?: string };
+type ReservationDestinationResult = DestinationResult & {
+	/** Echoes `destinations[].ref`, missing in the docs */
+	ref?: string;
+};
 
 export type ResponseBody = {
 	common: Common;

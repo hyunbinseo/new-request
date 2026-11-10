@@ -32,3 +32,6 @@ export type Destination = {
 	replaceWords?: Record<string, string>;
 	ref?: string;
 };
+
+// For requests with `messageFlow`, where each recipient can opt out of fallback.
+export type MessageFlowDestination = Destination & { fallbackFlag?: 'Y' | 'N' };

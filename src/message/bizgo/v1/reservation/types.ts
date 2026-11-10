@@ -2,13 +2,13 @@
 
 import type { Common, Destination } from '#bizgo/v1/types.ts';
 
-export type DestinationsInput = {
+export type DestinationsInput<Recipient> = {
 	/**
 	 * - 1–1000 (docs recommend 200)
 	 * - Over 1000 is rejected with `A318`
 	 * - One invalid `to` fails the whole request with `A306`
 	 */
-	destinations: Destination[];
+	destinations: Recipient[];
 };
 
 export type ResvSendTimeInput = {
@@ -46,6 +46,7 @@ export type ReservationDestination = {
 	msgKey: string;
 	destSeq: number;
 	to: string;
+	/** The destination as sent, shape missing in the docs */
 	destData?: Destination;
 	status?: string;
 	responseCode?: string;

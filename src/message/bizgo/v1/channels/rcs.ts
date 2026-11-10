@@ -18,18 +18,27 @@ type RcsButtonAction = {
 			description?: string;
 		};
 	};
-	composeAction?: {
-		composeTextMessage?: { phoneNumber: string; text?: string };
-		composeRecordingMessage?: { phoneNumber: string; type: 'VIDEO' | 'AUDIO' };
-	};
+	composeAction?: RcsComposeAction;
 };
+
+// Either a text or a recording message, not both.
+type RcsComposeAction =
+	| {
+			composeTextMessage: { phoneNumber: string; text?: string };
+			composeRecordingMessage?: never;
+	  }
+	| {
+			composeTextMessage?: never;
+			composeRecordingMessage: { phoneNumber: string; type: 'VIDEO' | 'AUDIO' };
+	  };
 
 type RcsSuggestion = {
 	displayText: string;
 	action?: RcsButtonAction;
 };
 
-export type RcsMessage = {
+// Reservations don't take `copyAllowed`, `header`, or `footer`, which `RcsMessage` adds.
+export type RcsReservationMessage = {
 	from: string;
 	body: {
 		title?: string;
@@ -45,6 +54,9 @@ export type RcsMessage = {
 	agencyId?: string;
 	agencyKey?: string;
 	ttl?: string;
+};
+
+export type RcsMessage = RcsReservationMessage & {
 	copyAllowed?: string;
 	header?: string;
 	footer?: string;
