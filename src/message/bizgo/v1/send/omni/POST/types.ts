@@ -1,9 +1,16 @@
 import type {
 	AlimtalkMessage,
+	AlimtalkMessageRegular,
+	AlimtalkMessageTemplate,
 	BrandMessage,
+	BrandMessageBasic,
+	BrandMessageFree,
+	BrandMessageTemplate,
 	InternationalMessage,
 	MessageFlowItem,
 	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
 	NaverTalkMessage,
 	NonTemplateMessageFlowItem,
 	RcsMessage,
@@ -18,10 +25,18 @@ import type {
 } from '#bizgo/v1/types.ts';
 
 export type {
-	AlimtalkMessage, //
+	AlimtalkMessage,
+	AlimtalkMessageRegular,
+	AlimtalkMessageTemplate,
 	BrandMessage,
+	BrandMessageBasic,
+	BrandMessageFree,
+	BrandMessageTemplate,
 	InternationalMessage,
+	MessageFlowDestination,
 	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
 	NaverTalkMessage,
 	Options,
 	RcsMessage,
@@ -43,7 +58,10 @@ type RequestBodyBase<Recipient, Item> = {
 	ref?: string;
 };
 
-type NonTemplateRequestBody = RequestBodyBase<MessageFlowDestination, NonTemplateMessageFlowItem>;
+export type NonTemplateRequestBody = RequestBodyBase<
+	MessageFlowDestination,
+	NonTemplateMessageFlowItem
+>;
 
 // Template substitution fills each destination's `replaceWords`, so they're required.
 export type TemplateRequestBody = RequestBodyBase<

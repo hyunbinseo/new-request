@@ -3,7 +3,7 @@
 import type { ReservationDestination } from '#bizgo/v1/reservation/types.ts';
 import type { Options, ResponseBodyException, ResultBody } from '#bizgo/v1/types.ts';
 
-export type { Options, ReservationDestination, ResponseBodyException };
+export type { Options, ResponseBodyException };
 
 export type Query = {
 	lastSeq?: number;

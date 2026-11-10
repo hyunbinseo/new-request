@@ -6,6 +6,8 @@ import type {
 	BrandMessageFree,
 	InternationalMessage,
 	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
 	RcsReservationMessage,
 	SmsMessage,
 } from '#bizgo/v1/channels/index.ts';
@@ -19,11 +21,14 @@ import type {
 } from '#bizgo/v1/types.ts';
 
 export type {
-	AlimtalkMessageRegular, //
+	AlimtalkMessageRegular,
 	BrandMessageBasic,
 	BrandMessageFree,
 	InternationalMessage,
+	MessageFlowDestination,
 	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
 	Options,
 	RcsReservationMessage,
 	ResponseBodyException,

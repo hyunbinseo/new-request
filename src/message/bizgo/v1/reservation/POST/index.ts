@@ -2,7 +2,20 @@ import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import { parseResponse } from '#bizgo/v1/response.ts';
 import { tryFetch } from '#lib/fetch.ts';
 import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
-export type { Options, RequestBody };
+export type {
+	AlimtalkMessageRegular,
+	BrandMessageBasic,
+	BrandMessageFree,
+	InternationalMessage,
+	MessageFlowDestination,
+	MmsMessage,
+	MmsMessageImage,
+	MmsMessageLong,
+	Options,
+	RcsReservationMessage,
+	RequestBody,
+	SmsMessage,
+} from './types.ts';
 
 export const createReservation = (requestBody: RequestBody, opts: Options) =>
 	tryFetch(

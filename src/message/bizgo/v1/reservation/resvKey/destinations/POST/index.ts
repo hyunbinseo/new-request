@@ -1,8 +1,14 @@
 import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import { parseResponse } from '#bizgo/v1/response.ts';
 import { tryFetch } from '#lib/fetch.ts';
-import type { Options, RequestBody, ResponseBody, ResponseBodyException } from './types.ts';
-export type { Options, RequestBody };
+import type {
+	Destination,
+	Options,
+	RequestBody,
+	ResponseBody,
+	ResponseBodyException,
+} from './types.ts';
+export type { Destination, Options, RequestBody };
 
 export const addReservationDestinations = (
 	resvKey: string,

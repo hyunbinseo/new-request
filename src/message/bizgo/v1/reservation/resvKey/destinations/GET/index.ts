@@ -1,14 +1,8 @@
 import { PRODUCTION_BASE_URL } from '#bizgo/v1/constants.ts';
 import { parseResponse } from '#bizgo/v1/response.ts';
 import { tryFetch } from '#lib/fetch.ts';
-import type {
-	Options,
-	Query,
-	ReservationDestination,
-	ResponseBody,
-	ResponseBodyException,
-} from './types.ts';
-export type { Options, Query, ReservationDestination };
+import type { Options, Query, ResponseBody, ResponseBodyException } from './types.ts';
+export type { Options, Query };
 
 export const getReservationDestinations = (resvKey: string, query: Query, opts: Options) =>
 	tryFetch(
