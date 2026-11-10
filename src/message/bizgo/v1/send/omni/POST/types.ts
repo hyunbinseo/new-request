@@ -33,6 +33,7 @@ type RequestBodyBase<Recipient, Item> = {
 	/**
 	 * - 1–1000 (docs recommend 200)
 	 * - Over 1000 is rejected with `A318`
+	 * - One invalid `to` gets `A306` in its result, and the others are still sent
 	 */
 	destinations: Recipient[];
 	messageFlow: Item[];
