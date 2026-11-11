@@ -50,7 +50,8 @@ const METHOD = /^(GET|POST|PUT|DELETE|PATCH)$/;
 const TYPE = /^(String|Object|Integer|Long|Number|Double|Boolean|Binary)( Array)?(\(\d+\))?$/;
 const REQUIRED = new Set(['Required', '필수']);
 // Trailing tokens in llms descriptions (e.g. "min: 10 max: 86400 default: 180").
-// The web pages don't render them, so they're only compared between llms sources.
+// The web pages don't render them, and llms-en words them differently (e.g. "1300자" vs
+// "1300 characters"), so they're only taken from llms-ko and not compared.
 const CONSTRAINTS = ['min', 'max', 'length', 'default', 'format'];
 const TOKEN = /\b(min|max|length|default|format|example): /;
 
@@ -84,13 +85,13 @@ type Row = string; // tab-separated HEADER columns, without CONSTRAINTS
 
 // Collects a page's fields for ENDPOINTS. A page can document one more than once
 // (e.g. per message type), so each occurrence is numbered (e.g. "#2")
-// and its heading is kept in `titles` (e.g. "Send an SMS (short message)").
+// and its heading is kept in `titles` (e.g. "SMS(단문메시지) 발송").
 const createPage = (name: string) => {
 	const rows = new Set<Row>();
 	const duplicates: Row[] = []; // listed more than once in the same occurrence
 	const constraints = new Map<Row, string>(); // tab-separated CONSTRAINTS columns
 	const titles: { method: string; title: string }[] = [];
-	let title: string | undefined; // e.g. "Send an SMS (short message)"
+	let title: string | undefined; // e.g. "SMS(단문메시지) 발송"
 	let method: string | undefined; // e.g. "POST /api/comm/v1/send/omni"
 	let occurrence: string | undefined; // e.g. "#2"
 	let group: string | undefined; // e.g. "Body Parameters"
@@ -230,47 +231,31 @@ for (const source of sources.values()) {
 		else at = i + 1;
 	}
 }
-const constraints = [...parsed]
-	.filter(([source]) => source.startsWith('llms-'))
-	.map(([source, pages]) => {
-		const map = new Map(pages.flatMap((page) => [...page.constraints]));
-		return [source, map] as const;
-	});
+const constraints = new Map((parsed.get('llms-ko') ?? []).flatMap((page) => [...page.constraints]));
 const drift = [
 	...rows.flatMap((row) => {
 		const missing = [...sources].filter(([, rows]) => !rows.has(row)).map(([source]) => source);
 		return missing.length ? [`${row}\tmissing from ${missing.join(', ')}`] : [];
-	}),
-	...rows.flatMap((row) => {
-		const values = constraints.filter(([, map]) => map.has(row));
-		const differ = new Set(values.map(([, map]) => map.get(row))).size > 1;
-		return differ
-			? [
-					`${row}\tconstraints differ: ${values.map(([s, map]) => `${s}=${map.get(row)?.replaceAll('\t', '|')}`).join(', ')}`,
-				]
-			: [];
 	}),
 	...[...parsed].flatMap(([source, pages]) =>
 		pages.flatMap((page) => page.duplicates.map((row) => `${row}\tduplicated in ${source}`)),
 	),
 ];
 
-// The snapshot labels each occurrence by its llms-en heading instead of its number,
+// The snapshot labels each occurrence by its llms-ko heading instead of its number,
 // so adding or removing a section doesn't renumber the rows after it.
 // A heading repeated for the same endpoint on a page keeps the number, so its occurrences stay distinct.
 const titles = new Map(
-	(parsed.get('llms-en') ?? []).flatMap((page, i) =>
+	(parsed.get('llms-ko') ?? []).flatMap((page, i) =>
 		page.titles.map(({ method, title }, n) => {
 			const same = page.titles.filter((t) => t.method === method && t.title === title);
 			return [`${PAGES[i]}\t#${n + 1}` as string, same.length === 1 ? title : ''] as const;
 		}),
 	),
 );
-// Constraints also come from llms-en, matching the titles. Differences are reported as drift.
 const label = (row: Row) => {
 	const [page, method, occurrence, ...rest] = row.split('\t');
-	const values = (constraints.find(([source, map]) => source === 'llms-en' && map.has(row)) ??
-		constraints.find(([, map]) => map.has(row)))?.[1].get(row);
+	const values = constraints.get(row);
 	const empty = CONSTRAINTS.map(() => '').join('\t');
 	const section = titles.get(`${page}\t${occurrence}`) || occurrence;
 	return [page, method, section, ...rest, values ?? empty].join('\t');

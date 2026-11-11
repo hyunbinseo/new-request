@@ -62,22 +62,19 @@ type Flow<Body, Item> = Omit<Body, 'messageFlow'> & { messageFlow: Item[] };
 // where `messageFlow[].<channel>` already narrows to the channel's message type.
 type Sections = {
 	'comm/kakao-alimtalk': {
-		'Send an Alimtalk': Flow<Send.RequestBody, { alimtalk: AlimtalkMessageRegular }>;
-		'Send with automatic template substitution': Flow<
-			Send.TemplateRequestBody,
-			{ alimtalk: AlimtalkMessageTemplate }
-		>;
-		'Reservation send': Flow<Create.RequestBody, { alimtalk: AlimtalkMessageRegular }>;
+		'알림톡 발송': Flow<Send.RequestBody, { alimtalk: AlimtalkMessageRegular }>;
+		'템플릿 자동 치환 발송': Flow<Send.TemplateRequestBody, { alimtalk: AlimtalkMessageTemplate }>;
+		'예약 발송': Flow<Create.RequestBody, { alimtalk: AlimtalkMessageRegular }>;
 	};
 	'comm/kakao-brand': {
-		'Send a basic message': Flow<Send.RequestBody, { brandmessage: BrandMessageBasic }>;
-		'Basic send with automatic template substitution': Flow<
+		'기본형 메시지 발송': Flow<Send.RequestBody, { brandmessage: BrandMessageBasic }>;
+		'기본형 템플릿 자동 치환 발송': Flow<
 			Send.TemplateRequestBody,
 			{ brandmessage: BrandMessageTemplate }
 		>;
-		'Send a free-form message': Flow<Send.RequestBody, { brandmessage: BrandMessageFree }>;
-		'Basic reservation send': Flow<Create.RequestBody, { brandmessage: BrandMessageBasic }>;
-		'Free-form reservation send': Flow<Create.RequestBody, { brandmessage: BrandMessageFree }>;
+		'자유형 메시지 발송': Flow<Send.RequestBody, { brandmessage: BrandMessageFree }>;
+		'기본형 예약 발송': Flow<Create.RequestBody, { brandmessage: BrandMessageBasic }>;
+		'자유형 예약 발송': Flow<Create.RequestBody, { brandmessage: BrandMessageFree }>;
 	};
 };
 
