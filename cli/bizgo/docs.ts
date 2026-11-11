@@ -35,7 +35,8 @@ const METHOD = /^(GET|POST|PUT|DELETE|PATCH)$/;
 const TYPE = /^(String|Object|Integer|Long|Number|Double|Boolean|Binary)( Array)?(\(\d+\))?$/;
 const REQUIRED = new Set(['Required', '필수']);
 // Trailing tokens in llms descriptions (e.g. "min: 10 max: 86400 default: 180").
-// The web pages don't render them, so they're only compared between llms sources.
+// The web pages don't render them, and llms-en words them differently (e.g. "1300자" vs
+// "1300 characters"), so they're only taken from llms-ko and not compared.
 const CONSTRAINTS = ['min', 'max', 'length', 'default', 'format'];
 const TOKEN = /\b(min|max|length|default|format|example): /;
 
@@ -205,47 +206,31 @@ for (const source of sources.values()) {
 		else at = i + 1;
 	}
 }
-const constraints = [...parsed]
-	.filter(([source]) => source.startsWith('llms-'))
-	.map(([source, pages]) => {
-		const map = new Map(pages.flatMap((page) => [...page.constraints]));
-		return [source, map] as const;
-	});
+const constraints = new Map((parsed.get('llms-ko') ?? []).flatMap((page) => [...page.constraints]));
 const drift = [
 	...rows.flatMap((row) => {
 		const missing = [...sources].filter(([, rows]) => !rows.has(row)).map(([source]) => source);
 		return missing.length ? [`${row}\tmissing from ${missing.join(', ')}`] : [];
-	}),
-	...rows.flatMap((row) => {
-		const values = constraints.filter(([, map]) => map.has(row));
-		const differ = new Set(values.map(([, map]) => map.get(row))).size > 1;
-		return differ
-			? [
-					`${row}\tconstraints differ: ${values.map(([s, map]) => `${s}=${map.get(row)?.replaceAll('\t', '|')}`).join(', ')}`,
-				]
-			: [];
 	}),
 	...[...parsed].flatMap(([source, pages]) =>
 		pages.flatMap((page) => page.duplicates.map((row) => `${row}\tduplicated in ${source}`)),
 	),
 ];
 
-// The snapshot labels each occurrence by its llms-en heading instead of its number,
+// The snapshot labels each occurrence by its llms-ko heading instead of its number,
 // so adding or removing a section doesn't renumber the rows after it.
 // A heading repeated on the same page keeps the number, so its occurrences stay distinct.
 const titles = new Map(
-	(parsed.get('llms-en') ?? []).flatMap((page, i) =>
+	(parsed.get('llms-ko') ?? []).flatMap((page, i) =>
 		page.titles.map((title, n) => {
 			const unique = page.titles.indexOf(title) === page.titles.lastIndexOf(title);
 			return [`${PAGES[i]}\t${ENDPOINT} #${n + 1}` as string, unique ? title : ''] as const;
 		}),
 	),
 );
-// Constraints also come from llms-en, matching the titles. Differences are reported as drift.
 const label = (row: Row) => {
 	const [page, endpoint, ...rest] = row.split('\t');
-	const values = (constraints.find(([source, map]) => source === 'llms-en' && map.has(row)) ??
-		constraints.find(([, map]) => map.has(row)))?.[1].get(row);
+	const values = constraints.get(row);
 	const empty = CONSTRAINTS.map(() => '').join('\t');
 	return [page, titles.get(`${page}\t${endpoint}`) || endpoint, ...rest, values ?? empty].join(
 		'\t',
