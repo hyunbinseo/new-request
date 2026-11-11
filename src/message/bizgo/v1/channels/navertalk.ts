@@ -5,24 +5,29 @@ export type NaverTalkMessage = {
 	templateCode: string;
 	productCode: string;
 	userName?: string;
+	/** Up to 2048 characters */
 	text?: string;
 	templateParams?: Record<string, string>;
-	attachments?: { imageUrl?: string; imageHashId?: string };
-	buttons?: {
-		buttonCode: string;
-		mobileUrl?: string;
-		pcUrl?: string;
-		aOsAppScheme?: string;
-		iOsAppScheme?: string;
-	}[];
-	gift?: {
-		code: string;
-		imageUrl: string;
-		endDate: string;
-		name?: string;
-		publisher?: string;
-		couponDescription?: string;
-		label?: string;
-		value?: string;
+	attachments?: {
+		imageUrl?: string;
+		imageHashId?: string;
+		buttons?: {
+			buttonCode: string;
+			mobileUrl?: string;
+			pcUrl?: string;
+			aOsAppScheme?: string;
+			iOsAppScheme?: string;
+		}[];
+		gift?: {
+			code: string;
+			imageUrl: string;
+			endDate: string;
+			name?: string;
+			publisher?: string;
+			couponDescription?: string;
+			label?: string;
+			value?: string;
+		};
 	};
+	groupKey?: string;
 };

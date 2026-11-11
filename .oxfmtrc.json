@@ -1,5 +1,6 @@
 {
 	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"ignorePatterns": ["cli/bizgo/assertions.ts"],
 	"printWidth": 100,
 	"quoteProps": "consistent",
 	"singleQuote": true,

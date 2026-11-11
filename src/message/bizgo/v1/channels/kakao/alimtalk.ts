@@ -22,9 +22,11 @@ type AlimtalkButton = {
 	oneclickId?: string;
 	productId?: string;
 	bizFormKey?: string;
-	bizFormId?: number;
+	bizFormId?: string;
 	telNumber?: string;
 };
+
+type AlimtalkItem = { title: string; description: string };
 
 type AlimtalkMessageBase = {
 	senderKey: string;
@@ -35,36 +37,37 @@ type AlimtalkMessageBase = {
 	currencyType?: string;
 };
 
-type AlimtalkMessageRegular = AlimtalkMessageBase & {
+export type AlimtalkMessageRegular = AlimtalkMessageBase & {
 	msgType: 'AT' | 'AI';
 	text: string;
 	title?: string;
 	header?: string;
 	link?: KakaoLink;
+	pushAlarm?: 'Y' | 'N';
 	attachment?: {
 		button?: AlimtalkButton[];
 		item?: {
-			list?: { title: string; description: string }[];
-			summary?: { title: string; description: string };
-			itemHighlight?: { title: string; description: string };
+			list?: AlimtalkItem[];
+			summary?: AlimtalkItem;
 		};
-		supplement?: {
-			quickReply?: {
-				type: string;
-				name: string;
-				urlPc?: string;
-				urlMobile?: string;
-				schemeIos?: string;
-				schemeAndroid?: string;
-				chatExtra?: string;
-				chatEvent?: string;
-				bizFormId?: number;
-			}[];
-		};
+		itemHighlight?: AlimtalkItem;
+	};
+	supplement?: {
+		quickReply?: {
+			type: string;
+			name: string;
+			urlPc?: string;
+			urlMobile?: string;
+			schemeIos?: string;
+			schemeAndroid?: string;
+			chatExtra?: string;
+			chatEvent?: string;
+			bizFormId?: string;
+		}[];
 	};
 	sendType?: never;
 };
 
-type AlimtalkMessageTemplate = AlimtalkMessageBase & { sendType: 'template' };
+export type AlimtalkMessageTemplate = AlimtalkMessageBase & { sendType: 'template' };
 
 export type AlimtalkMessage = AlimtalkMessageRegular | AlimtalkMessageTemplate;

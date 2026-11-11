@@ -1,10 +1,18 @@
 // See https://developers.bizgo.io/api-sdk/api-reference/comm/mt
 
-export type MmsMessage = {
+type MmsMessageBase = {
 	from: string;
 	title?: string;
 	text: string;
-	fileKey?: string[];
 	ttl?: string;
 	originCID?: string;
 };
+
+// LMS and MMS share `mms`, and only MMS has files.
+export type MmsMessageLong = MmsMessageBase & { fileKey?: never };
+export type MmsMessageImage = MmsMessageBase & {
+	/** Up to 3 */
+	fileKey: string[];
+};
+
+export type MmsMessage = MmsMessageLong | MmsMessageImage;
