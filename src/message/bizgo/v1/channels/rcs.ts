@@ -5,7 +5,7 @@ type RcsButtonAction = {
 	dialerAction?: { dialPhoneNumber: { phoneNumber: string } };
 	mapAction?: {
 		showLocation: {
-			location: { latitude: number; longitude: number; label?: number };
+			location: { latitude: number; longitude: number; label?: string };
 			query: string;
 			fallbackUrl?: string;
 			requestLocationPush?: Record<string, unknown>;

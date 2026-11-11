@@ -289,7 +289,7 @@ comm/kakao-brand	Basic send with automatic template substitution	Body Parameters
 comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	messageFlow[].brandmessage.unsubscribeAuthNumber	String	No		10			
 comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	groupKey	String	No		64			
 comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	idempotencyKey	String	No		200			
-comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	idempotencyTtl	Integer	No					
+comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	idempotencyTtl	Integer	No	1	86400			
 comm/kakao-brand	Basic send with automatic template substitution	Body Parameters	ref	String	No		200			
 comm/kakao-brand	Basic send with automatic template substitution	Returns	common	Object	No					
 comm/kakao-brand	Basic send with automatic template substitution	Returns	common.authCode	String	No					
@@ -321,7 +321,7 @@ comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmes
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.headerDescription	String	No		36			
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.additionalContent	String	No		34			
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.groupTagKey	String	No		40			
-comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.adult	String	No				N	
+comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.adult	String	No				N	Y or N
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.pushAlarm	String	No				Y	Y or N
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.adFlag	String	No					
 comm/kakao-brand	Send a free-form message	Body Parameters	messageFlow[].brandmessage.originCID	String	No		9			
@@ -621,7 +621,7 @@ comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location	Object	Yes					
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.latitude	Number	Yes					
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.longitude	Number	Yes					
-comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	Number	No					
+comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	String	No					
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.query	String	Yes					
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.fallbackUrl	String	No					
 comm/rcs	Send a unified RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.requestLocationPush	Object	No					
@@ -691,7 +691,7 @@ comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[]
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location	Object	Yes					
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.latitude	Number	Yes					
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.longitude	Number	Yes					
-comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	Number	No					
+comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.label	String	No					
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.location.query	String	Yes					
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.showLocation.fallbackUrl	String	No					
 comm/rcs	Send an Android RCS message	Body Parameters	messageFlow[].rcs.buttons[].suggestions[].action.mapAction.requestLocationPush	Object	No					
